@@ -7,6 +7,7 @@ import 'package:ob/features/cards/presentation/ui/accounts_page.dart';
 import 'package:ob/features/features.dart';
 import 'package:ob/features/login/presentation/login.dart';
 import 'package:ob/features/profile/presentation/ui/profile_page.dart';
+import 'package:ob/features/splash/splash.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _homeNavigatorKey = GlobalKey<NavigatorState>();
@@ -20,6 +21,10 @@ final router = GoRouter(
   routes: [
     GoRoute(
       path: OBRoutes.root,
+      builder: (context, state) => SplashPage(),
+    ),
+    GoRoute(
+      path: OBRoutes.auth,
       builder: (context, state) => const AuthPage(),
     ),
     GoRoute(

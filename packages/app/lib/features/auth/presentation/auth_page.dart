@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ob/app/routes/ob_routes.dart';
@@ -13,15 +14,16 @@ class _AuthPageState extends State<AuthPage> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 1), () {
-      bool isAuthenticated = true;
 
-      if (isAuthenticated) {
-        context.go(OBRoutes.home);
-      } else {
-        context.go(OBRoutes.login);
-      }
-    });
+    FirebaseAuth.instance.authStateChanges().listen(_listener);
+  }
+
+  void _listener(User? user) {
+    if (user == null) {
+      context.go(OBRoutes.login);
+    } else {
+      context.go(OBRoutes.home);
+    }
   }
 
   @override
