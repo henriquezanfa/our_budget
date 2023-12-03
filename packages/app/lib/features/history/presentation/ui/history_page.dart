@@ -64,13 +64,13 @@ class AddExerciseModal extends StatelessWidget {
                       hintText: 'Exercise Name',
                     ),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   TextFormField(
                     decoration: const InputDecoration(
                       hintText: 'Description',
                     ),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   TextFormField(
                     decoration: const InputDecoration(
                       hintText: 'Sets',

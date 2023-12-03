@@ -22,30 +22,15 @@ class DefaultFirebaseOptions {
         'you can reconfigure this by running the FlutterFire CLI again.',
       );
     }
-    switch (defaultTargetPlatform) {
-      case TargetPlatform.android:
-        return android;
-      case TargetPlatform.iOS:
-        return ios;
-      case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
-      case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
-      case TargetPlatform.linux:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for linux - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
-      default:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions are not supported for this platform.',
-        );
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      return android;
+    } else if (defaultTargetPlatform == TargetPlatform.iOS) {
+      return ios;
+    } else {
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for your platform - '
+        'you can configure them by running the FlutterFire CLI again.',
+      );
     }
   }
 
