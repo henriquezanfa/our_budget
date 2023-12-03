@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "730582626364",
+    "project_id": "our-budget-531d8",
+    "storage_bucket": "our-budget-531d8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:730582626364:android:550780ddee3a4780d99339",
+        "android_client_info": {
+          "package_name": "com.kaemi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbPAp6jqXUoM64QERJhfFoYaW3gcLo7eU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
