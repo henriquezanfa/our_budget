@@ -15,15 +15,18 @@ class _AuthPageState extends State<AuthPage> {
   void initState() {
     super.initState();
 
-    FirebaseAuth.instance.authStateChanges().listen(_listener);
+    final user = FirebaseAuth.instance.currentUser;
+    _handleUser(user);
   }
 
-  void _listener(User? user) {
-    if (user == null) {
-      context.go(OBRoutes.login);
-    } else {
-      context.go(OBRoutes.home);
-    }
+  void _handleUser(User? user) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (user == null) {
+        context.go(OBRoutes.login);
+      } else {
+        context.go(OBRoutes.home);
+      }
+    });
   }
 
   @override

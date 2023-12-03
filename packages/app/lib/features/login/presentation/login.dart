@@ -50,6 +50,9 @@ class _LoginViewState extends State<LoginView> {
             ),
           );
         }
+        if (state is LoginSuccess) {
+          context.go('/home');
+        }
       },
       builder: (context, state) {
         return Form(
