@@ -1,22 +1,22 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:ob/features/login/bloc/login_bloc.dart';
+import 'package:ob/features/registration/bloc/registration_bloc.dart';
 import 'package:ob/ui/theme/ob_sizes.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class RegistrationPage extends StatelessWidget {
+  const RegistrationPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(OBSizes.screenPadding),
           child: BlocProvider(
-            create: (context) => LoginBloc(FirebaseAuth.instance),
-            child: const LoginView(),
+            create: (context) => RegistrationBloc(FirebaseAuth.instance),
+            child: const Forms(),
           ),
         ),
       ),
@@ -24,16 +24,16 @@ class LoginPage extends StatelessWidget {
   }
 }
 
-class LoginView extends StatefulWidget {
-  const LoginView({
+class Forms extends StatefulWidget {
+  const Forms({
     super.key,
   });
 
   @override
-  State<LoginView> createState() => _LoginViewState();
+  State<Forms> createState() => _FormsState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _FormsState extends State<Forms> {
   String? _email;
   String? _password;
 
@@ -41,9 +41,9 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<LoginBloc, LoginState>(
+    return BlocConsumer<RegistrationBloc, RegistrationState>(
       listener: (context, state) {
-        if (state is LoginFailure) {
+        if (state is RegistrationFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(state.message),
@@ -77,20 +77,11 @@ class _LoginViewState extends State<LoginView> {
               LoginButton(
                 onPressed: _isFormValid
                     ? () {
-                        context.read<LoginBloc>().add(
-                              LoginSubmitted(_email!, _password!),
+                        context.read<RegistrationBloc>().add(
+                              RegistrationSubmitted(_email!, _password!),
                             );
                       }
                     : null,
-              ),
-              const SizedBox(height: 16),
-              Center(
-                child: TextButton(
-                  onPressed: () {
-                    context.push('/registration');
-                  },
-                  child: const Text('Create an account'),
-                ),
               ),
             ],
           ),
@@ -109,7 +100,7 @@ class Title extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Text(
-      'Login',
+      'Registration',
       style: theme.textTheme.headlineSmall?.copyWith(
         fontWeight: FontWeight.bold,
       ),

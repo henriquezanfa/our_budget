@@ -7,6 +7,7 @@ import 'package:ob/features/cards/presentation/ui/accounts_page.dart';
 import 'package:ob/features/features.dart';
 import 'package:ob/features/login/presentation/login.dart';
 import 'package:ob/features/profile/presentation/ui/profile_page.dart';
+import 'package:ob/features/registration/registration.dart';
 import 'package:ob/features/splash/splash.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -21,7 +22,7 @@ final router = GoRouter(
   routes: [
     GoRoute(
       path: OBRoutes.root,
-      builder: (context, state) => SplashPage(),
+      builder: (context, state) => const SplashPage(),
     ),
     GoRoute(
       path: OBRoutes.auth,
@@ -30,6 +31,10 @@ final router = GoRouter(
     GoRoute(
       path: OBRoutes.login,
       builder: (context, state) => const LoginPage(),
+    ),
+    GoRoute(
+      path: OBRoutes.registration,
+      builder: (context, state) => const RegistrationPage(),
     ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, child) {

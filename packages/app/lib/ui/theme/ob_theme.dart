@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:ob/ui/theme/ob_colors.dart';
 import 'package:ob/ui/theme/ob_sizes.dart';
-import 'package:flutter/material.dart';
 
 final lightTheme = ThemeData(
   fontFamily: 'Poppins',
@@ -13,6 +13,9 @@ final lightTheme = ThemeData(
   appBarTheme: const AppBarTheme(
     backgroundColor: OBColors.background,
     foregroundColor: OBColors.primary,
+    iconTheme: IconThemeData(
+      color: OBColors.primary,
+    ),
     elevation: 0,
   ),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
