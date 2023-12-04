@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ob/app/routes/ob_routes.dart';
+import 'package:ob/core/di/di.dart';
 
 part 'init_app.dart';
 
