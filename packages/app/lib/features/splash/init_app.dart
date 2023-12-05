@@ -7,6 +7,7 @@ Future<void> initApp() async {
   await Firebase.initializeApp();
 
   await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
+  FirebaseFirestore.instance.useFirestoreEmulator('localhost', 8080);
 
   if (!_isInitialized) {
     registerDependencies();

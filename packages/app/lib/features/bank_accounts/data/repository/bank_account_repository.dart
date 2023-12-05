@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:ob/core/error/error.dart';
 import 'package:ob/features/bank_accounts/data/data_source/back_account_data_source.dart';
-import 'package:ob/features/bank_accounts/data/dto/account_creation_dto.dart';
+import 'package:ob/features/bank_accounts/data/dto/bank_account_creation_dto.dart';
 import 'package:ob/features/bank_accounts/domain/model/bank_account.dart';
 import 'package:uuid/uuid.dart';
 
@@ -18,6 +19,7 @@ class BankAccountRepository {
       final bankAccounts = await _bankAccountDataSource.getBankAccounts(userId);
       return right(bankAccounts);
     } catch (e) {
+      debugPrint(e.toString());
       return left(
         OBError(
           userMessage: ErrorMessages.somethingWentWrong,
@@ -28,7 +30,7 @@ class BankAccountRepository {
   }
 
   Future<Either<OBError, void>> addBankAccount(
-    AccountCreationDto accountCreationDto,
+    BankAccountCreationDto accountCreationDto,
   ) async {
     try {
       const uuid = Uuid();

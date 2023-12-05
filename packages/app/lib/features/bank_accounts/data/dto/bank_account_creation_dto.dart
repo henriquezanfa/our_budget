@@ -1,7 +1,8 @@
+import 'package:ob/features/bank_accounts/domain/enum/account_type_enum.dart';
 import 'package:ob/features/bank_accounts/domain/model/bank_account.dart';
 
-class AccountCreationDto {
-  AccountCreationDto({
+class BankAccountCreationDto {
+  BankAccountCreationDto({
     required this.name,
     required this.currency,
     required this.accountType,
@@ -9,7 +10,7 @@ class AccountCreationDto {
   });
   final String name;
   final String currency;
-  final String accountType;
+  final AccountTypeEnum accountType;
   final String accountHolderName;
 
   BankAccount toBankAccount(String userId, String id) {

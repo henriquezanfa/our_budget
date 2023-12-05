@@ -24,7 +24,7 @@ mixin _$BankAccount {
   String get userId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get currency => throw _privateConstructorUsedError;
-  String get accountType => throw _privateConstructorUsedError;
+  AccountTypeEnum get accountType => throw _privateConstructorUsedError;
   String get accountHolderName => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
@@ -46,7 +46,7 @@ abstract class $BankAccountCopyWith<$Res> {
       String userId,
       String name,
       String currency,
-      String accountType,
+      AccountTypeEnum accountType,
       String accountHolderName,
       DateTime createdAt,
       DateTime updatedAt});
@@ -94,7 +94,7 @@ class _$BankAccountCopyWithImpl<$Res, $Val extends BankAccount>
       accountType: null == accountType
           ? _value.accountType
           : accountType // ignore: cast_nullable_to_non_nullable
-              as String,
+              as AccountTypeEnum,
       accountHolderName: null == accountHolderName
           ? _value.accountHolderName
           : accountHolderName // ignore: cast_nullable_to_non_nullable
@@ -124,7 +124,7 @@ abstract class _$$BankAccountImplCopyWith<$Res>
       String userId,
       String name,
       String currency,
-      String accountType,
+      AccountTypeEnum accountType,
       String accountHolderName,
       DateTime createdAt,
       DateTime updatedAt});
@@ -170,7 +170,7 @@ class __$$BankAccountImplCopyWithImpl<$Res>
       accountType: null == accountType
           ? _value.accountType
           : accountType // ignore: cast_nullable_to_non_nullable
-              as String,
+              as AccountTypeEnum,
       accountHolderName: null == accountHolderName
           ? _value.accountHolderName
           : accountHolderName // ignore: cast_nullable_to_non_nullable
@@ -212,7 +212,7 @@ class _$BankAccountImpl with DiagnosticableTreeMixin implements _BankAccount {
   @override
   final String currency;
   @override
-  final String accountType;
+  final AccountTypeEnum accountType;
   @override
   final String accountHolderName;
   @override
@@ -285,7 +285,7 @@ abstract class _BankAccount implements BankAccount {
       required final String userId,
       required final String name,
       required final String currency,
-      required final String accountType,
+      required final AccountTypeEnum accountType,
       required final String accountHolderName,
       required final DateTime createdAt,
       required final DateTime updatedAt}) = _$BankAccountImpl;
@@ -302,7 +302,7 @@ abstract class _BankAccount implements BankAccount {
   @override
   String get currency;
   @override
-  String get accountType;
+  AccountTypeEnum get accountType;
   @override
   String get accountHolderName;
   @override

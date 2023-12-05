@@ -4,5 +4,5 @@ class OBCollections {
 }
 
 class OBFields {
-  static const String userId = 'user_id';
+  static const String userId = 'userId';
 }

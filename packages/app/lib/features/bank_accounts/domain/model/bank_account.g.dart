@@ -12,7 +12,7 @@ _$BankAccountImpl _$$BankAccountImplFromJson(Map<String, dynamic> json) =>
       userId: json['userId'] as String,
       name: json['name'] as String,
       currency: json['currency'] as String,
-      accountType: json['accountType'] as String,
+      accountType: $enumDecode(_$AccountTypeEnumEnumMap, json['accountType']),
       accountHolderName: json['accountHolderName'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
@@ -24,8 +24,15 @@ Map<String, dynamic> _$$BankAccountImplToJson(_$BankAccountImpl instance) =>
       'userId': instance.userId,
       'name': instance.name,
       'currency': instance.currency,
-      'accountType': instance.accountType,
+      'accountType': _$AccountTypeEnumEnumMap[instance.accountType]!,
       'accountHolderName': instance.accountHolderName,
       'createdAt': instance.createdAt.toIso8601String(),
       'updatedAt': instance.updatedAt.toIso8601String(),
     };
+
+const _$AccountTypeEnumEnumMap = {
+  AccountTypeEnum.current: 'current',
+  AccountTypeEnum.savings: 'savings',
+  AccountTypeEnum.salary: 'salary',
+  AccountTypeEnum.other: 'other',
+};
