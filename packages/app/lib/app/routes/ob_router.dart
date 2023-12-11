@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:ob/app/routes/ob_routes.dart';
 import 'package:ob/app/view/app_with_navbar.dart';
 import 'package:ob/features/auth/presentation/auth_page.dart';
+import 'package:ob/features/bank_accounts/domain/model/bank_account.dart';
+import 'package:ob/features/bank_accounts/presentation/ui/pages/bank_account_details_page.dart';
 import 'package:ob/features/credit_cards/presentation/ui/accounts_page.dart';
 import 'package:ob/features/features.dart';
 import 'package:ob/features/login/presentation/login.dart';
@@ -71,6 +73,12 @@ final router = GoRouter(
             GoRoute(
               path: OBRoutes.accounts,
               builder: (context, state) => const AccountsPage(),
+            ),
+            GoRoute(
+              path: OBRoutes.bankAccountDetails,
+              builder: (context, state) => BankAccountDetailsPage(
+                bankAccount: state.extra! as BankAccount,
+              ),
             ),
           ],
         ),

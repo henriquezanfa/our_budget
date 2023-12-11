@@ -28,6 +28,7 @@ mixin _$BankAccount {
   String get accountHolderName => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
+  List<AccountMember>? get members => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -49,7 +50,8 @@ abstract class $BankAccountCopyWith<$Res> {
       AccountTypeEnum accountType,
       String accountHolderName,
       DateTime createdAt,
-      DateTime updatedAt});
+      DateTime updatedAt,
+      List<AccountMember>? members});
 }
 
 /// @nodoc
@@ -73,6 +75,7 @@ class _$BankAccountCopyWithImpl<$Res, $Val extends BankAccount>
     Object? accountHolderName = null,
     Object? createdAt = null,
     Object? updatedAt = null,
+    Object? members = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -107,6 +110,10 @@ class _$BankAccountCopyWithImpl<$Res, $Val extends BankAccount>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      members: freezed == members
+          ? _value.members
+          : members // ignore: cast_nullable_to_non_nullable
+              as List<AccountMember>?,
     ) as $Val);
   }
 }
@@ -127,7 +134,8 @@ abstract class _$$BankAccountImplCopyWith<$Res>
       AccountTypeEnum accountType,
       String accountHolderName,
       DateTime createdAt,
-      DateTime updatedAt});
+      DateTime updatedAt,
+      List<AccountMember>? members});
 }
 
 /// @nodoc
@@ -149,6 +157,7 @@ class __$$BankAccountImplCopyWithImpl<$Res>
     Object? accountHolderName = null,
     Object? createdAt = null,
     Object? updatedAt = null,
+    Object? members = freezed,
   }) {
     return _then(_$BankAccountImpl(
       id: null == id
@@ -183,6 +192,10 @@ class __$$BankAccountImplCopyWithImpl<$Res>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      members: freezed == members
+          ? _value._members
+          : members // ignore: cast_nullable_to_non_nullable
+              as List<AccountMember>?,
     ));
   }
 }
@@ -198,7 +211,9 @@ class _$BankAccountImpl with DiagnosticableTreeMixin implements _BankAccount {
       required this.accountType,
       required this.accountHolderName,
       required this.createdAt,
-      required this.updatedAt});
+      required this.updatedAt,
+      final List<AccountMember>? members})
+      : _members = members;
 
   factory _$BankAccountImpl.fromJson(Map<String, dynamic> json) =>
       _$$BankAccountImplFromJson(json);
@@ -219,10 +234,19 @@ class _$BankAccountImpl with DiagnosticableTreeMixin implements _BankAccount {
   final DateTime createdAt;
   @override
   final DateTime updatedAt;
+  final List<AccountMember>? _members;
+  @override
+  List<AccountMember>? get members {
+    final value = _members;
+    if (value == null) return null;
+    if (_members is EqualUnmodifiableListView) return _members;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'BankAccount(id: $id, userId: $userId, name: $name, currency: $currency, accountType: $accountType, accountHolderName: $accountHolderName, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'BankAccount(id: $id, userId: $userId, name: $name, currency: $currency, accountType: $accountType, accountHolderName: $accountHolderName, createdAt: $createdAt, updatedAt: $updatedAt, members: $members)';
   }
 
   @override
@@ -237,7 +261,8 @@ class _$BankAccountImpl with DiagnosticableTreeMixin implements _BankAccount {
       ..add(DiagnosticsProperty('accountType', accountType))
       ..add(DiagnosticsProperty('accountHolderName', accountHolderName))
       ..add(DiagnosticsProperty('createdAt', createdAt))
-      ..add(DiagnosticsProperty('updatedAt', updatedAt));
+      ..add(DiagnosticsProperty('updatedAt', updatedAt))
+      ..add(DiagnosticsProperty('members', members));
   }
 
   @override
@@ -257,13 +282,23 @@ class _$BankAccountImpl with DiagnosticableTreeMixin implements _BankAccount {
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
+                other.updatedAt == updatedAt) &&
+            const DeepCollectionEquality().equals(other._members, _members));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, userId, name, currency,
-      accountType, accountHolderName, createdAt, updatedAt);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      userId,
+      name,
+      currency,
+      accountType,
+      accountHolderName,
+      createdAt,
+      updatedAt,
+      const DeepCollectionEquality().hash(_members));
 
   @JsonKey(ignore: true)
   @override
@@ -288,7 +323,8 @@ abstract class _BankAccount implements BankAccount {
       required final AccountTypeEnum accountType,
       required final String accountHolderName,
       required final DateTime createdAt,
-      required final DateTime updatedAt}) = _$BankAccountImpl;
+      required final DateTime updatedAt,
+      final List<AccountMember>? members}) = _$BankAccountImpl;
 
   factory _BankAccount.fromJson(Map<String, dynamic> json) =
       _$BankAccountImpl.fromJson;
@@ -309,6 +345,8 @@ abstract class _BankAccount implements BankAccount {
   DateTime get createdAt;
   @override
   DateTime get updatedAt;
+  @override
+  List<AccountMember>? get members;
   @override
   @JsonKey(ignore: true)
   _$$BankAccountImplCopyWith<_$BankAccountImpl> get copyWith =>

@@ -8,4 +8,5 @@ class OBRoutes {
   static const String counter = '/counter';
   static const String history = '/history';
   static const String accounts = '/accounts';
+  static const String bankAccountDetails = '/bank_account_details';
 }

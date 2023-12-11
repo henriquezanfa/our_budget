@@ -20,3 +20,5 @@ final class BankAccountError extends BankAccountState {
 }
 
 final class BankAccountAdded extends BankAccountState {}
+
+final class BankAccountMemberInvited extends BankAccountState {}

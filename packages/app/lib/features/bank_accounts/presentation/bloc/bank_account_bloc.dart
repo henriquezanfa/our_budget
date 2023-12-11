@@ -14,6 +14,7 @@ class BankAccountBloc extends Bloc<BankAccountEvent, BankAccountState> {
   BankAccountBloc(this._bankAccountRepository) : super(BankAccountInitial()) {
     on<GetBankAccounts>(_getBankAccounts);
     on<AddBankAccount>(_addBankAccount);
+    on<InviteMember>(_inviteMember);
   }
   final BankAccountRepository _bankAccountRepository;
 
@@ -46,6 +47,23 @@ class BankAccountBloc extends Bloc<BankAccountEvent, BankAccountState> {
         result.fold(
           (error) => emit(BankAccountError(error)),
           (_) => emit(BankAccountAdded()),
+        );
+      },
+    );
+  }
+
+  FutureOr<void> _inviteMember(
+    InviteMember event,
+    Emitter<BankAccountState> emit,
+  ) async {
+    emit(BankAccountLoading());
+    await _bankAccountRepository
+        .inviteMember(event.accountId, event.email)
+        .then(
+      (result) {
+        result.fold(
+          (error) => emit(BankAccountError(error)),
+          (_) => emit(BankAccountMemberInvited()),
         );
       },
     );

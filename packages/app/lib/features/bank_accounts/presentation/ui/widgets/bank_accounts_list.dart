@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:ob/app/routes/ob_routes.dart';
 import 'package:ob/features/bank_accounts/presentation/bloc/bank_account_bloc.dart';
 
 class BankAccountsList extends StatelessWidget {
@@ -33,6 +35,13 @@ class BankAccountsList extends StatelessWidget {
             itemBuilder: (context, index) {
               final bankAccount = state.bankAccounts[index];
               return ListTile(
+                onTap: () {
+                  context.push(
+                    OBRoutes.bankAccountDetails,
+                    extra: bankAccount,
+                  );
+                },
+                contentPadding: EdgeInsets.zero,
                 title: Text(bankAccount.name),
                 subtitle: Text(bankAccount.accountType.name),
               );

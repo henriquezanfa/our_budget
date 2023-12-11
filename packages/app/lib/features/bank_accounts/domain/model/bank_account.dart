@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:ob/features/bank_accounts/domain/enum/account_type_enum.dart';
+import 'package:ob/features/bank_accounts/domain/model/account_member.dart';
 
 part 'bank_account.freezed.dart';
 part 'bank_account.g.dart';
@@ -16,6 +17,7 @@ class BankAccount with _$BankAccount {
     required String accountHolderName,
     required DateTime createdAt,
     required DateTime updatedAt,
+    List<AccountMember>? members,
   }) = _BankAccount;
 
   factory BankAccount.fromJson(Map<String, dynamic> json) =>

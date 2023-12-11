@@ -23,6 +23,7 @@ class BankAccountCreationDto {
       accountHolderName: accountHolderName,
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
+      members: [],
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ob/app/routes/ob_routes.dart';
 import 'package:ob/features/login/bloc/login_bloc.dart';
 import 'package:ob/ui/theme/ob_sizes.dart';
 
@@ -90,7 +91,7 @@ class _LoginViewState extends State<LoginView> {
               Center(
                 child: TextButton(
                   onPressed: () {
-                    context.push('/registration');
+                    context.push(OBRoutes.registration);
                   },
                   child: const Text('Create an account'),
                 ),
