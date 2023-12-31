@@ -45,6 +45,8 @@ final lightTheme = ThemeData(
       padding: const EdgeInsets.all(OBSizes.medium),
     ),
   ),
+  iconTheme: const IconThemeData(color: OBColors.primary),
+  listTileTheme: const ListTileThemeData(iconColor: OBColors.primary),
 );
 
 final darkTheme = ThemeData(
@@ -87,5 +89,10 @@ final darkTheme = ThemeData(
       ),
       padding: const EdgeInsets.all(OBSizes.medium),
     ),
+  ),
+  iconTheme: const IconThemeData(color: OBDarkColors.primary),
+  listTileTheme: const ListTileThemeData(
+    iconColor: OBDarkColors.primary,
+    contentPadding: EdgeInsets.symmetric(horizontal: OBSizes.small),
   ),
 );

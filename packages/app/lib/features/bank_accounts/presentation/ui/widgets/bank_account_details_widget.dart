@@ -139,7 +139,8 @@ class _BankAccountDetailsWidgetState extends State<BankAccountDetailsView> {
 
 class AccountMembersList extends StatelessWidget {
   const AccountMembersList({
-    required this.bankAccountId, this.accountMembers,
+    required this.bankAccountId,
+    this.accountMembers,
     super.key,
   });
   final List<AccountMember>? accountMembers;
@@ -197,6 +198,15 @@ class InviteMemberModal extends StatefulWidget {
 
 class _InviteMemberModalState extends State<InviteMemberModal> {
   final _emailController = TextEditingController();
+  final _focusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+
+    _focusNode.requestFocus();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -207,7 +217,10 @@ class _InviteMemberModalState extends State<InviteMemberModal> {
         children: [
           const Text('Invite member'),
           const SizedBox(height: 16),
-          LoginEmailField(
+          OBTextField(
+            labelText: 'Email',
+            keyboardType: TextInputType.emailAddress,
+            focusNode: _focusNode,
             onChanged: (value) {
               setState(() {
                 _emailController.text = value;

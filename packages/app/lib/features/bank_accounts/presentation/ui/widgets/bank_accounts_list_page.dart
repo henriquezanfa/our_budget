@@ -2,7 +2,45 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ob/app/routes/ob_routes.dart';
+import 'package:ob/core/di/di.dart';
 import 'package:ob/features/bank_accounts/presentation/bloc/bank_account_bloc.dart';
+import 'package:ob/features/bank_accounts/presentation/ui/widgets/create_bank_account.dart';
+import 'package:ob/ui/widgets/ob_list_tile.dart';
+import 'package:ob/ui/widgets/ob_screen.dart';
+
+class BankAccountsListPage extends StatelessWidget {
+  const BankAccountsListPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => BankAccountBloc(inject())..add(GetBankAccounts()),
+      child: const BankAccountsListPageView(),
+    );
+  }
+}
+
+class BankAccountsListPageView extends StatelessWidget {
+  const BankAccountsListPageView({super.key});
+
+  void _onRefresh(BuildContext context) {
+    BlocProvider.of<BankAccountBloc>(context).add(GetBankAccounts());
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return OBScreen.secondary(
+      title: 'Bank Accounts',
+      onRefresh: () => _onRefresh(context),
+      actions: [
+        CreateBankAccount.icon(),
+      ],
+      slivers: const [
+        SliverToBoxAdapter(child: BankAccountsList()),
+      ],
+    );
+  }
+}
 
 class BankAccountsList extends StatelessWidget {
   const BankAccountsList({super.key});
@@ -34,16 +72,15 @@ class BankAccountsList extends StatelessWidget {
             itemCount: state.bankAccounts.length,
             itemBuilder: (context, index) {
               final bankAccount = state.bankAccounts[index];
-              return ListTile(
+              return OBListTile(
                 onTap: () {
                   context.push(
                     OBRoutes.bankAccountDetails,
                     extra: bankAccount,
                   );
                 },
-                contentPadding: EdgeInsets.zero,
-                title: Text(bankAccount.name),
-                subtitle: Text(bankAccount.accountType.name),
+                title: bankAccount.name,
+                subtitle: bankAccount.accountType.name,
               );
             },
           );

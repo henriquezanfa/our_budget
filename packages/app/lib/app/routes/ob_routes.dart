@@ -7,6 +7,7 @@ class OBRoutes {
   static const String profile = '/profile';
   static const String counter = '/counter';
   static const String history = '/history';
-  static const String accounts = '/accounts';
+  static const String manage = '/accounts';
+  static const String bankAccounts = '/bank_accounts';
   static const String bankAccountDetails = '/bank_account_details';
 }

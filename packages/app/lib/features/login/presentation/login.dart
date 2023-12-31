@@ -181,16 +181,19 @@ class OBTextField extends StatelessWidget {
     this.obscureText = false,
     this.keyboardType,
     this.onChanged,
+    this.focusNode,
   });
 
   final String labelText;
   final bool obscureText;
   final TextInputType? keyboardType;
+  final FocusNode? focusNode;
   final void Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      focusNode: focusNode,
       decoration: InputDecoration(
         labelText: labelText,
       ),

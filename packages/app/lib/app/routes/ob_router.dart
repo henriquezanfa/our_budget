@@ -5,7 +5,8 @@ import 'package:ob/app/view/app_with_navbar.dart';
 import 'package:ob/features/auth/presentation/auth_page.dart';
 import 'package:ob/features/bank_accounts/domain/model/bank_account.dart';
 import 'package:ob/features/bank_accounts/presentation/ui/pages/bank_account_details_page.dart';
-import 'package:ob/features/credit_cards/presentation/ui/accounts_page.dart';
+import 'package:ob/features/bank_accounts/presentation/ui/widgets/bank_accounts_list_page.dart';
+import 'package:ob/features/credit_cards/presentation/ui/manage_page.dart';
 import 'package:ob/features/features.dart';
 import 'package:ob/features/login/presentation/login.dart';
 import 'package:ob/features/profile/presentation/ui/profile_page.dart';
@@ -71,14 +72,18 @@ final router = GoRouter(
           navigatorKey: _accountsNavigatorKey,
           routes: [
             GoRoute(
-              path: OBRoutes.accounts,
-              builder: (context, state) => const AccountsPage(),
+              path: OBRoutes.manage,
+              builder: (context, state) => const ManagePage(),
             ),
             GoRoute(
               path: OBRoutes.bankAccountDetails,
               builder: (context, state) => BankAccountDetailsPage(
                 bankAccount: state.extra! as BankAccount,
               ),
+            ),
+            GoRoute(
+              path: OBRoutes.bankAccounts,
+              builder: (context, state) => const BankAccountsListPage(),
             ),
           ],
         ),
