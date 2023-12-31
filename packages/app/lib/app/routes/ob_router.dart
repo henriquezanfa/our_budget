@@ -6,7 +6,7 @@ import 'package:ob/features/auth/presentation/auth_page.dart';
 import 'package:ob/features/bank_accounts/domain/model/bank_account.dart';
 import 'package:ob/features/bank_accounts/presentation/ui/pages/bank_account_details_page.dart';
 import 'package:ob/features/bank_accounts/presentation/ui/widgets/bank_accounts_list_page.dart';
-import 'package:ob/features/credit_cards/presentation/ui/manage_page.dart';
+import 'package:ob/features/manage/presentation/ui/manage_page.dart';
 import 'package:ob/features/features.dart';
 import 'package:ob/features/login/presentation/login.dart';
 import 'package:ob/features/profile/presentation/ui/profile_page.dart';
@@ -52,10 +52,6 @@ final router = GoRouter(
             GoRoute(
               path: OBRoutes.home,
               builder: (context, state) => const HomePage(),
-            ),
-            GoRoute(
-              path: OBRoutes.counter,
-              builder: (context, state) => const CounterPage(),
             ),
           ],
         ),
