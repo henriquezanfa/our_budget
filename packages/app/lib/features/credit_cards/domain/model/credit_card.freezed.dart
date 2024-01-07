@@ -22,12 +22,13 @@ CreditCard _$CreditCardFromJson(Map<String, dynamic> json) {
 mixin _$CreditCard {
   String get id => throw _privateConstructorUsedError;
   String get userId => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
   String get currency => throw _privateConstructorUsedError;
-  String get accountHolderName => throw _privateConstructorUsedError;
+  double get limit => throw _privateConstructorUsedError;
+  int get dueDate => throw _privateConstructorUsedError;
+  int get closingDate => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
-  DateTime get dueDate => throw _privateConstructorUsedError;
   List<Member>? get members => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -45,12 +46,13 @@ abstract class $CreditCardCopyWith<$Res> {
   $Res call(
       {String id,
       String userId,
-      String name,
+      String description,
       String currency,
-      String accountHolderName,
+      double limit,
+      int dueDate,
+      int closingDate,
       DateTime createdAt,
       DateTime updatedAt,
-      DateTime dueDate,
       List<Member>? members});
 }
 
@@ -69,12 +71,13 @@ class _$CreditCardCopyWithImpl<$Res, $Val extends CreditCard>
   $Res call({
     Object? id = null,
     Object? userId = null,
-    Object? name = null,
+    Object? description = null,
     Object? currency = null,
-    Object? accountHolderName = null,
+    Object? limit = null,
+    Object? dueDate = null,
+    Object? closingDate = null,
     Object? createdAt = null,
     Object? updatedAt = null,
-    Object? dueDate = null,
     Object? members = freezed,
   }) {
     return _then(_value.copyWith(
@@ -86,18 +89,26 @@ class _$CreditCardCopyWithImpl<$Res, $Val extends CreditCard>
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
       currency: null == currency
           ? _value.currency
           : currency // ignore: cast_nullable_to_non_nullable
               as String,
-      accountHolderName: null == accountHolderName
-          ? _value.accountHolderName
-          : accountHolderName // ignore: cast_nullable_to_non_nullable
-              as String,
+      limit: null == limit
+          ? _value.limit
+          : limit // ignore: cast_nullable_to_non_nullable
+              as double,
+      dueDate: null == dueDate
+          ? _value.dueDate
+          : dueDate // ignore: cast_nullable_to_non_nullable
+              as int,
+      closingDate: null == closingDate
+          ? _value.closingDate
+          : closingDate // ignore: cast_nullable_to_non_nullable
+              as int,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -105,10 +116,6 @@ class _$CreditCardCopyWithImpl<$Res, $Val extends CreditCard>
       updatedAt: null == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      dueDate: null == dueDate
-          ? _value.dueDate
-          : dueDate // ignore: cast_nullable_to_non_nullable
               as DateTime,
       members: freezed == members
           ? _value.members
@@ -129,12 +136,13 @@ abstract class _$$CreditCardImplCopyWith<$Res>
   $Res call(
       {String id,
       String userId,
-      String name,
+      String description,
       String currency,
-      String accountHolderName,
+      double limit,
+      int dueDate,
+      int closingDate,
       DateTime createdAt,
       DateTime updatedAt,
-      DateTime dueDate,
       List<Member>? members});
 }
 
@@ -151,12 +159,13 @@ class __$$CreditCardImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? userId = null,
-    Object? name = null,
+    Object? description = null,
     Object? currency = null,
-    Object? accountHolderName = null,
+    Object? limit = null,
+    Object? dueDate = null,
+    Object? closingDate = null,
     Object? createdAt = null,
     Object? updatedAt = null,
-    Object? dueDate = null,
     Object? members = freezed,
   }) {
     return _then(_$CreditCardImpl(
@@ -168,18 +177,26 @@ class __$$CreditCardImplCopyWithImpl<$Res>
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
       currency: null == currency
           ? _value.currency
           : currency // ignore: cast_nullable_to_non_nullable
               as String,
-      accountHolderName: null == accountHolderName
-          ? _value.accountHolderName
-          : accountHolderName // ignore: cast_nullable_to_non_nullable
-              as String,
+      limit: null == limit
+          ? _value.limit
+          : limit // ignore: cast_nullable_to_non_nullable
+              as double,
+      dueDate: null == dueDate
+          ? _value.dueDate
+          : dueDate // ignore: cast_nullable_to_non_nullable
+              as int,
+      closingDate: null == closingDate
+          ? _value.closingDate
+          : closingDate // ignore: cast_nullable_to_non_nullable
+              as int,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -187,10 +204,6 @@ class __$$CreditCardImplCopyWithImpl<$Res>
       updatedAt: null == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      dueDate: null == dueDate
-          ? _value.dueDate
-          : dueDate // ignore: cast_nullable_to_non_nullable
               as DateTime,
       members: freezed == members
           ? _value._members
@@ -206,12 +219,13 @@ class _$CreditCardImpl implements _CreditCard {
   _$CreditCardImpl(
       {required this.id,
       required this.userId,
-      required this.name,
+      required this.description,
       required this.currency,
-      required this.accountHolderName,
+      required this.limit,
+      required this.dueDate,
+      required this.closingDate,
       required this.createdAt,
       required this.updatedAt,
-      required this.dueDate,
       final List<Member>? members})
       : _members = members;
 
@@ -223,17 +237,19 @@ class _$CreditCardImpl implements _CreditCard {
   @override
   final String userId;
   @override
-  final String name;
+  final String description;
   @override
   final String currency;
   @override
-  final String accountHolderName;
+  final double limit;
+  @override
+  final int dueDate;
+  @override
+  final int closingDate;
   @override
   final DateTime createdAt;
   @override
   final DateTime updatedAt;
-  @override
-  final DateTime dueDate;
   final List<Member>? _members;
   @override
   List<Member>? get members {
@@ -246,7 +262,7 @@ class _$CreditCardImpl implements _CreditCard {
 
   @override
   String toString() {
-    return 'CreditCard(id: $id, userId: $userId, name: $name, currency: $currency, accountHolderName: $accountHolderName, createdAt: $createdAt, updatedAt: $updatedAt, dueDate: $dueDate, members: $members)';
+    return 'CreditCard(id: $id, userId: $userId, description: $description, currency: $currency, limit: $limit, dueDate: $dueDate, closingDate: $closingDate, createdAt: $createdAt, updatedAt: $updatedAt, members: $members)';
   }
 
   @override
@@ -256,16 +272,18 @@ class _$CreditCardImpl implements _CreditCard {
             other is _$CreditCardImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.userId, userId) || other.userId == userId) &&
-            (identical(other.name, name) || other.name == name) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
             (identical(other.currency, currency) ||
                 other.currency == currency) &&
-            (identical(other.accountHolderName, accountHolderName) ||
-                other.accountHolderName == accountHolderName) &&
+            (identical(other.limit, limit) || other.limit == limit) &&
+            (identical(other.dueDate, dueDate) || other.dueDate == dueDate) &&
+            (identical(other.closingDate, closingDate) ||
+                other.closingDate == closingDate) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt) &&
-            (identical(other.dueDate, dueDate) || other.dueDate == dueDate) &&
             const DeepCollectionEquality().equals(other._members, _members));
   }
 
@@ -275,12 +293,13 @@ class _$CreditCardImpl implements _CreditCard {
       runtimeType,
       id,
       userId,
-      name,
+      description,
       currency,
-      accountHolderName,
+      limit,
+      dueDate,
+      closingDate,
       createdAt,
       updatedAt,
-      dueDate,
       const DeepCollectionEquality().hash(_members));
 
   @JsonKey(ignore: true)
@@ -301,12 +320,13 @@ abstract class _CreditCard implements CreditCard {
   factory _CreditCard(
       {required final String id,
       required final String userId,
-      required final String name,
+      required final String description,
       required final String currency,
-      required final String accountHolderName,
+      required final double limit,
+      required final int dueDate,
+      required final int closingDate,
       required final DateTime createdAt,
       required final DateTime updatedAt,
-      required final DateTime dueDate,
       final List<Member>? members}) = _$CreditCardImpl;
 
   factory _CreditCard.fromJson(Map<String, dynamic> json) =
@@ -317,17 +337,19 @@ abstract class _CreditCard implements CreditCard {
   @override
   String get userId;
   @override
-  String get name;
+  String get description;
   @override
   String get currency;
   @override
-  String get accountHolderName;
+  double get limit;
+  @override
+  int get dueDate;
+  @override
+  int get closingDate;
   @override
   DateTime get createdAt;
   @override
   DateTime get updatedAt;
-  @override
-  DateTime get dueDate;
   @override
   List<Member>? get members;
   @override

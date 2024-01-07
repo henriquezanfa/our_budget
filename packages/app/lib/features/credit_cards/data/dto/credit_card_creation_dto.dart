@@ -4,25 +4,28 @@ class CreditCardCreationDto {
   CreditCardCreationDto({
     required this.name,
     required this.currency,
-    required this.accountHolderName,
     required this.dueDate,
+    required this.closingDate,
+    required this.limit,
   });
   final String name;
   final String currency;
-  final String accountHolderName;
-  final DateTime dueDate;
+  final int dueDate;
+  final int closingDate;
+  final double limit;
 
   CreditCard toCreditCard(String userId, String id) {
     return CreditCard(
       id: id,
       userId: userId,
-      name: name,
+      description: name,
       currency: currency,
-      accountHolderName: accountHolderName,
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
       dueDate: dueDate,
       members: [],
+      limit: limit,
+      closingDate: closingDate,
     );
   }
 }

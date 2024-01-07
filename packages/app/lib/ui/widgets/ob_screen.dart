@@ -28,6 +28,7 @@ class OBScreen extends StatelessWidget {
     List<Widget>? actions,
     SliverAppBar? appBar,
     VoidCallback? onRefresh,
+    Widget? bottomWidget,
   }) {
     return OBScreen._(
       title: title,
@@ -36,6 +37,7 @@ class OBScreen extends StatelessWidget {
       appBar: appBar,
       onRefresh: onRefresh,
       type: OBScreenType.secondary,
+      bottomWidget: bottomWidget,
     );
   }
 
@@ -45,6 +47,7 @@ class OBScreen extends StatelessWidget {
     this.actions,
     this.appBar,
     this.onRefresh,
+    this.bottomWidget,
     this.type = OBScreenType.primary,
   }) : assert(title != null || appBar != null, 'title or appBar must be set');
   final String? title;
@@ -53,6 +56,7 @@ class OBScreen extends StatelessWidget {
   final SliverAppBar? appBar;
   final VoidCallback? onRefresh;
   final OBScreenType type;
+  final Widget? bottomWidget;
 
   Widget _buildChild() {
     return CustomScrollView(
@@ -97,6 +101,16 @@ class OBScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final child = _buildChild();
 
+    final bottomWidget = this.bottomWidget != null
+        ? SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16) +
+                  const EdgeInsets.only(bottom: 16),
+              child: this.bottomWidget,
+            ),
+          )
+        : null;
+
     if (onRefresh != null) {
       const appBarHeight = 30.0;
       const edgeOffset = kToolbarHeight + appBarHeight;
@@ -112,13 +126,13 @@ class OBScreen extends StatelessWidget {
             child: child,
           ),
         ),
+        bottomNavigationBar: bottomWidget,
       );
     }
 
     return Scaffold(
-      body: SafeArea(
-        child: child,
-      ),
+      body: SafeArea(child: child),
+      bottomNavigationBar: bottomWidget,
     );
   }
 }

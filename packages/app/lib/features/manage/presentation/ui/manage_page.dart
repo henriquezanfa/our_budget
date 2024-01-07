@@ -28,10 +28,11 @@ class ManagePageView extends StatelessWidget {
             onTap: () => context.push(OBRoutes.bankAccounts),
           ),
         ),
-        const SliverToBoxAdapter(
+        SliverToBoxAdapter(
           child: OBListTile(
             title: 'Credit Cards',
-            leading: Icon(Icons.credit_card),
+            leading: const Icon(Icons.credit_card),
+            onTap: () => context.push(OBRoutes.creditCards),
           ),
         ),
         const SliverToBoxAdapter(

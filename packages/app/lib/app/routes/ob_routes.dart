@@ -10,4 +10,6 @@ class OBRoutes {
   static const String manage = '/accounts';
   static const String bankAccounts = '/bank_accounts';
   static const String bankAccountDetails = '/bank_account_details';
+  static const String creditCards = '/credit_cards';
+  static const String creditCardDetails = '/credit_card_details';
 }

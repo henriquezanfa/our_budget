@@ -9,12 +9,13 @@ class CreditCard with _$CreditCard {
   factory CreditCard({
     required String id,
     required String userId,
-    required String name,
+    required String description,
     required String currency,
-    required String accountHolderName,
+    required double limit,
+    required int dueDate,
+    required int closingDate,
     required DateTime createdAt,
     required DateTime updatedAt,
-    required DateTime dueDate,
     List<Member>? members,
   }) = _CreditCard;
 

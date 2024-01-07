@@ -5,7 +5,10 @@ import 'package:ob/app/view/app_with_navbar.dart';
 import 'package:ob/features/auth/presentation/auth_page.dart';
 import 'package:ob/features/bank_accounts/domain/model/bank_account.dart';
 import 'package:ob/features/bank_accounts/presentation/ui/pages/bank_account_details_page.dart';
-import 'package:ob/features/bank_accounts/presentation/ui/widgets/bank_accounts_list_page.dart';
+import 'package:ob/features/bank_accounts/presentation/ui/pages/bank_accounts_list_page.dart';
+import 'package:ob/features/credit_cards/domain/model/credit_card.dart';
+import 'package:ob/features/credit_cards/presentations/ui/pages/credit_card_details_page.dart';
+import 'package:ob/features/credit_cards/presentations/ui/pages/credit_cards_list_page.dart';
 import 'package:ob/features/features.dart';
 import 'package:ob/features/login/presentation/login.dart';
 import 'package:ob/features/manage/presentation/ui/manage_page.dart';
@@ -82,8 +85,14 @@ final router = GoRouter(
               builder: (context, state) => const BankAccountsListPage(),
             ),
             GoRoute(
-              path: OBRoutes.bankAccounts,
-              builder: (context, state) => const BankAccountsListPage(),
+              path: OBRoutes.creditCards,
+              builder: (context, state) => const CreditCardsListPage(),
+            ),
+            GoRoute(
+              path: OBRoutes.creditCardDetails,
+              builder: (context, state) => CreditCardDetailsPage(
+                creditCard: state.extra! as CreditCard,
+              ),
             ),
           ],
         ),

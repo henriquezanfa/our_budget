@@ -16,7 +16,8 @@ class CreateBankAccount extends StatelessWidget {
 
   Future<void> _createBankAccount(BuildContext context) async {
     final bankAccountCreationDto =
-        await showCreateAccountModal<BankAccountCreationDto>(context: context);
+        await showCreateAccountModal<BankAccountCreationDto>(
+            context: context);
 
     if (bankAccountCreationDto != null) {
       if (!context.mounted) return;
