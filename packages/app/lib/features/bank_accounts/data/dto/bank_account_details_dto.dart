@@ -1,6 +1,6 @@
+import 'package:ob/domain/domain.dart';
 import 'package:ob/features/bank_accounts/domain/enum/account_type_enum.dart';
 import 'package:ob/features/bank_accounts/domain/model/bank_account.dart';
-import 'package:ob/domain/domain.dart';
 
 class BankAccountDetailsDto {
   BankAccountDetailsDto({

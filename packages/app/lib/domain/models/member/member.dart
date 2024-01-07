@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:ob/domain/enum/invite_status_enum.dart';
-import 'package:ob/domain/enum/permissions_enum.dart';
+import 'package:ob/domain/enums/invite_status_enum.dart';
+import 'package:ob/domain/enums/permissions_enum.dart';
 
 part 'member.freezed.dart';
 part 'member.g.dart';

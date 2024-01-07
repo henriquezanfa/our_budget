@@ -33,7 +33,7 @@ class BankAccountDataSource {
     return accountsWithMembers;
   }
 
-  Future<void> addBankAccount(BankAccount bankAccount) async {
+  Future<void> createBankAccount(BankAccount bankAccount) async {
     final doc =
         _firestore.collection(OBCollections.bankAccount).doc(bankAccount.id);
     await doc.set(bankAccount.toJson());

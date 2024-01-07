@@ -3,22 +3,22 @@ import 'package:flutter/foundation.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:ob/core/error/error.dart';
 import 'package:ob/domain/domain.dart';
-import 'package:ob/features/bank_accounts/data/data_source/back_account_data_source.dart';
-import 'package:ob/features/bank_accounts/data/dto/bank_account_creation_dto.dart';
-import 'package:ob/features/bank_accounts/domain/model/bank_account.dart';
+import 'package:ob/features/credit_cards/data/data_source/credit_card_data_source.dart';
+import 'package:ob/features/credit_cards/data/dto/credit_card_creation_dto.dart';
+import 'package:ob/features/credit_cards/domain/model/credit_card.dart';
 import 'package:uuid/uuid.dart';
 
-class BankAccountRepository {
-  BankAccountRepository({required BankAccountDataSource bankAccountDataSource})
-      : _bankAccountDataSource = bankAccountDataSource;
+class CreditCardRepository {
+  CreditCardRepository({required CreditCardDataSource creditCardDataSource})
+      : _creditCardDataSource = creditCardDataSource;
 
-  final BankAccountDataSource _bankAccountDataSource;
+  final CreditCardDataSource _creditCardDataSource;
 
-  Future<Either<OBError, List<BankAccount>>> getBankAccounts() async {
+  Future<Either<OBError, List<CreditCard>>> getCreditCards() async {
     try {
       final userId = FirebaseAuth.instance.currentUser!.uid;
-      final bankAccounts = await _bankAccountDataSource.getBankAccounts(userId);
-      return right(bankAccounts);
+      final creditCards = await _creditCardDataSource.getCreditCards(userId);
+      return right(creditCards);
     } catch (e) {
       debugPrint(e.toString());
       return left(
@@ -30,15 +30,15 @@ class BankAccountRepository {
     }
   }
 
-  Future<Either<OBError, void>> addBankAccount(
-    BankAccountCreationDto accountCreationDto,
+  Future<Either<OBError, void>> addCreditCard(
+    CreditCardCreationDto accountCreationDto,
   ) async {
     try {
       const uuid = Uuid();
 
       final userId = FirebaseAuth.instance.currentUser!.uid;
       final id = uuid.v4();
-      final bankAccount = accountCreationDto.toBankAccount(userId, id);
+      final creditCard = accountCreationDto.toCreditCard(userId, id);
 
       final owner = Member(
         email: FirebaseAuth.instance.currentUser!.email!,
@@ -46,8 +46,8 @@ class BankAccountRepository {
         status: InviteStatusEnum.accepted,
       );
 
-      await _bankAccountDataSource.createBankAccount(bankAccount);
-      await _bankAccountDataSource.addBankAccountMember(bankAccount.id, owner);
+      await _creditCardDataSource.createCreditCard(creditCard);
+      await _creditCardDataSource.addMember(creditCard.id, owner);
       return right(null);
     } catch (e) {
       return left(
@@ -60,7 +60,7 @@ class BankAccountRepository {
   }
 
   Future<Either<OBError, void>> inviteMember(
-    String bankAccountId,
+    String creditCardId,
     String inviteEmail,
   ) async {
     try {
@@ -69,10 +69,7 @@ class BankAccountRepository {
         permission: PermissionsEnum.readWrite,
         status: InviteStatusEnum.pending,
       );
-      await _bankAccountDataSource.inviteMember(
-        bankAccountId,
-        accountMember,
-      );
+      await _creditCardDataSource.inviteMember(creditCardId, accountMember);
       return right(null);
     } catch (e) {
       return left(
