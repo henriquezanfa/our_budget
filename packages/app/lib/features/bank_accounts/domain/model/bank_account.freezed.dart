@@ -28,7 +28,7 @@ mixin _$BankAccount {
   String get accountHolderName => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
-  List<AccountMember>? get members => throw _privateConstructorUsedError;
+  List<Member>? get members => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -51,7 +51,7 @@ abstract class $BankAccountCopyWith<$Res> {
       String accountHolderName,
       DateTime createdAt,
       DateTime updatedAt,
-      List<AccountMember>? members});
+      List<Member>? members});
 }
 
 /// @nodoc
@@ -113,7 +113,7 @@ class _$BankAccountCopyWithImpl<$Res, $Val extends BankAccount>
       members: freezed == members
           ? _value.members
           : members // ignore: cast_nullable_to_non_nullable
-              as List<AccountMember>?,
+              as List<Member>?,
     ) as $Val);
   }
 }
@@ -135,7 +135,7 @@ abstract class _$$BankAccountImplCopyWith<$Res>
       String accountHolderName,
       DateTime createdAt,
       DateTime updatedAt,
-      List<AccountMember>? members});
+      List<Member>? members});
 }
 
 /// @nodoc
@@ -195,7 +195,7 @@ class __$$BankAccountImplCopyWithImpl<$Res>
       members: freezed == members
           ? _value._members
           : members // ignore: cast_nullable_to_non_nullable
-              as List<AccountMember>?,
+              as List<Member>?,
     ));
   }
 }
@@ -212,7 +212,7 @@ class _$BankAccountImpl with DiagnosticableTreeMixin implements _BankAccount {
       required this.accountHolderName,
       required this.createdAt,
       required this.updatedAt,
-      final List<AccountMember>? members})
+      final List<Member>? members})
       : _members = members;
 
   factory _$BankAccountImpl.fromJson(Map<String, dynamic> json) =>
@@ -234,9 +234,9 @@ class _$BankAccountImpl with DiagnosticableTreeMixin implements _BankAccount {
   final DateTime createdAt;
   @override
   final DateTime updatedAt;
-  final List<AccountMember>? _members;
+  final List<Member>? _members;
   @override
-  List<AccountMember>? get members {
+  List<Member>? get members {
     final value = _members;
     if (value == null) return null;
     if (_members is EqualUnmodifiableListView) return _members;
@@ -324,7 +324,7 @@ abstract class _BankAccount implements BankAccount {
       required final String accountHolderName,
       required final DateTime createdAt,
       required final DateTime updatedAt,
-      final List<AccountMember>? members}) = _$BankAccountImpl;
+      final List<Member>? members}) = _$BankAccountImpl;
 
   factory _BankAccount.fromJson(Map<String, dynamic> json) =
       _$BankAccountImpl.fromJson;
@@ -346,7 +346,7 @@ abstract class _BankAccount implements BankAccount {
   @override
   DateTime get updatedAt;
   @override
-  List<AccountMember>? get members;
+  List<Member>? get members;
   @override
   @JsonKey(ignore: true)
   _$$BankAccountImplCopyWith<_$BankAccountImpl> get copyWith =>

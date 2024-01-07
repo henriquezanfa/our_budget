@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ob/core/di/di.dart';
 import 'package:ob/features/bank_accounts/domain/enum/account_type_enum.dart';
-import 'package:ob/features/bank_accounts/domain/model/account_member.dart';
+import 'package:ob/domain/domain.dart';
 import 'package:ob/features/bank_accounts/domain/model/bank_account.dart';
 import 'package:ob/features/bank_accounts/presentation/bloc/bank_account_bloc.dart';
 import 'package:ob/features/login/presentation/login.dart';
@@ -143,7 +143,7 @@ class AccountMembersList extends StatelessWidget {
     this.accountMembers,
     super.key,
   });
-  final List<AccountMember>? accountMembers;
+  final List<Member>? accountMembers;
   final String bankAccountId;
 
   @override

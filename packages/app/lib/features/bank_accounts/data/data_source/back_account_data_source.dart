@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ob/core/client/constants.dart';
 import 'package:ob/core/types/ob_types.dart';
-import 'package:ob/features/bank_accounts/domain/model/account_member.dart';
+import 'package:ob/domain/domain.dart';
 import 'package:ob/features/bank_accounts/domain/model/bank_account.dart';
 
 class BankAccountDataSource {
@@ -41,7 +41,7 @@ class BankAccountDataSource {
 
   Future<void> addBankAccountMember(
     String bankAccountId,
-    AccountMember accountMember,
+    Member accountMember,
   ) async {
     final doc = _firestore
         .collection(OBCollections.bankAccount)
@@ -53,7 +53,7 @@ class BankAccountDataSource {
 
   Future<void> inviteMember(
     String bankAccountId,
-    AccountMember accountMember,
+    Member accountMember,
   ) async {
     final doc = _firestore
         .collection(OBCollections.bankAccount)
@@ -63,7 +63,7 @@ class BankAccountDataSource {
     await doc.set(accountMember.toJson());
   }
 
-  Future<List<AccountMember>> getBankAccountMembers(
+  Future<List<Member>> getBankAccountMembers(
     String bankAccountId,
   ) async {
     final query = _firestore
@@ -72,7 +72,7 @@ class BankAccountDataSource {
         .collection(OBCollections.members);
     final data = await query.get();
     final members = data.docs
-        .map((doc) => AccountMember.fromJson(doc.data()))
+        .map((doc) => Member.fromJson(doc.data()))
         .toList(growable: false);
 
     return members;

@@ -6,9 +6,9 @@ import 'package:ob/features/auth/presentation/auth_page.dart';
 import 'package:ob/features/bank_accounts/domain/model/bank_account.dart';
 import 'package:ob/features/bank_accounts/presentation/ui/pages/bank_account_details_page.dart';
 import 'package:ob/features/bank_accounts/presentation/ui/widgets/bank_accounts_list_page.dart';
-import 'package:ob/features/manage/presentation/ui/manage_page.dart';
 import 'package:ob/features/features.dart';
 import 'package:ob/features/login/presentation/login.dart';
+import 'package:ob/features/manage/presentation/ui/manage_page.dart';
 import 'package:ob/features/profile/presentation/ui/profile_page.dart';
 import 'package:ob/features/registration/registration.dart';
 import 'package:ob/features/splash/splash.dart';
@@ -76,6 +76,10 @@ final router = GoRouter(
               builder: (context, state) => BankAccountDetailsPage(
                 bankAccount: state.extra! as BankAccount,
               ),
+            ),
+            GoRoute(
+              path: OBRoutes.bankAccounts,
+              builder: (context, state) => const BankAccountsListPage(),
             ),
             GoRoute(
               path: OBRoutes.bankAccounts,

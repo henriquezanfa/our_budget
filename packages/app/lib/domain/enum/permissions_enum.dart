@@ -1,4 +1,4 @@
-enum AccountPermissionsEnum {
+enum PermissionsEnum {
   read,
   write,
   readWrite,

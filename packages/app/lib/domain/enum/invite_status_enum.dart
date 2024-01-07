@@ -1,4 +1,4 @@
-enum AccountInviteStatusEnum {
+enum InviteStatusEnum {
   pending,
   accepted,
   rejected,
