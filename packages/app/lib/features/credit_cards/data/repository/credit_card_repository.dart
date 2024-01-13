@@ -35,9 +35,9 @@ class CreditCardRepository {
   ) async {
     try {
       const uuid = Uuid();
-
       final userId = FirebaseAuth.instance.currentUser!.uid;
       final id = uuid.v4();
+      
       final creditCard = accountCreationDto.toCreditCard(userId, id);
 
       final owner = Member(

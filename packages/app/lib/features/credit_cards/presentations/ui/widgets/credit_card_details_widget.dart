@@ -4,7 +4,6 @@ import 'package:ob/core/di/di.dart';
 import 'package:ob/domain/domain.dart';
 import 'package:ob/features/credit_cards/domain/model/credit_card.dart';
 import 'package:ob/features/credit_cards/presentations/bloc/credit_card_bloc.dart';
-import 'package:ob/features/login/presentation/login.dart';
 import 'package:ob/ui/widgets/widgets.dart';
 
 class CreditCardDetailsWidget extends StatelessWidget {

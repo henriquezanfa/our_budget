@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ob/features/registration/bloc/registration_bloc.dart';
 import 'package:ob/ui/theme/ob_sizes.dart';
+import 'package:ob/ui/widgets/widgets.dart';
 
 class RegistrationPage extends StatelessWidget {
   const RegistrationPage({super.key});
@@ -161,33 +162,6 @@ class LoginButton extends StatelessWidget {
         onPressed: onPressed,
         child: const Text('Login'),
       ),
-    );
-  }
-}
-
-class OBTextField extends StatelessWidget {
-  const OBTextField({
-    required this.labelText,
-    super.key,
-    this.obscureText = false,
-    this.keyboardType,
-    this.onChanged,
-  });
-
-  final String labelText;
-  final bool obscureText;
-  final TextInputType? keyboardType;
-  final void Function(String)? onChanged;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      decoration: InputDecoration(
-        labelText: labelText,
-      ),
-      obscureText: obscureText,
-      keyboardType: keyboardType,
-      onChanged: onChanged,
     );
   }
 }

@@ -16,7 +16,8 @@ class CreateCreditCard extends StatelessWidget {
   Future<void> _createCreditCard(BuildContext context) async {
     final creditCardCreationDto =
         await showCreateCreditCardModal<CreditCardCreationDto>(
-            context: context);
+      context: context,
+    );
 
     if (creditCardCreationDto != null) {
       if (!context.mounted) return;
