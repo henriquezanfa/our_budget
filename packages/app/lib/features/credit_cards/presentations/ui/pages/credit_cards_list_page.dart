@@ -5,24 +5,8 @@ import 'package:ob/app/routes/ob_routes.dart';
 import 'package:ob/core/di/di.dart';
 import 'package:ob/features/credit_cards/presentations/bloc/credit_card_bloc.dart';
 import 'package:ob/features/credit_cards/presentations/ui/widgets/create_credit_card.dart';
-import 'package:ob/features/transactions/presentation/transaction_page.dart';
-import 'package:ob/ui/widgets/ob_elevated_button.dart';
 import 'package:ob/ui/widgets/ob_list_tile.dart';
 import 'package:ob/ui/widgets/ob_screen.dart';
-
-Future<void> _showCreateTransaction({
-  required BuildContext context,
-}) {
-  return Navigator.of(context, rootNavigator: true).push(
-    MaterialPageRoute(
-      fullscreenDialog: true,
-      builder: (_) => BlocProvider.value(
-        value: BlocProvider.of<CreditCardBloc>(context),
-        child: const TransactionPage(),
-      ),
-    ),
-  );
-}
 
 class CreditCardsListPage extends StatelessWidget {
   const CreditCardsListPage({super.key});
@@ -51,21 +35,9 @@ class CreditCardsListPageView extends StatelessWidget {
       actions: [
         CreateCreditCard.icon(),
       ],
-      slivers: [
-        const SliverToBoxAdapter(child: CreditCardsList()),
-        const SliverToBoxAdapter(child: SizedBox(height: 16)),
-        // button to add a new transaction
-        SliverToBoxAdapter(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: OBElevatedButton(
-              text: 'Add a new credit card',
-              onPressed: () {
-                _showCreateTransaction(context: context);
-              },
-            ),
-          ),
-        ),
+      slivers: const [
+        SliverToBoxAdapter(child: CreditCardsList()),
+        SliverToBoxAdapter(child: SizedBox(height: 16)),
       ],
     );
   }

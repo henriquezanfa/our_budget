@@ -62,6 +62,8 @@ class OBScreen extends StatelessWidget {
     return CustomScrollView(
       slivers: [
         _buildAppBar(),
+        if (slivers != null)
+          const SliverPadding(padding: EdgeInsets.only(top: 16)),
         // add padding in all slivers
         if (slivers != null)
           ...slivers!.map(
