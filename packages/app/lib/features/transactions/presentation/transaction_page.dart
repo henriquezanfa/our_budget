@@ -11,8 +11,10 @@ class TransactionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          TransactionsBloc(inject.get())..add(GetAccountsAndCategoriesEvent()),
+      create: (context) => TransactionsBloc(
+        inject.get(),
+        inject.get(),
+      )..add(GetAccountsAndCategoriesEvent()),
       child: const _TransactionView(),
     );
   }
