@@ -4,21 +4,14 @@ class MoneyTransactionDto {
   MoneyTransactionDto({
     required this.date,
     required this.amount,
-    required this.isPaid,
+    required this.accountId,
     this.description,
-    this.creditCardId,
-    this.accountId,
-  }) : assert(
-          creditCardId != null || accountId != null,
-          'Either creditCardId or accountId must be provided',
-        );
+  });
 
   final DateTime date;
   final double amount;
-  final bool isPaid;
   final String? description;
-  final String? creditCardId;
-  final String? accountId;
+  final String accountId;
 
   MoneyTransaction toMoneyTransaction(String userId, String id) {
     return MoneyTransaction(
@@ -26,9 +19,7 @@ class MoneyTransactionDto {
       userId: userId,
       amount: amount,
       date: date,
-      isPaid: isPaid,
       description: description,
-      creditCardId: creditCardId,
       accountId: accountId,
     );
   }

@@ -10,9 +10,7 @@ class MoneyTransaction with _$MoneyTransaction {
     required String userId,
     required double amount,
     required DateTime date,
-    required bool isPaid,
     String? description,
-    String? creditCardId,
     String? accountId,
   }) = _MoneyTransaction;
 

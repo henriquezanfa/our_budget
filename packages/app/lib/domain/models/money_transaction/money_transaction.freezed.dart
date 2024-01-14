@@ -24,9 +24,7 @@ mixin _$MoneyTransaction {
   String get userId => throw _privateConstructorUsedError;
   double get amount => throw _privateConstructorUsedError;
   DateTime get date => throw _privateConstructorUsedError;
-  bool get isPaid => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
-  String? get creditCardId => throw _privateConstructorUsedError;
   String? get accountId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -46,9 +44,7 @@ abstract class $MoneyTransactionCopyWith<$Res> {
       String userId,
       double amount,
       DateTime date,
-      bool isPaid,
       String? description,
-      String? creditCardId,
       String? accountId});
 }
 
@@ -69,9 +65,7 @@ class _$MoneyTransactionCopyWithImpl<$Res, $Val extends MoneyTransaction>
     Object? userId = null,
     Object? amount = null,
     Object? date = null,
-    Object? isPaid = null,
     Object? description = freezed,
-    Object? creditCardId = freezed,
     Object? accountId = freezed,
   }) {
     return _then(_value.copyWith(
@@ -91,17 +85,9 @@ class _$MoneyTransactionCopyWithImpl<$Res, $Val extends MoneyTransaction>
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      isPaid: null == isPaid
-          ? _value.isPaid
-          : isPaid // ignore: cast_nullable_to_non_nullable
-              as bool,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-      creditCardId: freezed == creditCardId
-          ? _value.creditCardId
-          : creditCardId // ignore: cast_nullable_to_non_nullable
               as String?,
       accountId: freezed == accountId
           ? _value.accountId
@@ -124,9 +110,7 @@ abstract class _$$MoneyTransactionImplCopyWith<$Res>
       String userId,
       double amount,
       DateTime date,
-      bool isPaid,
       String? description,
-      String? creditCardId,
       String? accountId});
 }
 
@@ -145,9 +129,7 @@ class __$$MoneyTransactionImplCopyWithImpl<$Res>
     Object? userId = null,
     Object? amount = null,
     Object? date = null,
-    Object? isPaid = null,
     Object? description = freezed,
-    Object? creditCardId = freezed,
     Object? accountId = freezed,
   }) {
     return _then(_$MoneyTransactionImpl(
@@ -167,17 +149,9 @@ class __$$MoneyTransactionImplCopyWithImpl<$Res>
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      isPaid: null == isPaid
-          ? _value.isPaid
-          : isPaid // ignore: cast_nullable_to_non_nullable
-              as bool,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-      creditCardId: freezed == creditCardId
-          ? _value.creditCardId
-          : creditCardId // ignore: cast_nullable_to_non_nullable
               as String?,
       accountId: freezed == accountId
           ? _value.accountId
@@ -195,9 +169,7 @@ class _$MoneyTransactionImpl implements _MoneyTransaction {
       required this.userId,
       required this.amount,
       required this.date,
-      required this.isPaid,
       this.description,
-      this.creditCardId,
       this.accountId});
 
   factory _$MoneyTransactionImpl.fromJson(Map<String, dynamic> json) =>
@@ -212,17 +184,13 @@ class _$MoneyTransactionImpl implements _MoneyTransaction {
   @override
   final DateTime date;
   @override
-  final bool isPaid;
-  @override
   final String? description;
-  @override
-  final String? creditCardId;
   @override
   final String? accountId;
 
   @override
   String toString() {
-    return 'MoneyTransaction(id: $id, userId: $userId, amount: $amount, date: $date, isPaid: $isPaid, description: $description, creditCardId: $creditCardId, accountId: $accountId)';
+    return 'MoneyTransaction(id: $id, userId: $userId, amount: $amount, date: $date, description: $description, accountId: $accountId)';
   }
 
   @override
@@ -234,19 +202,16 @@ class _$MoneyTransactionImpl implements _MoneyTransaction {
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.amount, amount) || other.amount == amount) &&
             (identical(other.date, date) || other.date == date) &&
-            (identical(other.isPaid, isPaid) || other.isPaid == isPaid) &&
             (identical(other.description, description) ||
                 other.description == description) &&
-            (identical(other.creditCardId, creditCardId) ||
-                other.creditCardId == creditCardId) &&
             (identical(other.accountId, accountId) ||
                 other.accountId == accountId));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, userId, amount, date, isPaid,
-      description, creditCardId, accountId);
+  int get hashCode => Object.hash(
+      runtimeType, id, userId, amount, date, description, accountId);
 
   @JsonKey(ignore: true)
   @override
@@ -269,9 +234,7 @@ abstract class _MoneyTransaction implements MoneyTransaction {
       required final String userId,
       required final double amount,
       required final DateTime date,
-      required final bool isPaid,
       final String? description,
-      final String? creditCardId,
       final String? accountId}) = _$MoneyTransactionImpl;
 
   factory _MoneyTransaction.fromJson(Map<String, dynamic> json) =
@@ -286,11 +249,7 @@ abstract class _MoneyTransaction implements MoneyTransaction {
   @override
   DateTime get date;
   @override
-  bool get isPaid;
-  @override
   String? get description;
-  @override
-  String? get creditCardId;
   @override
   String? get accountId;
   @override

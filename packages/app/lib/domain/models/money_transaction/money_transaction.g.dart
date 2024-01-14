@@ -13,9 +13,7 @@ _$MoneyTransactionImpl _$$MoneyTransactionImplFromJson(
       userId: json['userId'] as String,
       amount: (json['amount'] as num).toDouble(),
       date: DateTime.parse(json['date'] as String),
-      isPaid: json['isPaid'] as bool,
       description: json['description'] as String?,
-      creditCardId: json['creditCardId'] as String?,
       accountId: json['accountId'] as String?,
     );
 
@@ -26,8 +24,6 @@ Map<String, dynamic> _$$MoneyTransactionImplToJson(
       'userId': instance.userId,
       'amount': instance.amount,
       'date': instance.date.toIso8601String(),
-      'isPaid': instance.isPaid,
       'description': instance.description,
-      'creditCardId': instance.creditCardId,
       'accountId': instance.accountId,
     };
