@@ -8,7 +8,7 @@ final class CategoriesInitial extends CategoriesState {}
 final class CategoriesLoaded extends CategoriesState {
   CategoriesLoaded({required this.categories});
 
-  final List<String> categories;
+  final List<TransactionCategory> categories;
 }
 
 final class CategoriesLoading extends CategoriesState {}
@@ -20,3 +20,5 @@ final class CategoriesError extends CategoriesState {
 }
 
 final class CategoriesAdded extends CategoriesState {}
+
+final class CategoriesUpdated extends CategoriesState {}

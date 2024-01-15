@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:ob/domain/models/transaction_category/transaction_category.dart';
 
 part 'money_transaction.freezed.dart';
 part 'money_transaction.g.dart';
@@ -19,6 +20,7 @@ class MoneyTransaction with _$MoneyTransaction {
     required double amount,
     required DateTime date,
     required MoneyTransactionType type,
+    required TransactionCategory? category,
     String? description,
     String? accountId,
   }) = _MoneyTransaction;

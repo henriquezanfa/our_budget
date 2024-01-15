@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ob/core/di/di.dart';
 import 'package:ob/domain/models/money_transaction/money_transaction.dart';
+import 'package:ob/domain/models/transaction_category/transaction_category.dart';
 import 'package:ob/features/transactions/presentation/bloc/transactions_bloc.dart';
 import 'package:ob/ui/extensions/list_extensions.dart';
 import 'package:ob/ui/widgets/widgets.dart';
@@ -35,7 +36,7 @@ class _TransactionViewState extends State<_TransactionView> {
   late final TextEditingController _descriptionController;
 
   String? _selectedAccount;
-  String? _category;
+  TransactionCategory? _category;
   MoneyTransactionType? _type;
   DateTime? _selectedDate = DateTime.now();
 
@@ -52,7 +53,7 @@ class _TransactionViewState extends State<_TransactionView> {
 
   @override
   Widget build(BuildContext context) {
-    var categories = <String>[];
+    var categories = <TransactionCategory>[];
     var accounts = <String>[];
 
     return BlocListener<TransactionsBloc, TransactionsState>(
@@ -115,10 +116,12 @@ class _TransactionViewState extends State<_TransactionView> {
 
                 return OBFieldSelection(
                   labelText: 'Category',
-                  items: categories,
-                  initialSelectedItem: _category,
+                  items: categories.map((e) => e.name).toList(),
+                  initialSelectedItem: _category?.name,
                   onSelectionChanged: (selection) => setState(() {
-                    _category = selection;
+                    _category = categories.firstWhereOrNull(
+                      (element) => element.name == selection,
+                    );
                   }),
                 );
               },

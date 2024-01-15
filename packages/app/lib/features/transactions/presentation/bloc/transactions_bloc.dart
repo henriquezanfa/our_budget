@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:ob/domain/models/money_transaction/money_transaction.dart';
+import 'package:ob/domain/models/transaction_category/transaction_category.dart';
 import 'package:ob/features/bank_accounts/data/repository/bank_account_repository.dart';
 import 'package:ob/features/categories/data/repositories/categories_repository.dart';
 import 'package:ob/features/transactions/data/dto/money_transaction_dto.dart';
@@ -42,7 +43,7 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
     final categories = await _categoriesRepository.getCategories().then(
       (value) {
         return value.fold(
-          (l) => <String>[],
+          (l) => <TransactionCategory>[],
           (r) => r,
         );
       },
@@ -87,6 +88,7 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
         accountId: event.account!,
         description: event.description,
         type: event.type!,
+        category: event.category!,
       ),
     );
 

@@ -31,7 +31,7 @@ Map<String, dynamic> _$$BankAccountImplToJson(_$BankAccountImpl instance) =>
       'accountHolderName': instance.accountHolderName,
       'createdAt': instance.createdAt.toIso8601String(),
       'updatedAt': instance.updatedAt.toIso8601String(),
-      'members': instance.members,
+      'members': instance.members?.map((e) => e.toJson()).toList(),
     };
 
 const _$AccountTypeEnumEnumMap = {

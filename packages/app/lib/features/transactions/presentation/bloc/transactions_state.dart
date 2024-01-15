@@ -12,7 +12,7 @@ final class AccountsAndCategoriesState extends TransactionsState {
   });
 
   final List<String> accounts;
-  final List<String> categories;
+  final List<TransactionCategory> categories;
 }
 
 final class TransactionsError extends TransactionsState {

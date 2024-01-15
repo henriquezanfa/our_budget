@@ -33,5 +33,5 @@ Map<String, dynamic> _$$CreditCardImplToJson(_$CreditCardImpl instance) =>
       'closingDate': instance.closingDate,
       'createdAt': instance.createdAt.toIso8601String(),
       'updatedAt': instance.updatedAt.toIso8601String(),
-      'members': instance.members,
+      'members': instance.members?.map((e) => e.toJson()).toList(),
     };

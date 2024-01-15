@@ -25,6 +25,7 @@ mixin _$MoneyTransaction {
   double get amount => throw _privateConstructorUsedError;
   DateTime get date => throw _privateConstructorUsedError;
   MoneyTransactionType get type => throw _privateConstructorUsedError;
+  TransactionCategory? get category => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   String? get accountId => throw _privateConstructorUsedError;
 
@@ -46,8 +47,11 @@ abstract class $MoneyTransactionCopyWith<$Res> {
       double amount,
       DateTime date,
       MoneyTransactionType type,
+      TransactionCategory? category,
       String? description,
       String? accountId});
+
+  $TransactionCategoryCopyWith<$Res>? get category;
 }
 
 /// @nodoc
@@ -68,6 +72,7 @@ class _$MoneyTransactionCopyWithImpl<$Res, $Val extends MoneyTransaction>
     Object? amount = null,
     Object? date = null,
     Object? type = null,
+    Object? category = freezed,
     Object? description = freezed,
     Object? accountId = freezed,
   }) {
@@ -92,6 +97,10 @@ class _$MoneyTransactionCopyWithImpl<$Res, $Val extends MoneyTransaction>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as MoneyTransactionType,
+      category: freezed == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as TransactionCategory?,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -101,6 +110,18 @@ class _$MoneyTransactionCopyWithImpl<$Res, $Val extends MoneyTransaction>
           : accountId // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $TransactionCategoryCopyWith<$Res>? get category {
+    if (_value.category == null) {
+      return null;
+    }
+
+    return $TransactionCategoryCopyWith<$Res>(_value.category!, (value) {
+      return _then(_value.copyWith(category: value) as $Val);
+    });
   }
 }
 
@@ -118,8 +139,12 @@ abstract class _$$MoneyTransactionImplCopyWith<$Res>
       double amount,
       DateTime date,
       MoneyTransactionType type,
+      TransactionCategory? category,
       String? description,
       String? accountId});
+
+  @override
+  $TransactionCategoryCopyWith<$Res>? get category;
 }
 
 /// @nodoc
@@ -138,6 +163,7 @@ class __$$MoneyTransactionImplCopyWithImpl<$Res>
     Object? amount = null,
     Object? date = null,
     Object? type = null,
+    Object? category = freezed,
     Object? description = freezed,
     Object? accountId = freezed,
   }) {
@@ -162,6 +188,10 @@ class __$$MoneyTransactionImplCopyWithImpl<$Res>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as MoneyTransactionType,
+      category: freezed == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as TransactionCategory?,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -183,6 +213,7 @@ class _$MoneyTransactionImpl implements _MoneyTransaction {
       required this.amount,
       required this.date,
       required this.type,
+      required this.category,
       this.description,
       this.accountId});
 
@@ -200,13 +231,15 @@ class _$MoneyTransactionImpl implements _MoneyTransaction {
   @override
   final MoneyTransactionType type;
   @override
+  final TransactionCategory? category;
+  @override
   final String? description;
   @override
   final String? accountId;
 
   @override
   String toString() {
-    return 'MoneyTransaction(id: $id, userId: $userId, amount: $amount, date: $date, type: $type, description: $description, accountId: $accountId)';
+    return 'MoneyTransaction(id: $id, userId: $userId, amount: $amount, date: $date, type: $type, category: $category, description: $description, accountId: $accountId)';
   }
 
   @override
@@ -219,6 +252,8 @@ class _$MoneyTransactionImpl implements _MoneyTransaction {
             (identical(other.amount, amount) || other.amount == amount) &&
             (identical(other.date, date) || other.date == date) &&
             (identical(other.type, type) || other.type == type) &&
+            (identical(other.category, category) ||
+                other.category == category) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.accountId, accountId) ||
@@ -227,8 +262,8 @@ class _$MoneyTransactionImpl implements _MoneyTransaction {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, userId, amount, date, type, description, accountId);
+  int get hashCode => Object.hash(runtimeType, id, userId, amount, date, type,
+      category, description, accountId);
 
   @JsonKey(ignore: true)
   @override
@@ -252,6 +287,7 @@ abstract class _MoneyTransaction implements MoneyTransaction {
       required final double amount,
       required final DateTime date,
       required final MoneyTransactionType type,
+      required final TransactionCategory? category,
       final String? description,
       final String? accountId}) = _$MoneyTransactionImpl;
 
@@ -268,6 +304,8 @@ abstract class _MoneyTransaction implements MoneyTransaction {
   DateTime get date;
   @override
   MoneyTransactionType get type;
+  @override
+  TransactionCategory? get category;
   @override
   String? get description;
   @override

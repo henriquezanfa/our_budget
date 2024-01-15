@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ob/domain/models/transaction_category/transaction_category.dart';
 
 class CategoriesDataSource {
   CategoriesDataSource({required FirebaseFirestore firestore})
@@ -6,19 +7,27 @@ class CategoriesDataSource {
 
   final FirebaseFirestore _firestore;
 
-  Future<List<String>> getCategories() async {
+  Future<List<TransactionCategory>> getCategories() async {
     final query = _firestore.collection('categories');
 
     final data = await query.get();
 
-    final categories = data.docs.map((doc) => doc.data()['name'] as String);
+    return data.docs.map((doc) {
+      final data = doc.data();
 
-    return categories.toList();
+      return TransactionCategory.fromJson(data);
+    }).toList();
   }
 
-  Future<void> addCategory(String category) async {
+  Future<void> addCategory(TransactionCategory category) async {
     final doc = _firestore.collection('categories').doc();
 
-    await doc.set({'name': category});
+    await doc.set(category.toJson());
+  }
+
+  Future<void> updateCategory(TransactionCategory category) async {
+    final doc = _firestore.collection('categories').doc(category.id);
+
+    await doc.update(category.toJson());
   }
 }

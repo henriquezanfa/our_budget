@@ -14,6 +14,10 @@ _$MoneyTransactionImpl _$$MoneyTransactionImplFromJson(
       amount: (json['amount'] as num).toDouble(),
       date: DateTime.parse(json['date'] as String),
       type: $enumDecode(_$MoneyTransactionTypeEnumMap, json['type']),
+      category: json['category'] == null
+          ? null
+          : TransactionCategory.fromJson(
+              json['category'] as Map<String, dynamic>),
       description: json['description'] as String?,
       accountId: json['accountId'] as String?,
     );
@@ -26,6 +30,7 @@ Map<String, dynamic> _$$MoneyTransactionImplToJson(
       'amount': instance.amount,
       'date': instance.date.toIso8601String(),
       'type': _$MoneyTransactionTypeEnumMap[instance.type]!,
+      'category': instance.category?.toJson(),
       'description': instance.description,
       'accountId': instance.accountId,
     };

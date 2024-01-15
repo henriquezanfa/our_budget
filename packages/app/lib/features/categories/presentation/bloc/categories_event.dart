@@ -9,3 +9,8 @@ final class AddCategory extends CategoriesEvent {
   AddCategory(this.category);
   final String category;
 }
+
+final class UpdateCategory extends CategoriesEvent {
+  UpdateCategory(this.category);
+  final TransactionCategory category;
+}

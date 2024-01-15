@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ob/features/categories/presentation/bloc/categories_bloc.dart';
@@ -28,9 +27,9 @@ class AddNewCategoryButtonWidget extends StatelessWidget {
 }
 
 Future<String?> _showDialog(BuildContext context) async {
-  return showModalBottomSheet<String>(
+  return showOBModalBottomSheet<String>(
     context: context,
-    builder: (context) => const CreateCategoryModal(),
+    child: const CreateCategoryModal(),
   );
 }
 

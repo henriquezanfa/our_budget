@@ -18,7 +18,7 @@ final class CreateTransaction extends TransactionsEvent {
   final double? amount;
   final String? description;
   final DateTime? date;
-  final String? category;
+  final TransactionCategory? category;
   final String? account;
   final MoneyTransactionType? type;
 }
