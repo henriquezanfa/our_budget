@@ -30,6 +30,13 @@ class ManagePageView extends StatelessWidget {
         ),
         SliverToBoxAdapter(
           child: OBListTile(
+            title: 'Categories',
+            leading: const Icon(Icons.category),
+            onTap: () => context.push(OBRoutes.categories),
+          ),
+        ),
+        SliverToBoxAdapter(
+          child: OBListTile(
             title: 'Credit Cards',
             leading: const Icon(Icons.credit_card),
             onTap: () => context.push(OBRoutes.creditCards),
@@ -39,12 +46,6 @@ class ManagePageView extends StatelessWidget {
           child: OBListTile(
             title: 'Goals',
             leading: Icon(Icons.account_balance_wallet),
-          ),
-        ),
-        const SliverToBoxAdapter(
-          child: OBListTile(
-            title: 'Categories',
-            leading: Icon(Icons.category),
           ),
         ),
         const SliverToBoxAdapter(

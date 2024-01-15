@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:ob/features/bank_accounts/data/repository/bank_account_repository.dart';
+import 'package:ob/features/categories/data/repositories/categories_repository.dart';
 import 'package:ob/features/transactions/data/dto/money_transaction_dto.dart';
 import 'package:ob/features/transactions/data/repository/transactions_repository.dart';
 
@@ -13,6 +14,7 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
   TransactionsBloc(
     this._transactionsRepository,
     this._bankAccountRepository,
+    this._categoriesRepository,
   ) : super(TransactionsInitial()) {
     on<GetAccountsAndCategoriesEvent>(_onGetAccountsAndCategoriesEvent);
     on<CreateTransaction>(_onCreateTransaction);
@@ -20,6 +22,7 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
 
   final TransactionsRepository _transactionsRepository;
   final BankAccountRepository _bankAccountRepository;
+  final CategoriesRepository _categoriesRepository;
 
   FutureOr<void> _onGetAccountsAndCategoriesEvent(
     GetAccountsAndCategoriesEvent event,
@@ -34,10 +37,19 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
       },
     );
 
+    final categories = await _categoriesRepository.getCategories().then(
+      (value) {
+        return value.fold(
+          (l) => <String>[],
+          (r) => r,
+        );
+      },
+    );
+
     emit(
       AccountsAndCategoriesState(
         accounts: bankAccounts.toList(),
-        categories: const ['Rent', 'Groceries', 'Restaurants'],
+        categories: categories,
       ),
     );
   }

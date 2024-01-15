@@ -6,6 +6,7 @@ import 'package:ob/features/auth/presentation/auth_page.dart';
 import 'package:ob/features/bank_accounts/domain/model/bank_account.dart';
 import 'package:ob/features/bank_accounts/presentation/ui/pages/bank_account_details_page.dart';
 import 'package:ob/features/bank_accounts/presentation/ui/pages/bank_accounts_list_page.dart';
+import 'package:ob/features/categories/presentation/categories_page.dart';
 import 'package:ob/features/credit_cards/domain/model/credit_card.dart';
 import 'package:ob/features/credit_cards/presentations/ui/pages/credit_card_details_page.dart';
 import 'package:ob/features/credit_cards/presentations/ui/pages/credit_cards_list_page.dart';
@@ -84,6 +85,10 @@ final router = GoRouter(
             GoRoute(
               path: OBRoutes.bankAccounts,
               builder: (context, state) => const BankAccountsListPage(),
+            ),
+            GoRoute(
+              path: OBRoutes.categories,
+              builder: (context, state) => const CategoriesPage(),
             ),
             GoRoute(
               path: OBRoutes.creditCards,

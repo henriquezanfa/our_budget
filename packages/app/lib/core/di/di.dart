@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ob/features/bank_accounts/inject.dart';
+import 'package:ob/features/categories/inject.dart';
 import 'package:ob/features/credit_cards/inject.dart';
 import 'package:ob/features/transactions/inject.dart';
 
@@ -12,4 +13,5 @@ void registerDependencies() {
   registerBankAccountsDependencies();
   registerCreditCardDependencies();
   injectTransactions();
+  injectCategories();
 }

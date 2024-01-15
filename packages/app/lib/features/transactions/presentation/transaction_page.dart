@@ -14,6 +14,7 @@ class TransactionPage extends StatelessWidget {
       create: (context) => TransactionsBloc(
         inject.get(),
         inject.get(),
+        inject.get(),
       )..add(GetAccountsAndCategoriesEvent()),
       child: const _TransactionView(),
     );
