@@ -5,6 +5,7 @@ class MoneyTransactionDto {
     required this.date,
     required this.amount,
     required this.accountId,
+    required this.type,
     this.description,
   });
 
@@ -12,12 +13,14 @@ class MoneyTransactionDto {
   final double amount;
   final String? description;
   final String accountId;
+  final MoneyTransactionType type;
 
   MoneyTransaction toMoneyTransaction(String userId, String id) {
     return MoneyTransaction(
       id: id,
       userId: userId,
       amount: amount,
+      type: type,
       date: date,
       description: description,
       accountId: accountId,

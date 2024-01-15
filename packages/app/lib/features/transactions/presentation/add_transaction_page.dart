@@ -1,6 +1,8 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ob/core/di/di.dart';
+import 'package:ob/domain/models/money_transaction/money_transaction.dart';
 import 'package:ob/features/transactions/presentation/bloc/transactions_bloc.dart';
 import 'package:ob/ui/extensions/list_extensions.dart';
 import 'package:ob/ui/widgets/widgets.dart';
@@ -34,6 +36,7 @@ class _TransactionViewState extends State<_TransactionView> {
 
   String? _selectedAccount;
   String? _category;
+  MoneyTransactionType? _type;
   DateTime? _selectedDate = DateTime.now();
 
   @override
@@ -91,6 +94,18 @@ class _TransactionViewState extends State<_TransactionView> {
             ),
           ),
           SliverToBoxAdapter(
+            child: OBFieldSelection(
+              labelText: 'Type',
+              items: MoneyTransactionType.values.map((e) => e.name).toList(),
+              initialSelectedItem: _type?.value,
+              onSelectionChanged: (selection) => setState(() {
+                _type = MoneyTransactionType.values.firstWhereOrNull(
+                  (element) => element.name == selection,
+                );
+              }),
+            ),
+          ),
+          SliverToBoxAdapter(
             child: BlocBuilder<TransactionsBloc, TransactionsState>(
               buildWhen: (_, current) => current is AccountsAndCategoriesState,
               builder: (context, state) {
@@ -139,6 +154,7 @@ class _TransactionViewState extends State<_TransactionView> {
                         category: _category,
                         date: _selectedDate,
                         description: _descriptionController.text,
+                        type: _type,
                       ),
                     );
               },

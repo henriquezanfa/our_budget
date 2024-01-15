@@ -24,6 +24,7 @@ mixin _$MoneyTransaction {
   String get userId => throw _privateConstructorUsedError;
   double get amount => throw _privateConstructorUsedError;
   DateTime get date => throw _privateConstructorUsedError;
+  MoneyTransactionType get type => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   String? get accountId => throw _privateConstructorUsedError;
 
@@ -44,6 +45,7 @@ abstract class $MoneyTransactionCopyWith<$Res> {
       String userId,
       double amount,
       DateTime date,
+      MoneyTransactionType type,
       String? description,
       String? accountId});
 }
@@ -65,6 +67,7 @@ class _$MoneyTransactionCopyWithImpl<$Res, $Val extends MoneyTransaction>
     Object? userId = null,
     Object? amount = null,
     Object? date = null,
+    Object? type = null,
     Object? description = freezed,
     Object? accountId = freezed,
   }) {
@@ -85,6 +88,10 @@ class _$MoneyTransactionCopyWithImpl<$Res, $Val extends MoneyTransaction>
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as MoneyTransactionType,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -110,6 +117,7 @@ abstract class _$$MoneyTransactionImplCopyWith<$Res>
       String userId,
       double amount,
       DateTime date,
+      MoneyTransactionType type,
       String? description,
       String? accountId});
 }
@@ -129,6 +137,7 @@ class __$$MoneyTransactionImplCopyWithImpl<$Res>
     Object? userId = null,
     Object? amount = null,
     Object? date = null,
+    Object? type = null,
     Object? description = freezed,
     Object? accountId = freezed,
   }) {
@@ -149,6 +158,10 @@ class __$$MoneyTransactionImplCopyWithImpl<$Res>
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as MoneyTransactionType,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -169,6 +182,7 @@ class _$MoneyTransactionImpl implements _MoneyTransaction {
       required this.userId,
       required this.amount,
       required this.date,
+      required this.type,
       this.description,
       this.accountId});
 
@@ -184,13 +198,15 @@ class _$MoneyTransactionImpl implements _MoneyTransaction {
   @override
   final DateTime date;
   @override
+  final MoneyTransactionType type;
+  @override
   final String? description;
   @override
   final String? accountId;
 
   @override
   String toString() {
-    return 'MoneyTransaction(id: $id, userId: $userId, amount: $amount, date: $date, description: $description, accountId: $accountId)';
+    return 'MoneyTransaction(id: $id, userId: $userId, amount: $amount, date: $date, type: $type, description: $description, accountId: $accountId)';
   }
 
   @override
@@ -202,6 +218,7 @@ class _$MoneyTransactionImpl implements _MoneyTransaction {
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.amount, amount) || other.amount == amount) &&
             (identical(other.date, date) || other.date == date) &&
+            (identical(other.type, type) || other.type == type) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.accountId, accountId) ||
@@ -211,7 +228,7 @@ class _$MoneyTransactionImpl implements _MoneyTransaction {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, id, userId, amount, date, description, accountId);
+      runtimeType, id, userId, amount, date, type, description, accountId);
 
   @JsonKey(ignore: true)
   @override
@@ -234,6 +251,7 @@ abstract class _MoneyTransaction implements MoneyTransaction {
       required final String userId,
       required final double amount,
       required final DateTime date,
+      required final MoneyTransactionType type,
       final String? description,
       final String? accountId}) = _$MoneyTransactionImpl;
 
@@ -248,6 +266,8 @@ abstract class _MoneyTransaction implements MoneyTransaction {
   double get amount;
   @override
   DateTime get date;
+  @override
+  MoneyTransactionType get type;
   @override
   String? get description;
   @override

@@ -12,6 +12,7 @@ final class CreateTransaction extends TransactionsEvent {
     required this.date,
     required this.category,
     required this.account,
+    required this.type,
   });
 
   final double? amount;
@@ -19,6 +20,7 @@ final class CreateTransaction extends TransactionsEvent {
   final DateTime? date;
   final String? category;
   final String? account;
+  final MoneyTransactionType? type;
 }
 
 final class GetTransactions extends TransactionsEvent {

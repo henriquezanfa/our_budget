@@ -34,6 +34,7 @@ class _TransactionsListView extends StatelessWidget {
         }
 
         return ListView.builder(
+          padding: EdgeInsets.zero,
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemCount: transactions.length,

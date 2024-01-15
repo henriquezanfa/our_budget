@@ -75,6 +75,9 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
     } else if (event.description == null || event.description!.isEmpty) {
       emit(TransactionsError('Description can not be null'));
       return;
+    } else if (event.type == null) {
+      emit(TransactionsError('Type can not be null'));
+      return;
     }
 
     await _transactionsRepository.createTransaction(
@@ -83,6 +86,7 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
         date: event.date!,
         accountId: event.account!,
         description: event.description,
+        type: event.type!,
       ),
     );
 
