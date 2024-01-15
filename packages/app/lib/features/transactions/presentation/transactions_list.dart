@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ob/core/di/di.dart';
 import 'package:ob/domain/models/money_transaction/money_transaction.dart';
 import 'package:ob/features/transactions/presentation/bloc/transactions_bloc.dart';
+import 'package:ob/ui/extensions/date_extensions.dart';
+import 'package:ob/ui/extensions/list_extensions.dart';
+import 'package:ob/ui/extensions/number_extensions.dart';
 
 class TransactionsList extends StatelessWidget {
   const TransactionsList({super.key});
@@ -43,11 +46,47 @@ class _TransactionsListView extends StatelessWidget {
 
             return ListTile(
               title: Text(transaction.description ?? ''),
-              subtitle: Text(transaction.amount.toString()),
+              trailing: TransactionValueWidget(transaction: transaction),
+              subtitle: Text(transaction.date.ydm),
             );
           },
         );
       },
     );
+  }
+}
+
+class TransactionValueWidget extends StatelessWidget {
+  const TransactionValueWidget({
+    required this.transaction,
+    super.key,
+  });
+
+  final MoneyTransaction transaction;
+
+  @override
+  Widget build(BuildContext context) {
+    final type = transaction.type;
+    final textTheme = Theme.of(context).textTheme.bodyMedium;
+
+    if (type == MoneyTransactionType.income) {
+      return Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(Icons.arrow_upward, color: Colors.green),
+          Text(transaction.amount.currency, style: textTheme),
+        ].withSpaceBetween(width: 8),
+      );
+    } else if (type == MoneyTransactionType.outcome) {
+      return Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(Icons.arrow_downward, color: Colors.red),
+          Text(transaction.amount.currency, style: textTheme),
+        ].withSpaceBetween(width: 8),
+      );
+    }
+
+    return Text(transaction.amount.currency);
   }
 }
