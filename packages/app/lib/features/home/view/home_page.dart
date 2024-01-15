@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget {
             child: OBElevatedButton(
               text: 'New transaction',
               onPressed: () {
-                context.push(OBRoutes.transaction);
+                context.push(OBRoutes.addTransaction);
               },
             ),
           ),

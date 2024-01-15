@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:ob/core/error/error.dart';
+import 'package:ob/domain/models/money_transaction/money_transaction.dart';
 import 'package:ob/features/transactions/data/data_source/transactions_data_source.dart';
 import 'package:ob/features/transactions/data/dto/money_transaction_dto.dart';
 import 'package:uuid/uuid.dart';
@@ -31,5 +32,9 @@ class TransactionsRepository {
         ),
       );
     }
+  }
+
+  Stream<List<MoneyTransaction>> getTransactions() {
+    return _dataSource.getTransactions;
   }
 }

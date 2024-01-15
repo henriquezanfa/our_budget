@@ -20,3 +20,7 @@ final class CreateTransaction extends TransactionsEvent {
   final String? category;
   final String? account;
 }
+
+final class GetTransactions extends TransactionsEvent {
+  GetTransactions();
+}

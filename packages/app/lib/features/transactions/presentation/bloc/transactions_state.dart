@@ -20,3 +20,11 @@ final class TransactionsError extends TransactionsState {
 
   final String error;
 }
+
+final class TransactionsLoaded extends TransactionsState {
+  TransactionsLoaded({required this.transactions});
+
+  final List<MoneyTransaction> transactions;
+}
+
+final class TransactionCreated extends TransactionsState {}

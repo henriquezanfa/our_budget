@@ -12,6 +12,6 @@ class OBRoutes {
   static const String bankAccountDetails = '/bank_account_details';
   static const String creditCards = '/credit_cards';
   static const String creditCardDetails = '/credit_card_details';
-  static const String transaction = '/transaction';
+  static const String addTransaction = '/add_transaction';
   static const String categories = '/categories';
 }

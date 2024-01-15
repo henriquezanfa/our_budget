@@ -16,7 +16,7 @@ import 'package:ob/features/manage/presentation/ui/manage_page.dart';
 import 'package:ob/features/profile/presentation/ui/profile_page.dart';
 import 'package:ob/features/registration/registration.dart';
 import 'package:ob/features/splash/splash.dart';
-import 'package:ob/features/transactions/presentation/transaction_page.dart';
+import 'package:ob/features/transactions/presentation/add_transaction_page.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _homeNavigatorKey = GlobalKey<NavigatorState>();
@@ -114,12 +114,12 @@ final router = GoRouter(
       ],
     ),
     GoRoute(
-      path: OBRoutes.transaction,
+      path: OBRoutes.addTransaction,
       parentNavigatorKey: _rootNavigatorKey,
       pageBuilder: (context, state) {
         return const MaterialPage(
           fullscreenDialog: true,
-          child: TransactionPage(),
+          child: AddTransactionPage(),
         );
       },
     ),

@@ -5,8 +5,8 @@ import 'package:ob/features/transactions/presentation/bloc/transactions_bloc.dar
 import 'package:ob/ui/extensions/list_extensions.dart';
 import 'package:ob/ui/widgets/widgets.dart';
 
-class TransactionPage extends StatelessWidget {
-  const TransactionPage({super.key});
+class AddTransactionPage extends StatelessWidget {
+  const AddTransactionPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class _TransactionViewState extends State<_TransactionView> {
 
   String? _selectedAccount;
   String? _category;
-  DateTime? _selectedDate;
+  DateTime? _selectedDate = DateTime.now();
 
   @override
   void initState() {
@@ -53,7 +53,6 @@ class _TransactionViewState extends State<_TransactionView> {
     var accounts = <String>[];
 
     return BlocListener<TransactionsBloc, TransactionsState>(
-      listenWhen: (previous, current) => current is TransactionsError,
       listener: (context, state) {
         if (state is TransactionsError) {
           final theme = Theme.of(context);
@@ -65,9 +64,12 @@ class _TransactionViewState extends State<_TransactionView> {
             ),
           );
         }
+        if (state is TransactionCreated) {
+          Navigator.of(context).pop();
+        }
       },
       child: OBScreen.secondary(
-        title: 'Transactions',
+        title: 'New Transaction',
         slivers: [
           SliverToBoxAdapter(
             child: OBTextField(

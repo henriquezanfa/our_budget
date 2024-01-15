@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:ob/features/transactions/presentation/transactions_list.dart';
 import 'package:ob/ui/widgets/widgets.dart';
 
 class HistoryPage extends StatelessWidget {
@@ -31,7 +32,10 @@ class HistoryPage extends StatelessWidget {
       ],
       slivers: const [
         SliverToBoxAdapter(
-          child: Text('Exercises'),
+          child: Text('Transactions'),
+        ),
+        SliverToBoxAdapter(
+          child: TransactionsList(),
         ),
       ],
     );

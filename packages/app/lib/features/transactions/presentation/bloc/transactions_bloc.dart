@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:ob/domain/models/money_transaction/money_transaction.dart';
 import 'package:ob/features/bank_accounts/data/repository/bank_account_repository.dart';
 import 'package:ob/features/categories/data/repositories/categories_repository.dart';
 import 'package:ob/features/transactions/data/dto/money_transaction_dto.dart';
@@ -18,6 +19,7 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
   ) : super(TransactionsInitial()) {
     on<GetAccountsAndCategoriesEvent>(_onGetAccountsAndCategoriesEvent);
     on<CreateTransaction>(_onCreateTransaction);
+    on<GetTransactions>(_onGetTransactions);
   }
 
   final TransactionsRepository _transactionsRepository;
@@ -82,6 +84,19 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
         accountId: event.account!,
         description: event.description,
       ),
+    );
+
+    emit(TransactionCreated());
+  }
+
+  FutureOr<void> _onGetTransactions(
+    GetTransactions event,
+    Emitter<TransactionsState> emit,
+  ) async {
+    await emit.forEach<List<MoneyTransaction>>(
+      _transactionsRepository.getTransactions(),
+      onData: (transactions) => TransactionsLoaded(transactions: transactions),
+      onError: (_, __) => TransactionsError('Error'),
     );
   }
 }
