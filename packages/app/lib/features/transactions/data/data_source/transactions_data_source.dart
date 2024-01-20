@@ -14,7 +14,11 @@ class TransactionsDataSource {
   }
 
   void _init() {
-    _firestore.collection(_transactionsCollection).snapshots().listen((event) {
+    _firestore
+        .collection(_transactionsCollection)
+        .orderBy('date', descending: true)
+        .snapshots()
+        .listen((event) {
       final transactions = event.docs
           .map((doc) => MoneyTransaction.fromJson(doc.data()))
           .toList();
@@ -36,12 +40,5 @@ class TransactionsDataSource {
         .collection(_transactionsCollection)
         .doc(transaction.id)
         .set(transaction.toJson());
-
-    final transactions = [
-      ..._todoStreamController.value,
-      transaction,
-    ];
-
-    _todoStreamController.add(transactions);
   }
 }

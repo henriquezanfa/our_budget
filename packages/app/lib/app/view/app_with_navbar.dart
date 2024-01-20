@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ob/app/view/ob_fab.dart';
 import 'package:ob/ui/widgets/widgets.dart';
 
 class AppWithNavbar extends StatelessWidget {
@@ -10,22 +11,30 @@ class AppWithNavbar extends StatelessWidget {
   final StatefulNavigationShell child;
 
   void _goBranch(int index) {
+    final effectiveIndex = index > 2 ? index - 1 : index;
+    final effectiveCurrentIndex =
+        child.currentIndex > 2 ? child.currentIndex - 1 : child.currentIndex;
+
     child.goBranch(
-      index,
-      initialLocation: index == child.currentIndex,
+      effectiveIndex,
+      initialLocation: effectiveIndex == effectiveCurrentIndex,
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final effectiveCurrentIndex =
+        child.currentIndex > 1 ? child.currentIndex + 1 : child.currentIndex;
+
     return Scaffold(
       body: child,
       bottomNavigationBar: OBBottomAppBar(
-        currentIndex: child.currentIndex,
+        currentIndex: effectiveCurrentIndex,
         onTabPress: _goBranch,
         items: const [
           Icon(Icons.home_outlined),
           Icon(Icons.history_outlined),
+          ObFab(),
           Icon(Icons.credit_card_outlined),
           Icon(Icons.person_outline),
         ],

@@ -31,6 +31,8 @@ class _OBBottomAppBarState extends State<OBBottomAppBar> {
   }
 
   void onTabPress(int index) {
+    if (index == 2) return;
+
     widget.onTabPress(index);
     if (widget.currentIndex != index) {
       setState(() {

@@ -47,7 +47,7 @@ class _TransactionsListView extends StatelessWidget {
             return ListTile(
               title: Text(transaction.description ?? ''),
               trailing: TransactionValueWidget(transaction: transaction),
-              subtitle: Text(transaction.date.ydm),
+              subtitle: Text(transaction.date.ymdhms),
             );
           },
         );
@@ -73,16 +73,16 @@ class TransactionValueWidget extends StatelessWidget {
       return Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(Icons.arrow_upward, color: Colors.green),
           Text(transaction.amount.currency, style: textTheme),
+          const Icon(Icons.arrow_upward, color: Colors.green),
         ].withSpaceBetween(width: 8),
       );
     } else if (type == MoneyTransactionType.outcome) {
       return Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(Icons.arrow_downward, color: Colors.red),
           Text(transaction.amount.currency, style: textTheme),
+          const Icon(Icons.arrow_downward, color: Colors.red),
         ].withSpaceBetween(width: 8),
       );
     }
