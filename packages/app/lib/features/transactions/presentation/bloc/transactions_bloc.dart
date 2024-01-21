@@ -21,6 +21,7 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
     on<GetAccountsAndCategoriesEvent>(_onGetAccountsAndCategoriesEvent);
     on<CreateTransaction>(_onCreateTransaction);
     on<GetTransactions>(_onGetTransactions);
+    on<DeleteTransaction>(_onDeleteTransaction);
   }
 
   final TransactionsRepository _transactionsRepository;
@@ -104,5 +105,12 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
       onData: (transactions) => TransactionsLoaded(transactions: transactions),
       onError: (_, __) => TransactionsError('Error'),
     );
+  }
+
+  FutureOr<void> _onDeleteTransaction(
+    DeleteTransaction event,
+    Emitter<TransactionsState> emit,
+  ) {
+    _transactionsRepository.deleteTransaction(event.id);
   }
 }

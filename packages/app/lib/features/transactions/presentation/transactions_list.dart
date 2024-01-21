@@ -1,11 +1,11 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ob/core/di/di.dart';
 import 'package:ob/domain/models/money_transaction/money_transaction.dart';
 import 'package:ob/features/transactions/presentation/bloc/transactions_bloc.dart';
+import 'package:ob/features/transactions/presentation/widgets/transaction_list_tile.dart';
 import 'package:ob/ui/extensions/date_extensions.dart';
-import 'package:ob/ui/extensions/list_extensions.dart';
-import 'package:ob/ui/extensions/number_extensions.dart';
 
 class TransactionsList extends StatelessWidget {
   const TransactionsList({super.key});
@@ -36,18 +36,27 @@ class _TransactionsListView extends StatelessWidget {
           transactions = state.transactions;
         }
 
-        return ListView.builder(
+        final groupedByMonth = groupBy(transactions, (p0) => p0.date.yMMM);
+
+        return ListView.separated(
           padding: EdgeInsets.zero,
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemCount: transactions.length,
+          itemCount: groupedByMonth.length,
+          separatorBuilder: (context, index) {
+            return const SizedBox(height: 16);
+          },
           itemBuilder: (context, index) {
-            final transaction = transactions[index];
-
-            return ListTile(
-              title: Text(transaction.description ?? ''),
-              trailing: TransactionValueWidget(transaction: transaction),
-              subtitle: Text(transaction.date.ymdhms),
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _MonthHeader(
+                  month: groupedByMonth.keys.elementAt(index),
+                ),
+                _TransactionsList(
+                  transactions: groupedByMonth.values.elementAt(index),
+                ),
+              ],
             );
           },
         );
@@ -56,37 +65,41 @@ class _TransactionsListView extends StatelessWidget {
   }
 }
 
-class TransactionValueWidget extends StatelessWidget {
-  const TransactionValueWidget({
-    required this.transaction,
-    super.key,
-  });
+class _MonthHeader extends StatelessWidget {
+  const _MonthHeader({required this.month});
 
-  final MoneyTransaction transaction;
+  final String month;
 
   @override
   Widget build(BuildContext context) {
-    final type = transaction.type;
-    final textTheme = Theme.of(context).textTheme.bodyMedium;
+    return Padding(
+      padding: EdgeInsets.zero,
+      child: Text(
+        month,
+        style: Theme.of(context).textTheme.bodySmall,
+        textAlign: TextAlign.start,
+      ),
+    );
+  }
+}
 
-    if (type == MoneyTransactionType.income) {
-      return Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(transaction.amount.currency, style: textTheme),
-          const Icon(Icons.arrow_upward, color: Colors.green),
-        ].withSpaceBetween(width: 8),
-      );
-    } else if (type == MoneyTransactionType.outcome) {
-      return Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(transaction.amount.currency, style: textTheme),
-          const Icon(Icons.arrow_downward, color: Colors.red),
-        ].withSpaceBetween(width: 8),
-      );
-    }
+class _TransactionsList extends StatelessWidget {
+  const _TransactionsList({required this.transactions});
 
-    return Text(transaction.amount.currency);
+  final List<MoneyTransaction> transactions;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      padding: EdgeInsets.zero,
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemCount: transactions.length,
+      itemBuilder: (context, index) {
+        final transaction = transactions[index];
+
+        return TransactionListTile(transaction: transaction);
+      },
+    );
   }
 }

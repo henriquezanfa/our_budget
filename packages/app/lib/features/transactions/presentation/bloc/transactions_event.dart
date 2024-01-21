@@ -23,6 +23,12 @@ final class CreateTransaction extends TransactionsEvent {
   final MoneyTransactionType? type;
 }
 
+final class DeleteTransaction extends TransactionsEvent {
+  DeleteTransaction(this.id);
+
+  final String id;
+}
+
 final class GetTransactions extends TransactionsEvent {
   GetTransactions();
 }

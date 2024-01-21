@@ -14,4 +14,6 @@ class ErrorMessages {
       'Could not create transaction';
 
   static const String couldNotGetTransactions = 'Could not get transactions';
+  static const String couldNotDeleteTransaction =
+      'Could not delete transaction';
 }

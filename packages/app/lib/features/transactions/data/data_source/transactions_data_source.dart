@@ -41,4 +41,11 @@ class TransactionsDataSource {
         .doc(transaction.id)
         .set(transaction.toJson());
   }
+
+  Future<void> deleteTransaction(String transactionId) async {
+    await _firestore
+        .collection(_transactionsCollection)
+        .doc(transactionId)
+        .delete();
+  }
 }

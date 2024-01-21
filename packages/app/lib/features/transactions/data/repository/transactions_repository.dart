@@ -12,6 +12,10 @@ class TransactionsRepository {
 
   final TransactionsDataSource _dataSource;
 
+  Stream<List<MoneyTransaction>> getTransactions() {
+    return _dataSource.getTransactions;
+  }
+
   Future<Either<OBError, void>> createTransaction(
     MoneyTransactionDto transactionDto,
   ) async {
@@ -34,7 +38,19 @@ class TransactionsRepository {
     }
   }
 
-  Stream<List<MoneyTransaction>> getTransactions() {
-    return _dataSource.getTransactions;
+  Future<Either<OBError, void>> deleteTransaction(
+    String transactionId,
+  ) async {
+    try {
+      await _dataSource.deleteTransaction(transactionId);
+      return const Right(null);
+    } on Exception catch (e) {
+      return Left(
+        OBError(
+          message: e.toString(),
+          userMessage: ErrorMessages.couldNotDeleteTransaction,
+        ),
+      );
+    }
   }
 }
