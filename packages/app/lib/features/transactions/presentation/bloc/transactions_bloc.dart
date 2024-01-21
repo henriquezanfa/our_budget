@@ -20,6 +20,7 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
   ) : super(TransactionsInitial()) {
     on<GetAccountsAndCategoriesEvent>(_onGetAccountsAndCategoriesEvent);
     on<CreateTransaction>(_onCreateTransaction);
+    on<UpdateTransaction>(_onUpdateTransaction);
     on<GetTransactions>(_onGetTransactions);
     on<DeleteTransaction>(_onDeleteTransaction);
   }
@@ -112,5 +113,22 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
     Emitter<TransactionsState> emit,
   ) {
     _transactionsRepository.deleteTransaction(event.id);
+  }
+
+  FutureOr<void> _onUpdateTransaction(
+    UpdateTransaction event,
+    Emitter<TransactionsState> emit,
+  ) {
+    _transactionsRepository.updateTransaction(
+      MoneyTransactionDto(
+        amount: event.amount!,
+        date: event.date!,
+        accountId: event.account!,
+        description: event.description,
+        type: event.type!,
+        category: event.category!,
+      ),
+      event.id,
+    );
   }
 }

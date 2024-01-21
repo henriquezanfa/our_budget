@@ -23,6 +23,26 @@ final class CreateTransaction extends TransactionsEvent {
   final MoneyTransactionType? type;
 }
 
+final class UpdateTransaction extends TransactionsEvent {
+  UpdateTransaction({
+    required this.id,
+    required this.amount,
+    required this.description,
+    required this.date,
+    required this.category,
+    required this.account,
+    required this.type,
+  });
+
+  final String id;
+  final double? amount;
+  final String? description;
+  final DateTime? date;
+  final TransactionCategory? category;
+  final String? account;
+  final MoneyTransactionType? type;
+}
+
 final class DeleteTransaction extends TransactionsEvent {
   DeleteTransaction(this.id);
 

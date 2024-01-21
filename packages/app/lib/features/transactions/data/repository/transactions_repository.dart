@@ -38,6 +38,29 @@ class TransactionsRepository {
     }
   }
 
+  Future<Either<OBError, void>> updateTransaction(
+    MoneyTransactionDto transactionDto,
+    String transactionId,
+  ) async {
+    try {
+      final userId = FirebaseAuth.instance.currentUser!.uid;
+      final transaction = transactionDto.toMoneyTransaction(
+        userId,
+        transactionId,
+      );
+
+      await _dataSource.updateTransaction(transaction);
+      return const Right(null);
+    } on Exception catch (e) {
+      return Left(
+        OBError(
+          message: e.toString(),
+          userMessage: ErrorMessages.couldNotUpdateTransaction,
+        ),
+      );
+    }
+  }
+
   Future<Either<OBError, void>> deleteTransaction(
     String transactionId,
   ) async {

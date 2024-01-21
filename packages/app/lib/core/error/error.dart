@@ -16,4 +16,6 @@ class ErrorMessages {
   static const String couldNotGetTransactions = 'Could not get transactions';
   static const String couldNotDeleteTransaction =
       'Could not delete transaction';
+  static const String couldNotUpdateTransaction =
+      'Could not update transaction';
 }
