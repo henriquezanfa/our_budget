@@ -68,22 +68,9 @@ class EditTransactionModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Edit Transaction',
-              style: theme.textTheme.headlineSmall,
-            ),
-            const SizedBox(height: 16),
-            UpsertTransactionWidget(transaction: transaction),
-          ],
-        ),
-      ),
+    return OBModal(
+      title: 'Edit transaction',
+      child: UpsertTransactionWidget(transaction: transaction),
     );
   }
 }

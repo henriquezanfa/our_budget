@@ -78,8 +78,10 @@ final router = GoRouter(
             ),
             GoRoute(
               path: OBRoutes.bankAccountDetails,
-              builder: (context, state) => BankAccountDetailsPage(
-                bankAccount: state.extra! as BankAccount,
+              pageBuilder: (context, state) => _modalTransitionBuilder(
+                BankAccountDetailsPage(
+                  bankAccount: state.extra! as BankAccount,
+                ),
               ),
             ),
             GoRoute(
@@ -116,12 +118,17 @@ final router = GoRouter(
     GoRoute(
       path: OBRoutes.addTransaction,
       parentNavigatorKey: _rootNavigatorKey,
-      pageBuilder: (context, state) {
-        return const MaterialPage(
-          fullscreenDialog: true,
-          child: AddTransactionPage(),
-        );
-      },
+      pageBuilder: (_, __) =>
+          _modalTransitionBuilder(const AddTransactionPage()),
     ),
   ],
 );
+
+MaterialPage<T> _modalTransitionBuilder<T>(
+  Widget child,
+) {
+  return MaterialPage(
+    child: child,
+    fullscreenDialog: true,
+  );
+}

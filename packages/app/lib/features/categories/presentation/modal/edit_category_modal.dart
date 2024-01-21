@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:ob/domain/models/transaction_category/transaction_category.dart';
 import 'package:ob/ui/widgets/widgets.dart';
 
@@ -25,14 +25,12 @@ class _EditCategoryModalState extends State<EditCategoryModal> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
+    return OBModal(
+      title: 'Edit category',
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Text('Edit category'),
-          const SizedBox(height: 16),
           OBTextField(
             labelText: 'Category name',
             controller: _textController,

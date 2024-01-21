@@ -9,6 +9,9 @@ final lightTheme = ThemeData(
     secondary: OBColors.secondary,
     background: OBColors.background,
   ),
+  textTheme: const TextTheme(
+    headlineSmall: TextStyle(fontSize: 20),
+  ),
   scaffoldBackgroundColor: OBColors.background,
   appBarTheme: const AppBarTheme(
     backgroundColor: OBColors.background,

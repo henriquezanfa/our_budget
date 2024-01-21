@@ -35,25 +35,25 @@ class ManagePageView extends StatelessWidget {
             onTap: () => context.push(OBRoutes.categories),
           ),
         ),
-        SliverToBoxAdapter(
-          child: OBListTile(
-            title: 'Credit Cards',
-            leading: const Icon(Icons.credit_card),
-            onTap: () => context.push(OBRoutes.creditCards),
-          ),
-        ),
-        const SliverToBoxAdapter(
-          child: OBListTile(
-            title: 'Goals',
-            leading: Icon(Icons.account_balance_wallet),
-          ),
-        ),
-        const SliverToBoxAdapter(
-          child: OBListTile(
-            title: 'Tags',
-            leading: Icon(Icons.tag),
-          ),
-        ),
+        // SliverToBoxAdapter(
+        //   child: OBListTile(
+        //     title: 'Credit Cards',
+        //     leading: const Icon(Icons.credit_card),
+        //     onTap: () => context.push(OBRoutes.creditCards),
+        //   ),
+        // ),
+        // const SliverToBoxAdapter(
+        //   child: OBListTile(
+        //     title: 'Goals',
+        //     leading: Icon(Icons.account_balance_wallet),
+        //   ),
+        // ),
+        // const SliverToBoxAdapter(
+        //   child: OBListTile(
+        //     title: 'Tags',
+        //     leading: Icon(Icons.tag),
+        //   ),
+        // ),
       ].withSpaceBetween(
         height: 16,
         isSliver: true,
