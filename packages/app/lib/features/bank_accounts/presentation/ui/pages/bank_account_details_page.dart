@@ -15,7 +15,7 @@ class BankAccountDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return OBScreen.secondary(
       title: 'Bank Account Details',
-      slivers: [
+      children: [
         SliverToBoxAdapter(
           child: BankAccountDetailsWidget(bankAccount: bankAccount),
         ),

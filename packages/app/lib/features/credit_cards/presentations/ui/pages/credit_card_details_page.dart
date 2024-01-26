@@ -15,7 +15,7 @@ class CreditCardDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return OBScreen.secondary(
       title: 'Credit Card Details',
-      slivers: [
+      children: [
         SliverToBoxAdapter(
           child: CreditCardDetailsWidget(creditCard: creditCard),
         ),

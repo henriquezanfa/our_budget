@@ -35,7 +35,7 @@ class CreditCardsListPageView extends StatelessWidget {
       actions: [
         CreateCreditCard.icon(),
       ],
-      slivers: const [
+      children: const [
         SliverToBoxAdapter(child: CreditCardsList()),
         SliverToBoxAdapter(child: SizedBox(height: 16)),
       ],

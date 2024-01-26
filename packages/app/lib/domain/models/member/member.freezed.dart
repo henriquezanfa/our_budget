@@ -21,6 +21,7 @@ Member _$MemberFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Member {
   String get email => throw _privateConstructorUsedError;
+  String get userId => throw _privateConstructorUsedError;
   PermissionsEnum get permission => throw _privateConstructorUsedError;
   InviteStatusEnum get status => throw _privateConstructorUsedError;
 
@@ -35,7 +36,10 @@ abstract class $MemberCopyWith<$Res> {
       _$MemberCopyWithImpl<$Res, Member>;
   @useResult
   $Res call(
-      {String email, PermissionsEnum permission, InviteStatusEnum status});
+      {String email,
+      String userId,
+      PermissionsEnum permission,
+      InviteStatusEnum status});
 }
 
 /// @nodoc
@@ -52,6 +56,7 @@ class _$MemberCopyWithImpl<$Res, $Val extends Member>
   @override
   $Res call({
     Object? email = null,
+    Object? userId = null,
     Object? permission = null,
     Object? status = null,
   }) {
@@ -59,6 +64,10 @@ class _$MemberCopyWithImpl<$Res, $Val extends Member>
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
               as String,
       permission: null == permission
           ? _value.permission
@@ -80,7 +89,10 @@ abstract class _$$MemberImplCopyWith<$Res> implements $MemberCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String email, PermissionsEnum permission, InviteStatusEnum status});
+      {String email,
+      String userId,
+      PermissionsEnum permission,
+      InviteStatusEnum status});
 }
 
 /// @nodoc
@@ -95,6 +107,7 @@ class __$$MemberImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? email = null,
+    Object? userId = null,
     Object? permission = null,
     Object? status = null,
   }) {
@@ -102,6 +115,10 @@ class __$$MemberImplCopyWithImpl<$Res>
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
               as String,
       permission: null == permission
           ? _value.permission
@@ -119,7 +136,10 @@ class __$$MemberImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$MemberImpl implements _Member {
   _$MemberImpl(
-      {required this.email, required this.permission, required this.status});
+      {required this.email,
+      required this.userId,
+      required this.permission,
+      required this.status});
 
   factory _$MemberImpl.fromJson(Map<String, dynamic> json) =>
       _$$MemberImplFromJson(json);
@@ -127,13 +147,15 @@ class _$MemberImpl implements _Member {
   @override
   final String email;
   @override
+  final String userId;
+  @override
   final PermissionsEnum permission;
   @override
   final InviteStatusEnum status;
 
   @override
   String toString() {
-    return 'Member(email: $email, permission: $permission, status: $status)';
+    return 'Member(email: $email, userId: $userId, permission: $permission, status: $status)';
   }
 
   @override
@@ -142,6 +164,7 @@ class _$MemberImpl implements _Member {
         (other.runtimeType == runtimeType &&
             other is _$MemberImpl &&
             (identical(other.email, email) || other.email == email) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.permission, permission) ||
                 other.permission == permission) &&
             (identical(other.status, status) || other.status == status));
@@ -149,7 +172,8 @@ class _$MemberImpl implements _Member {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, email, permission, status);
+  int get hashCode =>
+      Object.hash(runtimeType, email, userId, permission, status);
 
   @JsonKey(ignore: true)
   @override
@@ -168,6 +192,7 @@ class _$MemberImpl implements _Member {
 abstract class _Member implements Member {
   factory _Member(
       {required final String email,
+      required final String userId,
       required final PermissionsEnum permission,
       required final InviteStatusEnum status}) = _$MemberImpl;
 
@@ -175,6 +200,8 @@ abstract class _Member implements Member {
 
   @override
   String get email;
+  @override
+  String get userId;
   @override
   PermissionsEnum get permission;
   @override

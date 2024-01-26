@@ -8,6 +8,7 @@
       "name": "Launch development",
       "request": "launch",
       "type": "dart",
+      "preLaunchTask": "run firebase emulator",
       "program": "packages/app/lib/main_development.dart",
       "args": [
         "--flavor",

@@ -7,10 +7,12 @@ import 'package:ob/ui/widgets/widgets.dart';
 class BankAccountMembersWidget extends StatelessWidget {
   const BankAccountMembersWidget({
     required this.bankAccountId,
+    this.invitedMembersEmails,
     this.accountMembers,
     super.key,
   });
   final List<Member>? accountMembers;
+  final List<String>? invitedMembersEmails;
   final String bankAccountId;
 
   @override
@@ -30,6 +32,26 @@ class BankAccountMembersWidget extends StatelessWidget {
               contentPadding: EdgeInsets.zero,
               title: Text(accountMember.email),
               subtitle: Text(accountMember.email),
+            );
+          },
+        ),
+        ListView.builder(
+          shrinkWrap: true,
+          padding: EdgeInsets.zero,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: invitedMembersEmails?.length ?? 0,
+          itemBuilder: (context, index) {
+            final invitedMemberEmail = invitedMembersEmails![index];
+            return ListTile(
+              contentPadding: EdgeInsets.zero,
+              title: Text(invitedMemberEmail),
+              subtitle: Text(invitedMemberEmail),
+              trailing: Text(
+                'Invited',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+              ),
             );
           },
         ),

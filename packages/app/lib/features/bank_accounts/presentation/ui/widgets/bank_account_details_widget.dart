@@ -63,6 +63,7 @@ class _BankAccountDetailsWidgetState extends State<BankAccountDetailsView> {
           ),
           BankAccountMembersWidget(
             accountMembers: widget.bankAccount.members,
+            invitedMembersEmails: widget.bankAccount.invitedMembersEmails,
             bankAccountId: widget.bankAccount.id,
           ),
         ],

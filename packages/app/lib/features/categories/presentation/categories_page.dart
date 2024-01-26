@@ -42,7 +42,7 @@ class _CategoriesView extends StatelessWidget {
 
         return OBScreen.secondary(
           title: 'Categories',
-          slivers: [
+          children: [
             ...categories.map((c) {
               return SliverToBoxAdapter(
                 child: CategoryItemWidget(category: c),

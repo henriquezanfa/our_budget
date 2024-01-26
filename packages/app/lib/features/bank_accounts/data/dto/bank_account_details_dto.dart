@@ -20,7 +20,7 @@ class BankAccountDetailsDto {
         accountType = bankAccount.accountType,
         accountHolderName = bankAccount.accountHolderName,
         createdAt = bankAccount.createdAt,
-        members = bankAccount.members ?? [];
+        members = bankAccount.members;
 
   final String id;
   final String name;
@@ -40,7 +40,7 @@ class BankAccountDetailsDto {
       accountHolderName: accountHolderName,
       createdAt: createdAt,
       updatedAt: DateTime.now(),
-      members: members,
+      members: [],
     );
   }
 }

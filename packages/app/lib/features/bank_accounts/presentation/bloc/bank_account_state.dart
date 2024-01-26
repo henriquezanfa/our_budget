@@ -12,6 +12,11 @@ final class BankAccountLoaded extends BankAccountState {
   final List<BankAccount> bankAccounts;
 }
 
+final class InvitedBankAccountLoaded extends BankAccountState {
+  InvitedBankAccountLoaded(this.bankAccounts);
+  final List<BankAccount> bankAccounts;
+}
+
 final class NoBankAccount extends BankAccountState {}
 
 final class BankAccountError extends BankAccountState {

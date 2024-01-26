@@ -17,7 +17,8 @@ class BankAccount with _$BankAccount {
     required String accountHolderName,
     required DateTime createdAt,
     required DateTime updatedAt,
-    List<Member>? members,
+    required List<Member> members,
+    List<String>? invitedMembersEmails,
   }) = _BankAccount;
 
   factory BankAccount.fromJson(Map<String, dynamic> json) =>

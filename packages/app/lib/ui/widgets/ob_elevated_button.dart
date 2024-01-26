@@ -13,6 +13,11 @@ class OBElevatedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = MediaQuery.of(context).platformBrightness;
+    final isDarkMode = brightness == Brightness.dark;
+
+    final textColor = isDarkMode ? Colors.black : Colors.white;
+
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
@@ -26,7 +31,10 @@ class OBElevatedButton extends StatelessWidget {
                   strokeWidth: 2,
                 ),
               )
-            : Text(text),
+            : Text(
+                text,
+                style: TextStyle(color: textColor),
+              ),
       ),
     );
   }

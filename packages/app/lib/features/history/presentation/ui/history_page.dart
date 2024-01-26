@@ -9,7 +9,7 @@ class HistoryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return OBScreen.primary(
       title: 'History',
-      slivers: const [
+      children: const [
         SliverToBoxAdapter(
           child: TransactionsList(),
         ),

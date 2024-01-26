@@ -9,6 +9,7 @@ part 'member.g.dart';
 class Member with _$Member {
   factory Member({
     required String email,
+    required String userId,
     required PermissionsEnum permission,
     required InviteStatusEnum status,
   }) = _Member;

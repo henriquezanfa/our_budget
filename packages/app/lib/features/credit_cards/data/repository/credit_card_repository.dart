@@ -41,6 +41,7 @@ class CreditCardRepository {
       final creditCard = accountCreationDto.toCreditCard(userId, id);
 
       final owner = Member(
+        userId: userId,
         email: FirebaseAuth.instance.currentUser!.email!,
         permission: PermissionsEnum.owner,
         status: InviteStatusEnum.accepted,
@@ -65,6 +66,7 @@ class CreditCardRepository {
   ) async {
     try {
       final accountMember = Member(
+        userId: '',
         email: inviteEmail,
         permission: PermissionsEnum.readWrite,
         status: InviteStatusEnum.pending,

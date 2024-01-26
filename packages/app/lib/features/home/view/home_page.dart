@@ -10,7 +10,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return OBScreen.primary(
       title: 'Hello, there 👋',
-      slivers: [
+      children: [
         const SliverToBoxAdapter(
           child: BalanceWidget(),
         ),

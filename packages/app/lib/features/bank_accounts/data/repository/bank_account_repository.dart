@@ -38,16 +38,15 @@ class BankAccountRepository {
 
       final userId = FirebaseAuth.instance.currentUser!.uid;
       final id = uuid.v4();
-      final bankAccount = accountCreationDto.toBankAccount(userId, id);
-
       final owner = Member(
+        userId: userId,
         email: FirebaseAuth.instance.currentUser!.email!,
         permission: PermissionsEnum.owner,
         status: InviteStatusEnum.accepted,
       );
+      final bankAccount = accountCreationDto.toBankAccount(userId, id, [owner]);
 
       await _bankAccountDataSource.createBankAccount(bankAccount);
-      await _bankAccountDataSource.addBankAccountMember(bankAccount.id, owner);
       return right(null);
     } catch (e) {
       return left(
@@ -65,6 +64,7 @@ class BankAccountRepository {
   ) async {
     try {
       final accountMember = Member(
+        userId: '',
         email: inviteEmail,
         permission: PermissionsEnum.readWrite,
         status: InviteStatusEnum.pending,
@@ -75,6 +75,46 @@ class BankAccountRepository {
       );
       return right(null);
     } catch (e) {
+      return left(
+        OBError(
+          userMessage: ErrorMessages.somethingWentWrong,
+          message: e.toString(),
+        ),
+      );
+    }
+  }
+
+  Future<Either<OBError, List<BankAccount>>> getInvitedBankAccounts() async {
+    try {
+      final userId = FirebaseAuth.instance.currentUser!.email!;
+      final bankAccounts =
+          await _bankAccountDataSource.getInvitedBankAccounts(userId);
+      return right(bankAccounts);
+    } catch (e) {
+      debugPrint(e.toString());
+      return left(
+        OBError(
+          userMessage: ErrorMessages.somethingWentWrong,
+          message: e.toString(),
+        ),
+      );
+    }
+  }
+
+  Future<Either<OBError, void>> acceptInvitation(
+    String bankAccountId,
+  ) async {
+    try {
+      final userId = FirebaseAuth.instance.currentUser!.uid;
+      final userEmail = FirebaseAuth.instance.currentUser!.email!;
+      await _bankAccountDataSource.acceptInvitation(
+        bankAccountId,
+        userId,
+        userEmail,
+      );
+      return right(null);
+    } catch (e) {
+      debugPrint(e.toString());
       return left(
         OBError(
           userMessage: ErrorMessages.somethingWentWrong,

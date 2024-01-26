@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:ob/ui/theme/ob_colors.dart';
 import 'package:ob/ui/theme/ob_sizes.dart';
 
-final lightTheme = ThemeData(
+final _theme = ThemeData(
   fontFamily: 'Poppins',
+);
+
+final lightTheme = _theme.copyWith(
   colorScheme: const ColorScheme.light(
     primary: OBColors.primary,
     secondary: OBColors.secondary,
     background: OBColors.background,
   ),
-  textTheme: const TextTheme(
-    headlineSmall: TextStyle(fontSize: 20),
+  textTheme: _theme.textTheme.apply(
+    bodyColor: OBColors.text,
+    displayColor: OBColors.text,
   ),
   scaffoldBackgroundColor: OBColors.background,
   appBarTheme: const AppBarTheme(
@@ -46,6 +50,10 @@ final lightTheme = ThemeData(
         borderRadius: BorderRadius.circular(OBSizes.medium),
       ),
       padding: const EdgeInsets.all(OBSizes.medium),
+      textStyle: const TextStyle(
+        color: Colors.white,
+        fontWeight: FontWeight.w600,
+      ),
     ),
   ),
   iconTheme: const IconThemeData(color: OBColors.primary),
@@ -76,6 +84,7 @@ final darkTheme = ThemeData(
       borderRadius: BorderRadius.circular(12),
     ),
     filled: true,
+    fillColor: OBDarkColors.background,
     contentPadding: const EdgeInsets.symmetric(
       horizontal: OBSizes.medium,
       vertical: OBSizes.small,
@@ -92,6 +101,9 @@ final darkTheme = ThemeData(
       ),
       padding: const EdgeInsets.all(OBSizes.medium),
     ),
+  ),
+  floatingActionButtonTheme: const FloatingActionButtonThemeData(
+    backgroundColor: OBDarkColors.primary,
   ),
   iconTheme: const IconThemeData(color: OBDarkColors.primary),
   listTileTheme: const ListTileThemeData(

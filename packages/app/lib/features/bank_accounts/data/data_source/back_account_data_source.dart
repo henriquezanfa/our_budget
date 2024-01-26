@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:ob/core/client/constants.dart';
 import 'package:ob/core/types/ob_types.dart';
 import 'package:ob/domain/domain.dart';
@@ -14,23 +13,15 @@ class BankAccountDataSource {
   Future<List<BankAccount>> getBankAccounts(UserId userId) async {
     final query = _firestore
         .collection(OBCollections.bankAccount)
-        .where('userId', isEqualTo: userId);
+        .where('membersIds', arrayContainsAny: [userId]);
 
     final data = await query.get();
 
-    final accountsWithMembers = await Future.wait(
-      data.docs.map((doc) async {
-        try {
-          final members = await getBankAccountMembers(doc.id);
-          return BankAccount.fromJson(doc.data()).copyWith(members: members);
-        } catch (e, s) {
-          debugPrintStack(stackTrace: s, label: e.toString());
-          rethrow;
-        }
-      }),
-    );
-
-    return accountsWithMembers;
+    return data.docs.map((doc) {
+      final data = doc.data();
+      final account = BankAccount.fromJson(data);
+      return account;
+    }).toList();
   }
 
   Future<void> createBankAccount(BankAccount bankAccount) async {
@@ -39,28 +30,16 @@ class BankAccountDataSource {
     await doc.set(bankAccount.toJson());
   }
 
-  Future<void> addBankAccountMember(
-    String bankAccountId,
-    Member accountMember,
-  ) async {
-    final doc = _firestore
-        .collection(OBCollections.bankAccount)
-        .doc(bankAccountId)
-        .collection(OBCollections.members)
-        .doc();
-    await doc.set(accountMember.toJson());
-  }
-
   Future<void> inviteMember(
     String bankAccountId,
     Member accountMember,
   ) async {
-    final doc = _firestore
-        .collection(OBCollections.bankAccount)
-        .doc(bankAccountId)
-        .collection(OBCollections.members)
-        .doc();
-    await doc.set(accountMember.toJson());
+    final doc =
+        _firestore.collection(OBCollections.bankAccount).doc(bankAccountId);
+
+    await doc.update({
+      'invitedMembersEmails': FieldValue.arrayUnion([accountMember.email]),
+    });
   }
 
   Future<List<Member>> getBankAccountMembers(
@@ -76,5 +55,41 @@ class BankAccountDataSource {
         .toList(growable: false);
 
     return members;
+  }
+
+  Future<List<BankAccount>> getInvitedBankAccounts(String userEmail) async {
+    final query = _firestore
+        .collection(OBCollections.bankAccount)
+        .where('invitedMembersEmails', arrayContainsAny: [userEmail]);
+
+    final data = await query.get();
+
+    return data.docs.map((doc) {
+      final data = doc.data();
+      final account = BankAccount.fromJson(data);
+      return account;
+    }).toList();
+  }
+
+  Future<void> acceptInvitation(
+    String bankAccountId,
+    String userId,
+    String userEmail,
+  ) async {
+    final doc =
+        _firestore.collection(OBCollections.bankAccount).doc(bankAccountId);
+
+    await doc.update({
+      'membersIds': FieldValue.arrayUnion([userId]),
+      'members': FieldValue.arrayUnion([
+        {
+          'userId': userId,
+          'email': userEmail,
+          'permission': PermissionsEnum.readWrite.name,
+          'status': InviteStatusEnum.accepted.name,
+        }
+      ]),
+      'invitedMembersEmails': FieldValue.arrayRemove([userEmail]),
+    });
   }
 }

@@ -20,7 +20,7 @@ class ManagePageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return OBScreen.primary(
       title: 'Manage',
-      slivers: [
+      children: [
         SliverToBoxAdapter(
           child: OBListTile(
             title: 'Bank Accounts',

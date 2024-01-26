@@ -71,7 +71,7 @@ class _CreateCreditCardModalState extends State<_CreateCreditCardModal> {
   Widget build(BuildContext context) {
     return OBScreen.secondary(
       title: 'Create credit card',
-      slivers: [
+      children: [
         SliverToBoxAdapter(
           child: TextFormField(
             controller: _limitController,

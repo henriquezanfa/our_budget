@@ -7,7 +7,7 @@ enum OBScreenType {
 
 class OBScreen extends StatelessWidget {
   factory OBScreen.primary({
-    List<Widget>? slivers,
+    List<Widget>? children,
     String? title,
     List<Widget>? actions,
     SliverAppBar? appBar,
@@ -16,14 +16,14 @@ class OBScreen extends StatelessWidget {
     return OBScreen._(
       title: title,
       actions: actions,
-      slivers: slivers,
       appBar: appBar,
       onRefresh: onRefresh,
+      children: children,
     );
   }
 
   factory OBScreen.secondary({
-    List<Widget>? slivers,
+    List<Widget>? children,
     String? title,
     List<Widget>? actions,
     SliverAppBar? appBar,
@@ -33,16 +33,16 @@ class OBScreen extends StatelessWidget {
     return OBScreen._(
       title: title,
       actions: actions,
-      slivers: slivers,
       appBar: appBar,
       onRefresh: onRefresh,
       type: OBScreenType.secondary,
       bottomWidget: bottomWidget,
+      children: children,
     );
   }
 
   const OBScreen._({
-    this.slivers,
+    this.children,
     this.title,
     this.actions,
     this.appBar,
@@ -52,7 +52,7 @@ class OBScreen extends StatelessWidget {
   }) : assert(title != null || appBar != null, 'title or appBar must be set');
   final String? title;
   final List<Widget>? actions;
-  final List<Widget>? slivers;
+  final List<Widget>? children;
   final SliverAppBar? appBar;
   final VoidCallback? onRefresh;
   final OBScreenType type;
@@ -62,11 +62,11 @@ class OBScreen extends StatelessWidget {
     return CustomScrollView(
       slivers: [
         _buildAppBar(),
-        if (slivers != null)
+        if (children != null)
           const SliverPadding(padding: EdgeInsets.only(top: 16)),
         // add padding in all slivers
-        if (slivers != null)
-          ...slivers!.map(
+        if (children != null)
+          ...children!.map(
             (sliver) => SliverPadding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               sliver: sliver,

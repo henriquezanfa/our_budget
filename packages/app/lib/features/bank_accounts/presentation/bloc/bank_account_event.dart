@@ -17,3 +17,12 @@ class InviteMember extends BankAccountEvent {
   final String accountId;
   final String email;
 }
+
+class GetInvitedBankAccounts extends BankAccountEvent {
+  GetInvitedBankAccounts();
+}
+
+class AcceptInvitation extends BankAccountEvent {
+  AcceptInvitation(this.bankAccountId);
+  final String bankAccountId;
+}

@@ -18,7 +18,7 @@ class AddTransactionPage extends StatelessWidget {
       )..add(GetAccountsAndCategoriesEvent()),
       child: OBScreen.secondary(
         title: 'New Transaction',
-        slivers: const [SliverToBoxAdapter(child: UpsertTransactionWidget())],
+        children: const [SliverToBoxAdapter(child: UpsertTransactionWidget())],
       ),
     );
   }

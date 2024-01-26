@@ -8,6 +8,7 @@ part of 'member.dart';
 
 _$MemberImpl _$$MemberImplFromJson(Map<String, dynamic> json) => _$MemberImpl(
       email: json['email'] as String,
+      userId: json['userId'] as String,
       permission: $enumDecode(_$PermissionsEnumEnumMap, json['permission']),
       status: $enumDecode(_$InviteStatusEnumEnumMap, json['status']),
     );
@@ -15,6 +16,7 @@ _$MemberImpl _$$MemberImplFromJson(Map<String, dynamic> json) => _$MemberImpl(
 Map<String, dynamic> _$$MemberImplToJson(_$MemberImpl instance) =>
     <String, dynamic>{
       'email': instance.email,
+      'userId': instance.userId,
       'permission': _$PermissionsEnumEnumMap[instance.permission]!,
       'status': _$InviteStatusEnumEnumMap[instance.status]!,
     };
