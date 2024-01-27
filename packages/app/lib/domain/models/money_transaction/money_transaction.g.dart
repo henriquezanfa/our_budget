@@ -18,8 +18,8 @@ _$MoneyTransactionImpl _$$MoneyTransactionImplFromJson(
           ? null
           : TransactionCategory.fromJson(
               json['category'] as Map<String, dynamic>),
+      accountId: json['accountId'] as String,
       description: json['description'] as String?,
-      accountId: json['accountId'] as String?,
     );
 
 Map<String, dynamic> _$$MoneyTransactionImplToJson(
@@ -31,8 +31,8 @@ Map<String, dynamic> _$$MoneyTransactionImplToJson(
       'date': instance.date.toIso8601String(),
       'type': _$MoneyTransactionTypeEnumMap[instance.type]!,
       'category': instance.category?.toJson(),
-      'description': instance.description,
       'accountId': instance.accountId,
+      'description': instance.description,
     };
 
 const _$MoneyTransactionTypeEnumMap = {

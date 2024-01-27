@@ -7,10 +7,11 @@ class BalanceDataSource {
 
   final FirebaseFirestore _firestore;
 
-  Stream<Balance> getBalance(String userId) {
+  Stream<Balance> getBalance(String userId, List<String> bankAccountsIds) {
     final transactionCollection = _firestore
         .collection('transactions')
-        .where('userId', isEqualTo: userId);
+        .where('accountId', whereIn: bankAccountsIds)
+        .orderBy('date', descending: true);
 
     return transactionCollection.snapshots().map((snapshot) {
       return snapshot.docs.fold(

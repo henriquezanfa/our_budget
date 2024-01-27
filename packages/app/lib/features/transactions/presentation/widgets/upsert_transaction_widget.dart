@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ob/core/di/di.dart';
 import 'package:ob/domain/models/money_transaction/money_transaction.dart';
 import 'package:ob/domain/models/transaction_category/transaction_category.dart';
+import 'package:ob/features/bank_accounts/domain/model/bank_account.dart';
 import 'package:ob/features/transactions/presentation/bloc/transactions_bloc.dart';
 import 'package:ob/ui/extensions/list_extensions.dart';
 import 'package:ob/ui/widgets/widgets.dart';
@@ -44,7 +45,8 @@ class _TransactionViewState extends State<_TransactionView> {
   late final TextEditingController _amountController;
   late final TextEditingController _descriptionController;
 
-  String? _selectedAccount;
+  String? _selectedAccountId;
+  String? _selectedAccountName;
   TransactionCategory? _category;
   MoneyTransactionType? _type;
   DateTime? _selectedDate;
@@ -60,7 +62,7 @@ class _TransactionViewState extends State<_TransactionView> {
     _descriptionController =
         TextEditingController(text: transaction?.description);
 
-    _selectedAccount = transaction?.accountId;
+    _selectedAccountId = transaction?.accountId;
     _category = transaction?.category;
     _type = transaction?.type;
     _selectedDate = transaction?.date ?? DateTime.now();
@@ -72,7 +74,7 @@ class _TransactionViewState extends State<_TransactionView> {
   @override
   Widget build(BuildContext context) {
     var categories = <TransactionCategory>[];
-    var accounts = <String>[];
+    var accounts = <BankAccount>[];
 
     return BlocListener<TransactionsBloc, TransactionsState>(
       listener: (context, state) {
@@ -143,10 +145,15 @@ class _TransactionViewState extends State<_TransactionView> {
 
               return OBFieldSelection(
                 labelText: 'Account',
-                items: accounts,
-                initialSelectedItem: _selectedAccount,
+                items: accounts.map((e) => e.name).toList(),
+                initialSelectedItem: _selectedAccountName,
                 onSelectionChanged: (selection) => setState(() {
-                  _selectedAccount = selection;
+                  _selectedAccountId = accounts
+                      .firstWhereOrNull(
+                        (element) => element.name == selection,
+                      )
+                      ?.id;
+                  _selectedAccountName = selection;
                 }),
               );
             },
@@ -165,7 +172,7 @@ class _TransactionViewState extends State<_TransactionView> {
       context.read<TransactionsBloc>().add(
             UpdateTransaction(
               id: widget.transaction!.id,
-              account: _selectedAccount,
+              account: _selectedAccountId,
               amount: double.tryParse(_amountController.text),
               category: _category,
               date: _selectedDate,
@@ -177,7 +184,7 @@ class _TransactionViewState extends State<_TransactionView> {
     } else {
       context.read<TransactionsBloc>().add(
             CreateTransaction(
-              account: _selectedAccount,
+              account: _selectedAccountId,
               amount: double.tryParse(_amountController.text),
               category: _category,
               date: _selectedDate,

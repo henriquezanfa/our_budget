@@ -5,7 +5,10 @@ import 'package:ob/features/transactions/data/repository/transactions_repository
 void injectTransactions() {
   inject
     ..registerLazySingleton<TransactionsDataSource>(
-      () => TransactionsDataSource(firestore: inject()),
+      () => TransactionsDataSource(
+        firestore: inject(),
+        bankAccountDataSource: inject(),
+      ),
     )
     ..registerLazySingleton<TransactionsRepository>(
       () => TransactionsRepository(dataSource: inject()),

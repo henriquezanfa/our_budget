@@ -21,8 +21,8 @@ class MoneyTransaction with _$MoneyTransaction {
     required DateTime date,
     required MoneyTransactionType type,
     required TransactionCategory? category,
+    required String accountId,
     String? description,
-    String? accountId,
   }) = _MoneyTransaction;
 
   factory MoneyTransaction.fromJson(Map<String, dynamic> json) =>

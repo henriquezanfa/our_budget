@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ob/domain/models/money_transaction/money_transaction.dart';
+import 'package:ob/features/bank_accounts/data/data_source/back_account_data_source.dart';
 import 'package:rxdart/rxdart.dart';
 
 const _transactionsCollection = 'transactions';
@@ -9,25 +11,41 @@ const _transactionsCollection = 'transactions';
 class TransactionsDataSource {
   TransactionsDataSource({
     required FirebaseFirestore firestore,
-  }) : _firestore = firestore {
+    required BankAccountDataSource bankAccountDataSource,
+  })  : _firestore = firestore,
+        _bankAccountDataSource = bankAccountDataSource {
     _init();
   }
 
-  void _init() {
-    _firestore
-        .collection(_transactionsCollection)
-        .orderBy('date', descending: true)
-        .snapshots()
-        .listen((event) {
-      final transactions = event.docs
-          .map((doc) => MoneyTransaction.fromJson(doc.data()))
-          .toList();
+  Future<void> _init() async {
+    FirebaseAuth.instance.authStateChanges().listen((event) async {
+      if (event == null) {
+        _todoStreamController.add(const []);
+        return;
+      }
 
-      _todoStreamController.add(transactions);
+      final userId = event.uid;
+      final bankAccountsIds =
+          await _bankAccountDataSource.getBankAccounts(userId);
+      final bankAccountsIdsList = bankAccountsIds.map((e) => e.id).toList();
+
+      _firestore
+          .collection(_transactionsCollection)
+          .where('accountId', whereIn: bankAccountsIdsList)
+          .orderBy('date', descending: true)
+          .snapshots()
+          .listen((event) {
+        final transactions = event.docs
+            .map((doc) => MoneyTransaction.fromJson(doc.data()))
+            .toList();
+
+        _todoStreamController.add(transactions);
+      });
     });
   }
 
   final FirebaseFirestore _firestore;
+  final BankAccountDataSource _bankAccountDataSource;
 
   final _todoStreamController =
       BehaviorSubject<List<MoneyTransaction>>.seeded(const []);

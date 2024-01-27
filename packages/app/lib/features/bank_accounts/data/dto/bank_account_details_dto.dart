@@ -40,7 +40,8 @@ class BankAccountDetailsDto {
       accountHolderName: accountHolderName,
       createdAt: createdAt,
       updatedAt: DateTime.now(),
-      members: [],
+      members: members,
+      membersIds: members.map((e) => e.userId).toList(),
     );
   }
 }

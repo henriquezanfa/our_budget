@@ -29,6 +29,7 @@ class BankAccountCreationDto {
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
       members: members,
+      membersIds: members.map((e) => e.userId).toList(),
     );
   }
 }

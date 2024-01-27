@@ -11,7 +11,7 @@ final class AccountsAndCategoriesState extends TransactionsState {
     required this.categories,
   });
 
-  final List<String> accounts;
+  final List<BankAccount> accounts;
   final List<TransactionCategory> categories;
 }
 

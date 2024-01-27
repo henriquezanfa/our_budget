@@ -18,6 +18,7 @@ class BankAccount with _$BankAccount {
     required DateTime createdAt,
     required DateTime updatedAt,
     required List<Member> members,
+    required List<String>? membersIds,
     List<String>? invitedMembersEmails,
   }) = _BankAccount;
 

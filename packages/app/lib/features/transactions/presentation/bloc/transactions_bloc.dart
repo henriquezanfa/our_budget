@@ -5,6 +5,7 @@ import 'package:meta/meta.dart';
 import 'package:ob/domain/models/money_transaction/money_transaction.dart';
 import 'package:ob/domain/models/transaction_category/transaction_category.dart';
 import 'package:ob/features/bank_accounts/data/repository/bank_account_repository.dart';
+import 'package:ob/features/bank_accounts/domain/model/bank_account.dart';
 import 'package:ob/features/categories/data/repositories/categories_repository.dart';
 import 'package:ob/features/transactions/data/dto/money_transaction_dto.dart';
 import 'package:ob/features/transactions/data/repository/transactions_repository.dart';
@@ -36,8 +37,8 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
     final bankAccounts = await _bankAccountRepository.getBankAccounts().then(
       (value) {
         return value.fold(
-          (l) => <String>[],
-          (r) => r.map((e) => e.name),
+          (l) => <BankAccount>[],
+          (r) => r.map((e) => e),
         );
       },
     );

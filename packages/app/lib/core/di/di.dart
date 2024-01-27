@@ -11,9 +11,14 @@ final inject = GetIt.instance;
 void registerDependencies() {
   inject.registerLazySingleton(() => FirebaseFirestore.instance);
 
-  injectBalance();
   injectBankAccountsDependencies();
+  injectBalance();
   registerCreditCardDependencies();
   injectTransactions();
   injectCategories();
+}
+
+void resetDependencies() {
+  inject.reset();
+  registerDependencies();
 }

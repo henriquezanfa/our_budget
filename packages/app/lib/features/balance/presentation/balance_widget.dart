@@ -12,7 +12,7 @@ class BalanceWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => BalanceBloc(inject())..add(GetBalance()),
+      create: (_) => BalanceBloc(inject(), inject())..add(GetBalance()),
       child: const _BalanceView(),
     );
   }

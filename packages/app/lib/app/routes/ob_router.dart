@@ -27,6 +27,9 @@ final _accountsNavigatorKey = GlobalKey<NavigatorState>();
 final router = GoRouter(
   initialLocation: OBRoutes.root,
   navigatorKey: _rootNavigatorKey,
+  observers: [
+   NavigatorObserver()
+  ],
   routes: [
     GoRoute(
       path: OBRoutes.root,
@@ -131,4 +134,18 @@ MaterialPage<T> _modalTransitionBuilder<T>(
     child: child,
     fullscreenDialog: true,
   );
+}
+
+
+// navigator observer to reset the state of the nested navigators
+class CustomNavigatorObserver extends NavigatorObserver {
+  @override
+  void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    if (route.settings.name == OBRoutes.root) {
+      _homeNavigatorKey.currentState?.popUntil((route) => route.isFirst);
+      _historyNavigatorKey.currentState?.popUntil((route) => route.isFirst);
+      _accountsNavigatorKey.currentState?.popUntil((route) => route.isFirst);
+      _profileNavigatorKey.currentState?.popUntil((route) => route.isFirst);
+    }
+  }
 }

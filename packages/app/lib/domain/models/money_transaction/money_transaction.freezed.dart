@@ -26,8 +26,8 @@ mixin _$MoneyTransaction {
   DateTime get date => throw _privateConstructorUsedError;
   MoneyTransactionType get type => throw _privateConstructorUsedError;
   TransactionCategory? get category => throw _privateConstructorUsedError;
+  String get accountId => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
-  String? get accountId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -48,8 +48,8 @@ abstract class $MoneyTransactionCopyWith<$Res> {
       DateTime date,
       MoneyTransactionType type,
       TransactionCategory? category,
-      String? description,
-      String? accountId});
+      String accountId,
+      String? description});
 
   $TransactionCategoryCopyWith<$Res>? get category;
 }
@@ -73,8 +73,8 @@ class _$MoneyTransactionCopyWithImpl<$Res, $Val extends MoneyTransaction>
     Object? date = null,
     Object? type = null,
     Object? category = freezed,
+    Object? accountId = null,
     Object? description = freezed,
-    Object? accountId = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -101,13 +101,13 @@ class _$MoneyTransactionCopyWithImpl<$Res, $Val extends MoneyTransaction>
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as TransactionCategory?,
+      accountId: null == accountId
+          ? _value.accountId
+          : accountId // ignore: cast_nullable_to_non_nullable
+              as String,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-      accountId: freezed == accountId
-          ? _value.accountId
-          : accountId // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -140,8 +140,8 @@ abstract class _$$MoneyTransactionImplCopyWith<$Res>
       DateTime date,
       MoneyTransactionType type,
       TransactionCategory? category,
-      String? description,
-      String? accountId});
+      String accountId,
+      String? description});
 
   @override
   $TransactionCategoryCopyWith<$Res>? get category;
@@ -164,8 +164,8 @@ class __$$MoneyTransactionImplCopyWithImpl<$Res>
     Object? date = null,
     Object? type = null,
     Object? category = freezed,
+    Object? accountId = null,
     Object? description = freezed,
-    Object? accountId = freezed,
   }) {
     return _then(_$MoneyTransactionImpl(
       id: null == id
@@ -192,13 +192,13 @@ class __$$MoneyTransactionImplCopyWithImpl<$Res>
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as TransactionCategory?,
+      accountId: null == accountId
+          ? _value.accountId
+          : accountId // ignore: cast_nullable_to_non_nullable
+              as String,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-      accountId: freezed == accountId
-          ? _value.accountId
-          : accountId // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -214,8 +214,8 @@ class _$MoneyTransactionImpl implements _MoneyTransaction {
       required this.date,
       required this.type,
       required this.category,
-      this.description,
-      this.accountId});
+      required this.accountId,
+      this.description});
 
   factory _$MoneyTransactionImpl.fromJson(Map<String, dynamic> json) =>
       _$$MoneyTransactionImplFromJson(json);
@@ -233,13 +233,13 @@ class _$MoneyTransactionImpl implements _MoneyTransaction {
   @override
   final TransactionCategory? category;
   @override
-  final String? description;
+  final String accountId;
   @override
-  final String? accountId;
+  final String? description;
 
   @override
   String toString() {
-    return 'MoneyTransaction(id: $id, userId: $userId, amount: $amount, date: $date, type: $type, category: $category, description: $description, accountId: $accountId)';
+    return 'MoneyTransaction(id: $id, userId: $userId, amount: $amount, date: $date, type: $type, category: $category, accountId: $accountId, description: $description)';
   }
 
   @override
@@ -254,16 +254,16 @@ class _$MoneyTransactionImpl implements _MoneyTransaction {
             (identical(other.type, type) || other.type == type) &&
             (identical(other.category, category) ||
                 other.category == category) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
             (identical(other.accountId, accountId) ||
-                other.accountId == accountId));
+                other.accountId == accountId) &&
+            (identical(other.description, description) ||
+                other.description == description));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, userId, amount, date, type,
-      category, description, accountId);
+      category, accountId, description);
 
   @JsonKey(ignore: true)
   @override
@@ -288,8 +288,8 @@ abstract class _MoneyTransaction implements MoneyTransaction {
       required final DateTime date,
       required final MoneyTransactionType type,
       required final TransactionCategory? category,
-      final String? description,
-      final String? accountId}) = _$MoneyTransactionImpl;
+      required final String accountId,
+      final String? description}) = _$MoneyTransactionImpl;
 
   factory _MoneyTransaction.fromJson(Map<String, dynamic> json) =
       _$MoneyTransactionImpl.fromJson;
@@ -307,9 +307,9 @@ abstract class _MoneyTransaction implements MoneyTransaction {
   @override
   TransactionCategory? get category;
   @override
-  String? get description;
+  String get accountId;
   @override
-  String? get accountId;
+  String? get description;
   @override
   @JsonKey(ignore: true)
   _$$MoneyTransactionImplCopyWith<_$MoneyTransactionImpl> get copyWith =>

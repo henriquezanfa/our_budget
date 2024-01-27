@@ -29,6 +29,7 @@ mixin _$BankAccount {
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
   List<Member> get members => throw _privateConstructorUsedError;
+  List<String>? get membersIds => throw _privateConstructorUsedError;
   List<String>? get invitedMembersEmails => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -53,6 +54,7 @@ abstract class $BankAccountCopyWith<$Res> {
       DateTime createdAt,
       DateTime updatedAt,
       List<Member> members,
+      List<String>? membersIds,
       List<String>? invitedMembersEmails});
 }
 
@@ -78,6 +80,7 @@ class _$BankAccountCopyWithImpl<$Res, $Val extends BankAccount>
     Object? createdAt = null,
     Object? updatedAt = null,
     Object? members = null,
+    Object? membersIds = freezed,
     Object? invitedMembersEmails = freezed,
   }) {
     return _then(_value.copyWith(
@@ -117,6 +120,10 @@ class _$BankAccountCopyWithImpl<$Res, $Val extends BankAccount>
           ? _value.members
           : members // ignore: cast_nullable_to_non_nullable
               as List<Member>,
+      membersIds: freezed == membersIds
+          ? _value.membersIds
+          : membersIds // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       invitedMembersEmails: freezed == invitedMembersEmails
           ? _value.invitedMembersEmails
           : invitedMembersEmails // ignore: cast_nullable_to_non_nullable
@@ -143,6 +150,7 @@ abstract class _$$BankAccountImplCopyWith<$Res>
       DateTime createdAt,
       DateTime updatedAt,
       List<Member> members,
+      List<String>? membersIds,
       List<String>? invitedMembersEmails});
 }
 
@@ -166,6 +174,7 @@ class __$$BankAccountImplCopyWithImpl<$Res>
     Object? createdAt = null,
     Object? updatedAt = null,
     Object? members = null,
+    Object? membersIds = freezed,
     Object? invitedMembersEmails = freezed,
   }) {
     return _then(_$BankAccountImpl(
@@ -205,6 +214,10 @@ class __$$BankAccountImplCopyWithImpl<$Res>
           ? _value._members
           : members // ignore: cast_nullable_to_non_nullable
               as List<Member>,
+      membersIds: freezed == membersIds
+          ? _value._membersIds
+          : membersIds // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       invitedMembersEmails: freezed == invitedMembersEmails
           ? _value._invitedMembersEmails
           : invitedMembersEmails // ignore: cast_nullable_to_non_nullable
@@ -226,8 +239,10 @@ class _$BankAccountImpl with DiagnosticableTreeMixin implements _BankAccount {
       required this.createdAt,
       required this.updatedAt,
       required final List<Member> members,
+      required final List<String>? membersIds,
       final List<String>? invitedMembersEmails})
       : _members = members,
+        _membersIds = membersIds,
         _invitedMembersEmails = invitedMembersEmails;
 
   factory _$BankAccountImpl.fromJson(Map<String, dynamic> json) =>
@@ -257,6 +272,16 @@ class _$BankAccountImpl with DiagnosticableTreeMixin implements _BankAccount {
     return EqualUnmodifiableListView(_members);
   }
 
+  final List<String>? _membersIds;
+  @override
+  List<String>? get membersIds {
+    final value = _membersIds;
+    if (value == null) return null;
+    if (_membersIds is EqualUnmodifiableListView) return _membersIds;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   final List<String>? _invitedMembersEmails;
   @override
   List<String>? get invitedMembersEmails {
@@ -270,7 +295,7 @@ class _$BankAccountImpl with DiagnosticableTreeMixin implements _BankAccount {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'BankAccount(id: $id, userId: $userId, name: $name, currency: $currency, accountType: $accountType, accountHolderName: $accountHolderName, createdAt: $createdAt, updatedAt: $updatedAt, members: $members, invitedMembersEmails: $invitedMembersEmails)';
+    return 'BankAccount(id: $id, userId: $userId, name: $name, currency: $currency, accountType: $accountType, accountHolderName: $accountHolderName, createdAt: $createdAt, updatedAt: $updatedAt, members: $members, membersIds: $membersIds, invitedMembersEmails: $invitedMembersEmails)';
   }
 
   @override
@@ -287,6 +312,7 @@ class _$BankAccountImpl with DiagnosticableTreeMixin implements _BankAccount {
       ..add(DiagnosticsProperty('createdAt', createdAt))
       ..add(DiagnosticsProperty('updatedAt', updatedAt))
       ..add(DiagnosticsProperty('members', members))
+      ..add(DiagnosticsProperty('membersIds', membersIds))
       ..add(DiagnosticsProperty('invitedMembersEmails', invitedMembersEmails));
   }
 
@@ -310,6 +336,8 @@ class _$BankAccountImpl with DiagnosticableTreeMixin implements _BankAccount {
                 other.updatedAt == updatedAt) &&
             const DeepCollectionEquality().equals(other._members, _members) &&
             const DeepCollectionEquality()
+                .equals(other._membersIds, _membersIds) &&
+            const DeepCollectionEquality()
                 .equals(other._invitedMembersEmails, _invitedMembersEmails));
   }
 
@@ -326,6 +354,7 @@ class _$BankAccountImpl with DiagnosticableTreeMixin implements _BankAccount {
       createdAt,
       updatedAt,
       const DeepCollectionEquality().hash(_members),
+      const DeepCollectionEquality().hash(_membersIds),
       const DeepCollectionEquality().hash(_invitedMembersEmails));
 
   @JsonKey(ignore: true)
@@ -353,6 +382,7 @@ abstract class _BankAccount implements BankAccount {
       required final DateTime createdAt,
       required final DateTime updatedAt,
       required final List<Member> members,
+      required final List<String>? membersIds,
       final List<String>? invitedMembersEmails}) = _$BankAccountImpl;
 
   factory _BankAccount.fromJson(Map<String, dynamic> json) =
@@ -376,6 +406,8 @@ abstract class _BankAccount implements BankAccount {
   DateTime get updatedAt;
   @override
   List<Member> get members;
+  @override
+  List<String>? get membersIds;
   @override
   List<String>? get invitedMembersEmails;
   @override
