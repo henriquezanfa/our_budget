@@ -21,7 +21,11 @@ Future<void> registerDependencies() async {
     ..registerLazySingleton(() => FirebaseAuth.instance)
     ..registerLazySingleton(() => AuthRepository(auth: inject<FirebaseAuth>()));
 
+  // Must be called before any other feature dependencies
+  // to ensure that the space is set before any other feature
+  // and before the [SpaceRepository] is used.
   injectSpace();
+
   injectBankAccountsDependencies();
   injectBalance();
   registerCreditCardDependencies();

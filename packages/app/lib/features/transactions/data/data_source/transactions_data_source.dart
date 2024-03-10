@@ -24,23 +24,24 @@ class TransactionsDataSource {
         return;
       }
 
-      final userId = event.uid;
-      final bankAccountsIds =
-          await _bankAccountDataSource.getBankAccounts(userId);
-      final bankAccountsIdsList = bankAccountsIds.map((e) => e.id).toList();
+      // TODO: Implement this
+      // final userId = event.uid;
+      // final bankAccountsIds =
+      //     await _bankAccountDataSource.getBankAccounts(userId);
+      // final bankAccountsIdsList = bankAccountsIds.map((e) => e.id).toList();
 
-      _firestore
-          .collection(_transactionsCollection)
-          .where('accountId', whereIn: bankAccountsIdsList)
-          .orderBy('date', descending: true)
-          .snapshots()
-          .listen((event) {
-        final transactions = event.docs
-            .map((doc) => MoneyTransaction.fromJson(doc.data()))
-            .toList();
+      // _firestore
+      //     .collection(_transactionsCollection)
+      //     .where('accountId', whereIn: bankAccountsIdsList)
+      //     .orderBy('date', descending: true)
+      //     .snapshots()
+      //     .listen((event) {
+      //   final transactions = event.docs
+      //       .map((doc) => MoneyTransaction.fromJson(doc.data()))
+      //       .toList();
 
-        _todoStreamController.add(transactions);
-      });
+      //   _todoStreamController.add(transactions);
+      // });
     });
   }
 

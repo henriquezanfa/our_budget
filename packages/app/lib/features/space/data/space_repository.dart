@@ -2,11 +2,11 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ob/features/auth/data/auth_repository.dart';
+import 'package:ob/features/space/core.dart';
 import 'package:ob/features/space/domain/space_model.dart';
 import 'package:ob/features/space/domain/space_user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-const _spaceCollection = 'spaces';
 const _currentSpaceKey = 'currentSpaceId';
 
 class SpaceRepository {
@@ -32,6 +32,11 @@ class SpaceRepository {
     return SpaceModel.fromJson(json);
   }
 
+  String getCurrentSpaceId() {
+    final space = getCurrentSpace();
+    return space.id;
+  }
+
   Future<void> setCurrentSpace(SpaceModel space) async {
     await _sharedPreferences.setString(
       _currentSpaceKey,
@@ -43,7 +48,7 @@ class SpaceRepository {
     final userId = _authRepository.user?.uid;
 
     final spaces = await _firestore
-        .collection(_spaceCollection)
+        .collection(spaceCollection)
         .where('userIds', arrayContains: userId)
         .get();
 
@@ -56,7 +61,7 @@ class SpaceRepository {
     String? description,
     String? imageUrl,
   }) async {
-    final id = _firestore.collection(_spaceCollection).doc().id;
+    final id = _firestore.collection(spaceCollection).doc().id;
 
     final space = SpaceModel(
       id: id,
@@ -73,7 +78,7 @@ class SpaceRepository {
       ],
     );
 
-    await _firestore.collection(_spaceCollection).doc(id).set(space.toJson());
+    await _firestore.collection(spaceCollection).doc(id).set(space.toJson());
 
     await setCurrentSpace(space);
   }
@@ -93,14 +98,14 @@ class SpaceRepository {
     if (sanitizedData.isEmpty) return;
 
     await _firestore
-        .collection(_spaceCollection)
+        .collection(spaceCollection)
         .doc(spaceId)
         .update(sanitizedData);
   }
 
   Future<void> addUserToSpace(String userId, String spaceId) async {
     final space =
-        await _firestore.collection(_spaceCollection).doc(spaceId).get();
+        await _firestore.collection(spaceCollection).doc(spaceId).get();
 
     if (!space.exists) return;
 
@@ -113,12 +118,12 @@ class SpaceRepository {
     spaceModel.userIds.add(userId);
 
     await _firestore
-        .collection(_spaceCollection)
+        .collection(spaceCollection)
         .doc(spaceId)
         .update(spaceModel.toJson());
   }
 
   Future<void> deleteSpace(String spaceId) async {
-    await _firestore.collection(_spaceCollection).doc(spaceId).delete();
+    await _firestore.collection(spaceCollection).doc(spaceId).delete();
   }
 }

@@ -8,6 +8,9 @@ void injectBankAccountsDependencies() {
       () => BankAccountDataSource(firestore: inject()),
     )
     ..registerLazySingleton<BankAccountRepository>(
-      () => BankAccountRepository(bankAccountDataSource: inject()),
+      () => BankAccountRepository(
+        bankAccountDataSource: inject(),
+        spaceRepository: inject(),
+      ),
     );
 }
