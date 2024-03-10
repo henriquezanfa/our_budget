@@ -32,7 +32,7 @@ class _SplashPageState extends State<SplashPage> {
 
   void _onAppInitialized() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.go(OBRoutes.auth);
+      context.go(OBRoutes.home);
     });
   }
 

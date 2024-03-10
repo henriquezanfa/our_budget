@@ -33,6 +33,10 @@ class BalanceBloc extends Bloc<BalanceEvent, BalanceState> {
           ),
         );
 
+    if (bankAccounts.isEmpty) {
+      emit(BalanceLoaded(balance: Balance.empty()));
+      return;
+    }
     await emit.forEach<Balance>(
       _repository.getBalance(bankAccounts),
       onData: (balance) => BalanceLoaded(balance: balance),

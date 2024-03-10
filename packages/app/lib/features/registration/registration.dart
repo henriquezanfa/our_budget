@@ -1,8 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ob/core/di/di.dart';
+import 'package:ob/features/auth/data/auth_repository.dart';
 import 'package:ob/features/registration/bloc/registration_bloc.dart';
+import 'package:ob/features/space/data/space_repository.dart';
 import 'package:ob/ui/theme/ob_sizes.dart';
 import 'package:ob/ui/widgets/widgets.dart';
 
@@ -17,7 +19,10 @@ class RegistrationPage extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(OBSizes.screenPadding),
           child: BlocProvider(
-            create: (context) => RegistrationBloc(FirebaseAuth.instance),
+            create: (context) => RegistrationBloc(
+              inject<AuthRepository>(),
+              inject<SpaceRepository>(),
+            ),
             child: const Forms(),
           ),
         ),

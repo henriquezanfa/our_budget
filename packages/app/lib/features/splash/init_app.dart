@@ -12,7 +12,7 @@ Future<void> initApp() async {
   }
 
   if (!_isInitialized) {
-    registerDependencies();
+    await registerDependencies();
   }
 
   _isInitialized = true;

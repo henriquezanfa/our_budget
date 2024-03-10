@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ob/domain/models/transaction_category/transaction_category.dart';
 
+// TODO: how to make categories for each user in a way 
+// that they are attached to the bank account and not to the user?
 class CategoriesDataSource {
   CategoriesDataSource({required FirebaseFirestore firestore})
       : _firestore = firestore;
