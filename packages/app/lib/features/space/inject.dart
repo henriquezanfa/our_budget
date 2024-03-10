@@ -6,6 +6,7 @@ void injectSpace() {
     () => SpaceRepository(
       firestore: inject(),
       sharedPreferences: inject(),
+      authRepository: inject(),
     ),
   );
 }

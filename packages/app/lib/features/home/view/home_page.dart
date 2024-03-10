@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ob/features/balance/presentation/balance_widget.dart';
+import 'package:ob/features/space/presentation/select_space_modal.dart';
 import 'package:ob/ui/extensions/list_extensions.dart';
 import 'package:ob/ui/widgets/widgets.dart';
 
@@ -34,28 +35,7 @@ class SelectSpaceButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       icon: const Icon(Icons.settings_outlined),
-      onPressed: () {
-        showOBModalBottomSheet<void>(
-          context: context,
-          child: const SelectSpaceModal(),
-        );
-      },
+      onPressed: () => showChangeSpaceModal(context),
     );
-  }
-}
-
-class SelectSpaceModal extends StatefulWidget {
-  const SelectSpaceModal({
-    super.key,
-  });
-
-  @override
-  State<SelectSpaceModal> createState() => _SelectSpaceModalState();
-}
-
-class _SelectSpaceModalState extends State<SelectSpaceModal> {
-  @override
-  Widget build(BuildContext context) {
-    return const Text('Hello, there 👋');
   }
 }

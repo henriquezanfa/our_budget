@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ob/features/auth/data/auth_repository.dart';
 import 'package:ob/features/space/domain/space_model.dart';
 import 'package:ob/features/space/domain/space_user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,11 +13,14 @@ class SpaceRepository {
   SpaceRepository({
     required FirebaseFirestore firestore,
     required SharedPreferences sharedPreferences,
+    required AuthRepository authRepository,
   })  : _firestore = firestore,
-        _sharedPreferences = sharedPreferences;
+        _sharedPreferences = sharedPreferences,
+        _authRepository = authRepository;
 
   final FirebaseFirestore _firestore;
   final SharedPreferences _sharedPreferences;
+  final AuthRepository _authRepository;
 
   SpaceModel getCurrentSpace() {
     final space = _sharedPreferences.get(_currentSpaceKey) as String?;
@@ -35,10 +39,12 @@ class SpaceRepository {
     );
   }
 
-  Future<List<SpaceModel>> getSpaces(String userId) async {
+  Future<List<SpaceModel>> getSpaces() async {
+    final userId = _authRepository.user?.uid;
+
     final spaces = await _firestore
         .collection(_spaceCollection)
-        .where('usersIds', arrayContains: userId)
+        .where('userIds', arrayContains: userId)
         .get();
 
     return spaces.docs.map((doc) => SpaceModel.fromJson(doc.data())).toList();
