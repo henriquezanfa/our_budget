@@ -8,9 +8,13 @@ void injectTransactions() {
       () => TransactionsDataSource(
         firestore: inject(),
         bankAccountDataSource: inject(),
+        spaceRepository: inject(),
       ),
     )
     ..registerLazySingleton<TransactionsRepository>(
-      () => TransactionsRepository(dataSource: inject()),
+      () => TransactionsRepository(
+        dataSource: inject(),
+        spaceRepository: inject(),
+      ),
     );
 }

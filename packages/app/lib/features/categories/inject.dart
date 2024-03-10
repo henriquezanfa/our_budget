@@ -8,6 +8,9 @@ void injectCategories() {
       () => CategoriesDataSource(firestore: inject()),
     )
     ..registerLazySingleton<CategoriesRepository>(
-      () => CategoriesRepository(remoteDataSource: inject()),
+      () => CategoriesRepository(
+        remoteDataSource: inject(),
+        spaceRepository: inject(),
+      ),
     );
 }

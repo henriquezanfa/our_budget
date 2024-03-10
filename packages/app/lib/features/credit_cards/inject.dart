@@ -8,6 +8,9 @@ void registerCreditCardDependencies() {
       () => CreditCardDataSource(firestore: inject()),
     )
     ..registerLazySingleton<CreditCardRepository>(
-      () => CreditCardRepository(creditCardDataSource: inject()),
+      () => CreditCardRepository(
+        creditCardDataSource: inject(),
+        spaceRepository: inject(),
+      ),
     );
 }

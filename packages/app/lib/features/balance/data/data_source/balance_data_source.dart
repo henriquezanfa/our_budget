@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ob/core/client/constants.dart';
 import 'package:ob/domain/models/balance/balance.dart';
+import 'package:ob/features/space/core.dart';
 
 class BalanceDataSource {
   BalanceDataSource({required FirebaseFirestore firestore})
@@ -7,8 +9,14 @@ class BalanceDataSource {
 
   final FirebaseFirestore _firestore;
 
-  Stream<Balance> getBalance(String userId, List<String> bankAccountsIds) {
+  Stream<Balance> getBalance({
+    required SpaceId spaceId,
+    required String userId,
+    required List<String> bankAccountsIds,
+  }) {
     final transactionCollection = _firestore
+        .collection(OBCollections.space)
+        .doc(spaceId)
         .collection('transactions')
         .where('accountId', whereIn: bankAccountsIds)
         .orderBy('date', descending: true);

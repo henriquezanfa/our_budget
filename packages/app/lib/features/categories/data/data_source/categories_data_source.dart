@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:ob/core/client/constants.dart';
 import 'package:ob/domain/models/transaction_category/transaction_category.dart';
+import 'package:ob/features/space/core.dart';
 
 class CategoriesDataSource {
   CategoriesDataSource({required FirebaseFirestore firestore})
@@ -8,9 +9,15 @@ class CategoriesDataSource {
 
   final FirebaseFirestore _firestore;
 
-  Future<List<TransactionCategory>> getCategories() async {
-    final userId = FirebaseAuth.instance.currentUser!.uid;
-    final query = _firestore.collection('categories').where(
+  Future<List<TransactionCategory>> getCategories({
+    required SpaceId spaceId,
+    required String userId,
+  }) async {
+    final query = _firestore
+        .collection(OBCollections.space)
+        .doc(spaceId)
+        .collection('categories')
+        .where(
           'userId',
           isEqualTo: userId,
         );
@@ -24,14 +31,28 @@ class CategoriesDataSource {
     }).toList();
   }
 
-  Future<void> addCategory(TransactionCategory category) async {
-    final doc = _firestore.collection('categories').doc();
+  Future<void> addCategory({
+    required SpaceId spaceId,
+    required TransactionCategory category,
+  }) async {
+    final doc = _firestore
+        .collection(OBCollections.space)
+        .doc(spaceId)
+        .collection('categories')
+        .doc();
 
     await doc.set(category.toJson());
   }
 
-  Future<void> updateCategory(TransactionCategory category) async {
-    final doc = _firestore.collection('categories').doc(category.id);
+  Future<void> updateCategory({
+    required SpaceId spaceId,
+    required TransactionCategory category,
+  }) async {
+    final doc = _firestore
+        .collection(OBCollections.space)
+        .doc(spaceId)
+        .collection('categories')
+        .doc(category.id);
 
     await doc.update(category.toJson());
   }

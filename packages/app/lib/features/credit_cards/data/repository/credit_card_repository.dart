@@ -5,18 +5,27 @@ import 'package:ob/core/error/error.dart';
 import 'package:ob/features/credit_cards/data/data_source/credit_card_data_source.dart';
 import 'package:ob/features/credit_cards/data/dto/credit_card_creation_dto.dart';
 import 'package:ob/features/credit_cards/domain/model/credit_card.dart';
+import 'package:ob/features/space/data/space_repository.dart';
 import 'package:uuid/uuid.dart';
 
 class CreditCardRepository {
-  CreditCardRepository({required CreditCardDataSource creditCardDataSource})
-      : _creditCardDataSource = creditCardDataSource;
+  CreditCardRepository({
+    required CreditCardDataSource creditCardDataSource,
+    required SpaceRepository spaceRepository,
+  })  : _creditCardDataSource = creditCardDataSource,
+        _spaceRepository = spaceRepository;
 
   final CreditCardDataSource _creditCardDataSource;
+  final SpaceRepository _spaceRepository;
 
   Future<Either<OBError, List<CreditCard>>> getCreditCards() async {
     try {
       final userId = FirebaseAuth.instance.currentUser!.uid;
-      final creditCards = await _creditCardDataSource.getCreditCards(userId);
+      final spaceId = _spaceRepository.getCurrentSpaceId();
+      final creditCards = await _creditCardDataSource.getCreditCards(
+        spaceId: spaceId,
+        userId: userId,
+      );
       return right(creditCards);
     } catch (e) {
       debugPrint(e.toString());
@@ -38,8 +47,12 @@ class CreditCardRepository {
       final id = uuid.v4();
 
       final creditCard = accountCreationDto.toCreditCard(userId, id);
+      final spaceId = _spaceRepository.getCurrentSpaceId();
 
-      await _creditCardDataSource.createCreditCard(creditCard);
+      await _creditCardDataSource.createCreditCard(
+        creditCard: creditCard,
+        spaceId: spaceId,
+      );
       return right(null);
     } catch (e) {
       return left(

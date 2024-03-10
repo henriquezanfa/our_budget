@@ -15,7 +15,7 @@ class BankAccountDataSource {
     required SpaceId spaceId,
   }) async {
     final query = _firestore
-        .collection(spaceCollection)
+        .collection(OBCollections.space)
         .doc(spaceId)
         .collection(OBCollections.bankAccount);
 
@@ -33,7 +33,7 @@ class BankAccountDataSource {
     required SpaceId spaceId,
   }) async {
     final doc = _firestore
-        .collection(spaceCollection)
+        .collection(OBCollections.space)
         .doc(spaceId)
         .collection(OBCollections.bankAccount)
         .doc(bankAccount.id);

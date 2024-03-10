@@ -8,6 +8,9 @@ void injectBalance() {
       () => BalanceDataSource(firestore: inject()),
     )
     ..registerLazySingleton<BalanceRepository>(
-      () => BalanceRepository(dataSource: inject()),
+      () => BalanceRepository(
+        dataSource: inject(),
+        spaceRepository: inject(),
+      ),
     );
 }
