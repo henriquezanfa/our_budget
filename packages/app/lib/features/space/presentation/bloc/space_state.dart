@@ -16,3 +16,10 @@ final class SpaceError extends SpaceState {
   SpaceError(this.message);
   final String message;
 }
+
+final class CurrentSpace extends SpaceState {
+  CurrentSpace(this.space);
+  final SpaceModel space;
+}
+
+final class UserInvited extends SpaceState {}

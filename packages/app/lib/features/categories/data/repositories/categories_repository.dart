@@ -21,7 +21,7 @@ class CategoriesRepository {
       final userId = FirebaseAuth.instance.currentUser!.uid;
       final categories = await _remoteDataSource.getCategories(
         userId: userId,
-        spaceId: _spaceRepository.getCurrentSpaceId(),
+        spaceId: _spaceRepository.currentSpaceId,
       );
       return Right(categories);
     } catch (e) {
@@ -39,7 +39,7 @@ class CategoriesRepository {
       final userId = FirebaseAuth.instance.currentUser!.uid;
       final id = const Uuid().v4();
       final category = dto.toTransactionCategory(userId, id);
-      final spaceId = _spaceRepository.getCurrentSpaceId();
+      final spaceId = _spaceRepository.currentSpaceId;
       await _remoteDataSource.addCategory(
         spaceId: spaceId,
         category: category,
@@ -59,7 +59,7 @@ class CategoriesRepository {
     TransactionCategory category,
   ) async {
     try {
-      final spaceId = _spaceRepository.getCurrentSpaceId();
+      final spaceId = _spaceRepository.currentSpaceId;
 
       await _remoteDataSource.updateCategory(
         spaceId: spaceId,

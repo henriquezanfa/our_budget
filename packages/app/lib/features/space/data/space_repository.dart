@@ -22,19 +22,44 @@ class SpaceRepository {
   final SharedPreferences _sharedPreferences;
   final AuthRepository _authRepository;
 
-  SpaceModel getCurrentSpace() {
-    final space = _sharedPreferences.get(_currentSpaceKey) as String?;
-    if (space == null) {
+  SpaceModel? _currentSpace;
+  SpaceModel get currentSpace {
+    if (_currentSpace == null) {
+      final space = _sharedPreferences.getString(_currentSpaceKey);
+      if (space != null) {
+        _currentSpace = SpaceModel.fromJson(
+          jsonDecode(space) as Map<String, dynamic>,
+        );
+      }
+
+      if (_currentSpace == null) {
+        throw Exception('No current space');
+      }
+    }
+    return _currentSpace!;
+  }
+
+  String get currentSpaceId {
+    if (_currentSpace == null) {
+      throw Exception('No current space');
+    }
+    return _currentSpace!.id;
+  }
+
+  Future<SpaceModel> getCurrentSpace() async {
+    final spaceId = currentSpaceId;
+
+    final space =
+        await _firestore.collection(OBCollections.space).doc(spaceId).get();
+
+    if (!space.exists) {
       throw Exception('No current space');
     }
 
-    final json = jsonDecode(space) as Map<String, dynamic>;
-    return SpaceModel.fromJson(json);
-  }
+    final model = SpaceModel.fromJson(space.data()!);
+    _currentSpace = model;
 
-  String getCurrentSpaceId() {
-    final space = getCurrentSpace();
-    return space.id;
+    return model;
   }
 
   Future<void> setCurrentSpace(SpaceModel space) async {
@@ -71,6 +96,7 @@ class SpaceRepository {
       imageUrl: imageUrl,
       users: [
         SpaceUserModel(
+          name: _authRepository.user?.displayName ?? '',
           role: SpaceUserRole.owner,
           spaceId: id,
           userId: userId,
@@ -104,26 +130,37 @@ class SpaceRepository {
         .collection(OBCollections.space)
         .doc(spaceId)
         .update(sanitizedData);
+
+    await setCurrentSpace(
+      currentSpace.copyWith(
+        name: name,
+        description: description,
+        imageUrl: imageUrl,
+      ),
+    );
   }
 
-  Future<void> addUserToSpace(String userId, String spaceId) async {
+  Future<void> inviteUserToSpace(String email) async {
+    final spaceId = currentSpaceId;
     final space =
         await _firestore.collection(OBCollections.space).doc(spaceId).get();
 
     if (!space.exists) return;
-
     final spaceModel = SpaceModel.fromJson(space.data()!);
 
-    if (spaceModel.userIds.contains(userId)) {
-      throw Exception('User already in space');
+    if (spaceModel.invitedEmails?.contains(email) ?? false) {
+      throw Exception('User already invited');
     }
 
-    spaceModel.userIds.add(userId);
+    final newEmails = [...spaceModel.invitedEmails ?? <String>[], email];
+    final newSpace = spaceModel.copyWith(invitedEmails: newEmails);
 
     await _firestore
         .collection(OBCollections.space)
         .doc(spaceId)
-        .update(spaceModel.toJson());
+        .update(newSpace.toJson());
+
+    _currentSpace = newSpace;
   }
 
   Future<void> deleteSpace(String spaceId) async {

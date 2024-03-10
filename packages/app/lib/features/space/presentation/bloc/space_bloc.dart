@@ -11,6 +11,8 @@ part 'space_state.dart';
 class SpaceBloc extends Bloc<SpaceEvent, SpaceState> {
   SpaceBloc(this._spaceRepository) : super(SpaceInitial()) {
     on<GetSpaces>(_onGetSpaces);
+    on<GetCurrentSpace>(_onGetCurrentSpace);
+    on<InviteUser>(_onInviteUser);
   }
   final SpaceRepository _spaceRepository;
 
@@ -22,6 +24,32 @@ class SpaceBloc extends Bloc<SpaceEvent, SpaceState> {
     try {
       final spaces = await _spaceRepository.getSpaces();
       emit(SpaceLoaded(spaces));
+    } catch (e) {
+      emit(SpaceError(e.toString()));
+    }
+  }
+
+  FutureOr<void> _onGetCurrentSpace(
+    GetCurrentSpace event,
+    Emitter<SpaceState> emit,
+  ) async {
+    try {
+      final currentSpace = await _spaceRepository.getCurrentSpace();
+      emit(CurrentSpace(currentSpace));
+    } catch (e) {
+      emit(SpaceError(e.toString()));
+    }
+  }
+
+  FutureOr<void> _onInviteUser(
+    InviteUser event,
+    Emitter<SpaceState> emit,
+  ) async {
+    emit(SpaceLoading());
+    try {
+      await _spaceRepository.inviteUserToSpace(event.email);
+
+      emit(UserInvited());
     } catch (e) {
       emit(SpaceError(e.toString()));
     }

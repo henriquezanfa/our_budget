@@ -13,4 +13,5 @@ class OBRoutes {
   static const String creditCardDetails = '/credit_card_details';
   static const String addTransaction = '/add_transaction';
   static const String categories = '/categories';
+  static const String spaceDetails = '/space_details';
 }

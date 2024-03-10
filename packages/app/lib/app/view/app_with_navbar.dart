@@ -12,8 +12,7 @@ class AppWithNavbar extends StatelessWidget {
 
   void _goBranch(int index) {
     final effectiveIndex = index > 2 ? index - 1 : index;
-    final effectiveCurrentIndex =
-        child.currentIndex > 2 ? child.currentIndex - 1 : child.currentIndex;
+    final effectiveCurrentIndex = child.currentIndex;
 
     child.goBranch(
       effectiveIndex,

@@ -6,6 +6,7 @@ class SpaceModel {
     required this.name,
     required this.users,
     required this.userIds,
+    this.invitedEmails,
     this.description,
     this.imageUrl,
   });
@@ -14,6 +15,7 @@ class SpaceModel {
     return SpaceModel(
       id: json['id'] as String,
       name: json['name'] as String,
+      description: json['description'] as String?,
       users: (json['users'] as List<dynamic>)
           .map((user) => SpaceUserModel.fromJson(user as Map<String, dynamic>))
           .toList(),
@@ -21,6 +23,11 @@ class SpaceModel {
           .map((user) => user as String)
           .toList(),
       imageUrl: json['imageUrl'] as String?,
+      invitedEmails: (json['invitedEmails'] == null)
+          ? null
+          : List<String>.from(json['invitedEmails'] as List<dynamic>)
+              .map((user) => user)
+              .toList(),
     );
   }
 
@@ -30,6 +37,7 @@ class SpaceModel {
   final List<String> userIds;
   final String? description;
   final String? imageUrl;
+  final List<String>? invitedEmails;
 
   SpaceModel copyWith({
     String? id,
@@ -38,6 +46,7 @@ class SpaceModel {
     List<String>? userIds,
     String? description,
     String? imageUrl,
+    List<String>? invitedEmails,
   }) {
     return SpaceModel(
       id: id ?? this.id,
@@ -46,6 +55,7 @@ class SpaceModel {
       userIds: userIds ?? this.userIds,
       description: description ?? this.description,
       imageUrl: imageUrl ?? this.imageUrl,
+      invitedEmails: invitedEmails ?? this.invitedEmails,
     );
   }
 
@@ -57,6 +67,7 @@ class SpaceModel {
       'userIds': userIds,
       'description': description,
       'imageUrl': imageUrl,
+      'invitedEmails': invitedEmails,
     };
   }
 }

@@ -15,6 +15,7 @@ import 'package:ob/features/login/presentation/login.dart';
 import 'package:ob/features/manage/presentation/ui/manage_page.dart';
 import 'package:ob/features/profile/presentation/ui/profile_page.dart';
 import 'package:ob/features/registration/registration.dart';
+import 'package:ob/features/space/presentation/space_details_screen.dart';
 import 'package:ob/features/space/presentation/space_handler.dart';
 import 'package:ob/features/splash/splash.dart';
 import 'package:ob/features/transactions/presentation/add_transaction_page.dart';
@@ -119,6 +120,10 @@ final router = GoRouter(
             GoRoute(
               path: OBRoutes.profile,
               builder: (context, state) => const ProfilePage(),
+            ),
+            GoRoute(
+              path: OBRoutes.spaceDetails,
+              builder: (context, state) => const SpaceDetailsScreen(),
             ),
           ],
         ),

@@ -7,7 +7,7 @@ part 'space_state.dart';
 
 class SpaceCubit extends Cubit<SpaceState> {
   SpaceCubit(this._spaceRepository) : super(const SpaceState.initial()) {
-    final currentSpace = _spaceRepository.getCurrentSpace();
+    final currentSpace = _spaceRepository.currentSpace;
     emit(SpaceState.loaded(currentSpace));
   }
   final SpaceRepository _spaceRepository;

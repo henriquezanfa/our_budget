@@ -32,13 +32,13 @@ class TransactionsDataSource {
       final userId = event.uid;
       final bankAccountsIds = await _bankAccountDataSource.getBankAccounts(
         userId: userId,
-        spaceId: _spaceRepository.getCurrentSpaceId(),
+        spaceId: _spaceRepository.currentSpaceId,
       );
       final bankAccountsIdsList = bankAccountsIds.map((e) => e.id).toList();
 
       _firestore
           .collection(OBCollections.space)
-          .doc(_spaceRepository.getCurrentSpaceId())
+          .doc(_spaceRepository.currentSpaceId)
           .collection(_transactionsCollection)
           .where('accountId', whereIn: bankAccountsIdsList)
           .orderBy('date', descending: true)

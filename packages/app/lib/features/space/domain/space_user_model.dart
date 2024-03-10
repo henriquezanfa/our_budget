@@ -3,6 +3,7 @@ class SpaceUserModel {
     required this.userId,
     required this.spaceId,
     required this.role,
+    required this.name,
     this.status = SpaceUserStatus.pending,
   });
 
@@ -10,6 +11,7 @@ class SpaceUserModel {
     return SpaceUserModel(
       userId: json['userId'] as String,
       spaceId: json['spaceId'] as String,
+      name: json['name'] == null ? '' : json['name'] as String,
       role: SpaceUserRole.values.firstWhere(
         (role) => role.toString() == json['role'] as String,
       ),
@@ -24,6 +26,7 @@ class SpaceUserModel {
     return {
       'userId': userId,
       'spaceId': spaceId,
+      'name': name,
       'role': role.toString(),
       'status': status.toString(),
     };
@@ -33,6 +36,7 @@ class SpaceUserModel {
   final String spaceId;
   final SpaceUserRole role;
   final SpaceUserStatus status;
+  final String name;
 }
 
 enum SpaceUserRole {

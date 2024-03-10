@@ -21,7 +21,7 @@ class CreditCardRepository {
   Future<Either<OBError, List<CreditCard>>> getCreditCards() async {
     try {
       final userId = FirebaseAuth.instance.currentUser!.uid;
-      final spaceId = _spaceRepository.getCurrentSpaceId();
+      final spaceId = _spaceRepository.currentSpaceId;
       final creditCards = await _creditCardDataSource.getCreditCards(
         spaceId: spaceId,
         userId: userId,
@@ -47,7 +47,7 @@ class CreditCardRepository {
       final id = uuid.v4();
 
       final creditCard = accountCreationDto.toCreditCard(userId, id);
-      final spaceId = _spaceRepository.getCurrentSpaceId();
+      final spaceId = _spaceRepository.currentSpaceId;
 
       await _creditCardDataSource.createCreditCard(
         creditCard: creditCard,

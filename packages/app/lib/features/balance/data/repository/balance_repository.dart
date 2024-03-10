@@ -15,7 +15,7 @@ class BalanceRepository {
 
   Stream<Balance> getBalance(List<String> bankAccountsIds) {
     final userId = FirebaseAuth.instance.currentUser!.uid;
-    final spaceId = _spaceRepository.getCurrentSpaceId();
+    final spaceId = _spaceRepository.currentSpaceId;
 
     return _dataSource.getBalance(
       spaceId: spaceId,

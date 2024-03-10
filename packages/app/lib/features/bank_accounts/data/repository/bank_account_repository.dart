@@ -23,7 +23,7 @@ class BankAccountRepository {
       final userId = FirebaseAuth.instance.currentUser!.uid;
       final bankAccounts = await _bankAccountDataSource.getBankAccounts(
         userId: userId,
-        spaceId: _spaceRepository.getCurrentSpaceId(),
+        spaceId: _spaceRepository.currentSpaceId,
       );
       return right(bankAccounts);
     } catch (e) {
@@ -46,7 +46,7 @@ class BankAccountRepository {
       final userId = FirebaseAuth.instance.currentUser!.uid;
       final id = uuid.v4();
 
-      final spaceId = _spaceRepository.getCurrentSpaceId();
+      final spaceId = _spaceRepository.currentSpaceId;
 
       final bankAccount = accountCreationDto.toBankAccount(userId, id);
 
