@@ -71,6 +71,27 @@ class _CreateCreditCardModalState extends State<_CreateCreditCardModal> {
   Widget build(BuildContext context) {
     return OBScreen.secondary(
       title: 'Create credit card',
+      bottomWidget: BlocBuilder<CreditCardBloc, CreditCardState>(
+        builder: (context, state) {
+          return OBElevatedButton(
+            isLoading: state is CreditCardLoading,
+            onPressed: _isFormValid
+                ? () {
+                    Navigator.of(context).pop(
+                      CreditCardCreationDto(
+                        name: _descriptionController.text,
+                        currency: _currency.code,
+                        limit: double.parse(_limitController.text),
+                        closingDate: int.parse(_closingDateController.text),
+                        dueDate: int.parse(_dueDateController.text),
+                      ),
+                    );
+                  }
+                : null,
+            text: 'Create',
+          );
+        },
+      ),
       children: [
         SliverToBoxAdapter(
           child: TextFormField(
@@ -128,27 +149,6 @@ class _CreateCreditCardModalState extends State<_CreateCreditCardModal> {
           ),
         ),
       ].withSpaceBetween(height: 16, isSliver: true),
-      bottomWidget: BlocBuilder<CreditCardBloc, CreditCardState>(
-        builder: (context, state) {
-          return OBElevatedButton(
-            isLoading: state is CreditCardLoading,
-            onPressed: _isFormValid
-                ? () {
-                    Navigator.of(context).pop(
-                      CreditCardCreationDto(
-                        name: _descriptionController.text,
-                        currency: _currency.code,
-                        limit: double.parse(_limitController.text),
-                        closingDate: int.parse(_closingDateController.text),
-                        dueDate: int.parse(_dueDateController.text),
-                      ),
-                    );
-                  }
-                : null,
-            text: 'Create',
-          );
-        },
-      ),
     );
   }
 }

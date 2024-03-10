@@ -14,7 +14,8 @@ class BankAccountInformationWidget extends StatefulWidget {
       _BankAccountInformationWidgetState();
 }
 
-class _BankAccountInformationWidgetState extends State<BankAccountInformationWidget> {
+class _BankAccountInformationWidgetState
+    extends State<BankAccountInformationWidget> {
   final _nameController = TextEditingController();
   final _currencyController = TextEditingController();
   final _accountHolderNameController = TextEditingController();

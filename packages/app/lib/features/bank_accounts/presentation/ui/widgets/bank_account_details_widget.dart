@@ -4,7 +4,6 @@ import 'package:ob/core/di/di.dart';
 import 'package:ob/features/bank_accounts/domain/model/bank_account.dart';
 import 'package:ob/features/bank_accounts/presentation/bloc/bank_account_bloc.dart';
 import 'package:ob/features/bank_accounts/presentation/ui/widgets/bank_account_information_widget.dart';
-import 'package:ob/features/bank_accounts/presentation/ui/widgets/bank_account_members.dart';
 
 class BankAccountDetailsWidget extends StatelessWidget {
   const BankAccountDetailsWidget({
@@ -60,11 +59,6 @@ class _BankAccountDetailsWidgetState extends State<BankAccountDetailsView> {
           Text(
             'Members',
             style: theme.textTheme.headlineSmall,
-          ),
-          BankAccountMembersWidget(
-            accountMembers: widget.bankAccount.members,
-            invitedMembersEmails: widget.bankAccount.invitedMembersEmails,
-            bankAccountId: widget.bankAccount.id,
           ),
         ],
       ),

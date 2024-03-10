@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:ob/app/routes/ob_routes.dart';
 import 'package:ob/core/di/di.dart';
 import 'package:ob/features/bank_accounts/presentation/bloc/bank_account_bloc.dart';
-import 'package:ob/features/bank_accounts/presentation/ui/modal/accept_invitation_modal.dart';
 import 'package:ob/features/bank_accounts/presentation/ui/widgets/create_bank_account.dart';
 import 'package:ob/ui/widgets/widgets.dart';
 
@@ -14,9 +13,7 @@ class BankAccountsListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => BankAccountBloc(inject())
-        ..add(GetBankAccounts())
-        ..add(GetInvitedBankAccounts()),
+      create: (_) => BankAccountBloc(inject())..add(GetBankAccounts()),
       child: const BankAccountsListPageView(),
     );
   }
@@ -26,9 +23,7 @@ class BankAccountsListPageView extends StatelessWidget {
   const BankAccountsListPageView({super.key});
 
   void _onRefresh(BuildContext context) {
-    BlocProvider.of<BankAccountBloc>(context)
-      ..add(GetBankAccounts())
-      ..add(GetInvitedBankAccounts());
+    BlocProvider.of<BankAccountBloc>(context).add(GetBankAccounts());
   }
 
   @override
@@ -41,7 +36,6 @@ class BankAccountsListPageView extends StatelessWidget {
       ],
       children: const [
         SliverToBoxAdapter(child: BankAccountsList()),
-        SliverToBoxAdapter(child: InvitedBankAccountsList()),
       ],
     );
   }
@@ -100,55 +94,6 @@ class BankAccountsList extends StatelessWidget {
         } else {
           return const Offstage();
         }
-      },
-    );
-  }
-}
-
-class InvitedBankAccountsList extends StatelessWidget {
-  const InvitedBankAccountsList({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<BankAccountBloc, BankAccountState>(
-      builder: (context, state) {
-        if (state is InvitedBankAccountLoaded) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Invites',
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: state.bankAccounts.length,
-                itemBuilder: (context, index) {
-                  final bankAccount = state.bankAccounts[index];
-                  return OBListTile(
-                    onTap: () {
-                      showOBModalBottomSheet<bool>(
-                        context: context,
-                        child: AcceptInvitationModal(
-                          bankAccount: bankAccount,
-                        ),
-                      ).then((value) {
-                        if (value != null && value) {
-                          context
-                              .read<BankAccountBloc>()
-                              .add(AcceptInvitation(bankAccount.id));
-                        }
-                      });
-                    },
-                    title: bankAccount.name,
-                    subtitle: bankAccount.accountType.name,
-                  );
-                },
-              ),
-            ],
-          );
-        }
-        return const Offstage();
       },
     );
   }

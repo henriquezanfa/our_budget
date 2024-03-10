@@ -14,7 +14,6 @@ class CreditCardBloc extends Bloc<CreditCardEvent, CreditCardState> {
   CreditCardBloc(this._creditCardRepository) : super(CreditCardInitial()) {
     on<GetCreditCards>(_getCreditCards);
     on<CreateCreditCardEvent>(_createCreditCard);
-    on<InviteMember>(_inviteMember);
   }
   final CreditCardRepository _creditCardRepository;
 
@@ -47,23 +46,6 @@ class CreditCardBloc extends Bloc<CreditCardEvent, CreditCardState> {
         result.fold(
           (error) => emit(CreditCardError(error)),
           (_) => emit(CreditCardAdded()),
-        );
-      },
-    );
-  }
-
-  FutureOr<void> _inviteMember(
-    InviteMember event,
-    Emitter<CreditCardState> emit,
-  ) async {
-    emit(CreditCardLoading());
-    await _creditCardRepository
-        .inviteMember(event.creditCardId, event.email)
-        .then(
-      (result) {
-        result.fold(
-          (error) => emit(CreditCardError(error)),
-          (_) => emit(CreditCardMemberInvited()),
         );
       },
     );

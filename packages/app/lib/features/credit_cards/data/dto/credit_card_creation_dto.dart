@@ -23,7 +23,6 @@ class CreditCardCreationDto {
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
       dueDate: dueDate,
-      members: [],
       limit: limit,
       closingDate: closingDate,
     );

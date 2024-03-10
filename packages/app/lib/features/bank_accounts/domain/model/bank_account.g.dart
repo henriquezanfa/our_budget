@@ -16,12 +16,6 @@ _$BankAccountImpl _$$BankAccountImplFromJson(Map<String, dynamic> json) =>
       accountHolderName: json['accountHolderName'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
-      members: (json['members'] as List<dynamic>)
-          .map((e) => Member.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      membersIds: (json['membersIds'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList(),
       invitedMembersEmails: (json['invitedMembersEmails'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
@@ -37,8 +31,6 @@ Map<String, dynamic> _$$BankAccountImplToJson(_$BankAccountImpl instance) =>
       'accountHolderName': instance.accountHolderName,
       'createdAt': instance.createdAt.toIso8601String(),
       'updatedAt': instance.updatedAt.toIso8601String(),
-      'members': instance.members.map((e) => e.toJson()).toList(),
-      'membersIds': instance.membersIds,
       'invitedMembersEmails': instance.invitedMembersEmails,
     };
 

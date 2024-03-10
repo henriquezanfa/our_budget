@@ -1,4 +1,3 @@
-import 'package:ob/domain/models/member/member.dart';
 import 'package:ob/features/bank_accounts/domain/enum/account_type_enum.dart';
 import 'package:ob/features/bank_accounts/domain/model/bank_account.dart';
 
@@ -16,8 +15,7 @@ class BankAccountCreationDto {
 
   BankAccount toBankAccount(
     String userId,
-    String id, 
-    List<Member> members,
+    String id,
   ) {
     return BankAccount(
       id: id,
@@ -28,8 +26,6 @@ class BankAccountCreationDto {
       accountHolderName: accountHolderName,
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
-      members: members,
-      membersIds: members.map((e) => e.userId).toList(),
     );
   }
 }

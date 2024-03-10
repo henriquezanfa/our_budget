@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ob/core/di/di.dart';
-import 'package:ob/domain/domain.dart';
 import 'package:ob/features/credit_cards/domain/model/credit_card.dart';
 import 'package:ob/features/credit_cards/presentations/bloc/credit_card_bloc.dart';
-import 'package:ob/ui/widgets/widgets.dart';
 
 class CreditCardDetailsWidget extends StatelessWidget {
   const CreditCardDetailsWidget({
@@ -84,110 +82,6 @@ class _CreditCardDetailsWidgetState extends State<CreditCardDetailsView> {
             ),
           ),
           const SizedBox(height: 16),
-          AccountMembersList(
-            accountMembers: widget.creditCard.members,
-            bankAccountId: widget.creditCard.id,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class AccountMembersList extends StatelessWidget {
-  const AccountMembersList({
-    required this.bankAccountId,
-    this.accountMembers,
-    super.key,
-  });
-  final List<Member>? accountMembers;
-  final String bankAccountId;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text('Account members'),
-        ListView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: accountMembers?.length ?? 0,
-          itemBuilder: (context, index) {
-            final accountMember = accountMembers![index];
-            return ListTile(
-              contentPadding: EdgeInsets.zero,
-              title: Text(accountMember.email),
-              subtitle: Text(accountMember.email),
-            );
-          },
-        ),
-        OBElevatedButton(
-          text: 'Invite member',
-          onPressed: () {
-            showModalBottomSheet<String>(
-              context: context,
-              builder: (context) => const InviteMemberModal(),
-            ).then((value) {
-              if (value != null) {
-                context.read<CreditCardBloc>().add(
-                      InviteMember(bankAccountId, value),
-                    );
-              }
-            });
-          },
-        ),
-      ],
-    );
-  }
-}
-
-class InviteMemberModal extends StatefulWidget {
-  const InviteMemberModal({super.key});
-
-  @override
-  State<InviteMemberModal> createState() => _InviteMemberModalState();
-}
-
-class _InviteMemberModalState extends State<InviteMemberModal> {
-  final _emailController = TextEditingController();
-  final _focusNode = FocusNode();
-
-  @override
-  void initState() {
-    super.initState();
-
-    _focusNode.requestFocus();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const Text('Invite member'),
-          const SizedBox(height: 16),
-          OBTextField(
-            labelText: 'Email',
-            keyboardType: TextInputType.emailAddress,
-            focusNode: _focusNode,
-            onChanged: (value) {
-              setState(() {
-                _emailController.text = value;
-              });
-            },
-          ),
-          const SizedBox(height: 16),
-          OBElevatedButton(
-            text: 'Invite',
-            onPressed: () {
-              Navigator.of(context).pop(_emailController.text);
-            },
-          ),
         ],
       ),
     );

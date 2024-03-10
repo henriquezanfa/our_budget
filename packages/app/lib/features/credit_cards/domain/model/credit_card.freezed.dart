@@ -29,7 +29,6 @@ mixin _$CreditCard {
   int get closingDate => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
-  List<Member>? get members => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -52,8 +51,7 @@ abstract class $CreditCardCopyWith<$Res> {
       int dueDate,
       int closingDate,
       DateTime createdAt,
-      DateTime updatedAt,
-      List<Member>? members});
+      DateTime updatedAt});
 }
 
 /// @nodoc
@@ -78,7 +76,6 @@ class _$CreditCardCopyWithImpl<$Res, $Val extends CreditCard>
     Object? closingDate = null,
     Object? createdAt = null,
     Object? updatedAt = null,
-    Object? members = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -117,10 +114,6 @@ class _$CreditCardCopyWithImpl<$Res, $Val extends CreditCard>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      members: freezed == members
-          ? _value.members
-          : members // ignore: cast_nullable_to_non_nullable
-              as List<Member>?,
     ) as $Val);
   }
 }
@@ -142,8 +135,7 @@ abstract class _$$CreditCardImplCopyWith<$Res>
       int dueDate,
       int closingDate,
       DateTime createdAt,
-      DateTime updatedAt,
-      List<Member>? members});
+      DateTime updatedAt});
 }
 
 /// @nodoc
@@ -166,7 +158,6 @@ class __$$CreditCardImplCopyWithImpl<$Res>
     Object? closingDate = null,
     Object? createdAt = null,
     Object? updatedAt = null,
-    Object? members = freezed,
   }) {
     return _then(_$CreditCardImpl(
       id: null == id
@@ -205,10 +196,6 @@ class __$$CreditCardImplCopyWithImpl<$Res>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      members: freezed == members
-          ? _value._members
-          : members // ignore: cast_nullable_to_non_nullable
-              as List<Member>?,
     ));
   }
 }
@@ -225,9 +212,7 @@ class _$CreditCardImpl implements _CreditCard {
       required this.dueDate,
       required this.closingDate,
       required this.createdAt,
-      required this.updatedAt,
-      final List<Member>? members})
-      : _members = members;
+      required this.updatedAt});
 
   factory _$CreditCardImpl.fromJson(Map<String, dynamic> json) =>
       _$$CreditCardImplFromJson(json);
@@ -250,19 +235,10 @@ class _$CreditCardImpl implements _CreditCard {
   final DateTime createdAt;
   @override
   final DateTime updatedAt;
-  final List<Member>? _members;
-  @override
-  List<Member>? get members {
-    final value = _members;
-    if (value == null) return null;
-    if (_members is EqualUnmodifiableListView) return _members;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
 
   @override
   String toString() {
-    return 'CreditCard(id: $id, userId: $userId, description: $description, currency: $currency, limit: $limit, dueDate: $dueDate, closingDate: $closingDate, createdAt: $createdAt, updatedAt: $updatedAt, members: $members)';
+    return 'CreditCard(id: $id, userId: $userId, description: $description, currency: $currency, limit: $limit, dueDate: $dueDate, closingDate: $closingDate, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -283,24 +259,13 @@ class _$CreditCardImpl implements _CreditCard {
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt) &&
-            const DeepCollectionEquality().equals(other._members, _members));
+                other.updatedAt == updatedAt));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      userId,
-      description,
-      currency,
-      limit,
-      dueDate,
-      closingDate,
-      createdAt,
-      updatedAt,
-      const DeepCollectionEquality().hash(_members));
+  int get hashCode => Object.hash(runtimeType, id, userId, description,
+      currency, limit, dueDate, closingDate, createdAt, updatedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -326,8 +291,7 @@ abstract class _CreditCard implements CreditCard {
       required final int dueDate,
       required final int closingDate,
       required final DateTime createdAt,
-      required final DateTime updatedAt,
-      final List<Member>? members}) = _$CreditCardImpl;
+      required final DateTime updatedAt}) = _$CreditCardImpl;
 
   factory _CreditCard.fromJson(Map<String, dynamic> json) =
       _$CreditCardImpl.fromJson;
@@ -350,8 +314,6 @@ abstract class _CreditCard implements CreditCard {
   DateTime get createdAt;
   @override
   DateTime get updatedAt;
-  @override
-  List<Member>? get members;
   @override
   @JsonKey(ignore: true)
   _$$CreditCardImplCopyWith<_$CreditCardImpl> get copyWith =>

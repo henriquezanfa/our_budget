@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ob/domain/domain.dart';
 import 'package:ob/features/bank_accounts/domain/model/bank_account.dart';
 import 'package:ob/ui/extensions/list_extensions.dart';
 import 'package:ob/ui/widgets/widgets.dart';
@@ -13,10 +12,6 @@ class AcceptInvitationModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final owner = bankAccount.members.firstWhere(
-      (member) => member.permission == PermissionsEnum.owner,
-    );
-
     return OBModal(
       title: 'Invitation',
       child: SizedBox(
@@ -25,7 +20,7 @@ class AcceptInvitationModal extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'You have been invited to join ${bankAccount.name} by ${owner.email}',
+              'You have been invited to join ${bankAccount.name}',
               textAlign: TextAlign.center,
             ),
             OBElevatedButton(

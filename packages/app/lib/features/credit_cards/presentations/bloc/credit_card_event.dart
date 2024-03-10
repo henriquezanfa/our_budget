@@ -11,9 +11,3 @@ class CreateCreditCardEvent extends CreditCardEvent {
   CreateCreditCardEvent(this.creditCardCreationDto);
   final CreditCardCreationDto creditCardCreationDto;
 }
-
-class InviteMember extends CreditCardEvent {
-  InviteMember(this.creditCardId, this.email);
-  final String creditCardId;
-  final String email;
-}
