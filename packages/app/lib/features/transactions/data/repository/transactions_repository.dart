@@ -32,7 +32,7 @@ class TransactionsRepository {
       final transaction = transactionDto.toMoneyTransaction(userId, id);
 
       await _dataSource.createTransaction(
-        spaceId: _spaceRepository.currentSpaceId,
+        spaceId: _spaceRepository.currentSpaceId!,
         transaction: transaction,
       );
       return const Right(null);
@@ -58,7 +58,7 @@ class TransactionsRepository {
       );
 
       await _dataSource.updateTransaction(
-        spaceId: _spaceRepository.currentSpaceId,
+        spaceId: _spaceRepository.currentSpaceId!,
         transaction: transaction,
       );
       return const Right(null);
@@ -77,7 +77,7 @@ class TransactionsRepository {
   ) async {
     try {
       await _dataSource.deleteTransaction(
-        spaceId: _spaceRepository.currentSpaceId,
+        spaceId: _spaceRepository.currentSpaceId!,
         transactionId: transactionId,
       );
       return const Right(null);

@@ -2,21 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ob/core/di/di.dart';
 import 'package:ob/features/space/presentation/bloc/space_bloc.dart';
-import 'package:ob/features/space/presentation/cubit/space_cubit.dart'
-    hide SpaceState;
 import 'package:ob/ui/widgets/widgets.dart';
 
-Future<void> showChangeSpaceModal(BuildContext context) async {
-  return showOBModalBottomSheet<void>(
+Future<bool?> showChangeSpaceModal(BuildContext context) async {
+  return showOBModalBottomSheet<bool>(
     context: context,
     showDragHandle: false,
     child: MultiBlocProvider(
       providers: [
         BlocProvider(
           create: (context) => SpaceBloc(inject())..add(GetSpaces()),
-        ),
-        BlocProvider.value(
-          value: context.read<SpaceCubit>(),
         ),
       ],
       child: const _ChangeSpaceModal(),
@@ -77,10 +72,13 @@ class _ChangeSpaceModal extends StatelessWidget {
                                 : const Icon(Icons.dashboard),
                           ),
                         ),
+                        trailing: state.currentSpace?.id == space.id
+                            ? const Icon(Icons.check)
+                            : null,
                         title: Text(space.name),
                         onTap: () {
-                          context.read<SpaceCubit>().changeCurrentSpace(space);
-                          Navigator.of(context).pop();
+                          context.read<SpaceBloc>().add(ChangeSpace(space.id));
+                          Navigator.of(context).pop(true);
                         },
                       );
                     },

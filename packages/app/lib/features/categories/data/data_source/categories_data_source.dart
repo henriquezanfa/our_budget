@@ -16,11 +16,7 @@ class CategoriesDataSource {
     final query = _firestore
         .collection(OBCollections.space)
         .doc(spaceId)
-        .collection('categories')
-        .where(
-          'userId',
-          isEqualTo: userId,
-        );
+        .collection('categories');
 
     final data = await query.get();
 

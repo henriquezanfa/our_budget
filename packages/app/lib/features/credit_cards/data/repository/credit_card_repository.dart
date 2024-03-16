@@ -23,7 +23,7 @@ class CreditCardRepository {
       final userId = FirebaseAuth.instance.currentUser!.uid;
       final spaceId = _spaceRepository.currentSpaceId;
       final creditCards = await _creditCardDataSource.getCreditCards(
-        spaceId: spaceId,
+        spaceId: spaceId!,
         userId: userId,
       );
       return right(creditCards);
@@ -51,7 +51,7 @@ class CreditCardRepository {
 
       await _creditCardDataSource.createCreditCard(
         creditCard: creditCard,
-        spaceId: spaceId,
+        spaceId: spaceId!,
       );
       return right(null);
     } catch (e) {

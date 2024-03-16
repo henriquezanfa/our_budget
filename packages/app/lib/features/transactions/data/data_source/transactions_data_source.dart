@@ -32,7 +32,7 @@ class TransactionsDataSource {
       final userId = event.uid;
       final bankAccountsIds = await _bankAccountDataSource.getBankAccounts(
         userId: userId,
-        spaceId: _spaceRepository.currentSpaceId,
+        spaceId: _spaceRepository.currentSpaceId!,
       );
       final bankAccountsIdsList = bankAccountsIds.map((e) => e.id).toList();
 

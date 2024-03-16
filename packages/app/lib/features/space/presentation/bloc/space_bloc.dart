@@ -11,8 +11,10 @@ part 'space_state.dart';
 class SpaceBloc extends Bloc<SpaceEvent, SpaceState> {
   SpaceBloc(this._spaceRepository) : super(SpaceInitial()) {
     on<GetSpaces>(_onGetSpaces);
-    on<GetCurrentSpace>(_onGetCurrentSpace);
+    on<ChangeSpace>(_onChangeSpace);
     on<InviteUser>(_onInviteUser);
+    on<GetInvitations>(_onGetInvitations);
+    on<ReplyToInvitation>(_onReplyToInvitation);
   }
   final SpaceRepository _spaceRepository;
 
@@ -23,19 +25,8 @@ class SpaceBloc extends Bloc<SpaceEvent, SpaceState> {
     emit(SpaceLoading());
     try {
       final spaces = await _spaceRepository.getSpaces();
-      emit(SpaceLoaded(spaces));
-    } catch (e) {
-      emit(SpaceError(e.toString()));
-    }
-  }
-
-  FutureOr<void> _onGetCurrentSpace(
-    GetCurrentSpace event,
-    Emitter<SpaceState> emit,
-  ) async {
-    try {
       final currentSpace = await _spaceRepository.getCurrentSpace();
-      emit(CurrentSpace(currentSpace));
+      emit(SpaceLoaded(spaces, currentSpace));
     } catch (e) {
       emit(SpaceError(e.toString()));
     }
@@ -50,6 +41,49 @@ class SpaceBloc extends Bloc<SpaceEvent, SpaceState> {
       await _spaceRepository.inviteUserToSpace(event.email);
 
       emit(UserInvited());
+    } catch (e) {
+      emit(SpaceError(e.toString()));
+    }
+  }
+
+  FutureOr<void> _onGetInvitations(
+    GetInvitations event,
+    Emitter<SpaceState> emit,
+  ) async {
+    emit(SpaceLoading());
+    try {
+      final invitations = await _spaceRepository.getInvitedSpaces(event.email);
+      emit(InvitationsLoaded(invitations));
+    } catch (e) {
+      emit(SpaceError(e.toString()));
+    }
+  }
+
+  FutureOr<void> _onReplyToInvitation(
+    ReplyToInvitation event,
+    Emitter<SpaceState> emit,
+  ) async {
+    emit(SpaceLoading());
+    try {
+      await _spaceRepository.replyToInvitation(
+        spaceId: event.spaceId,
+        accept: event.accepted,
+      );
+      // emit(InvitationsLoaded(invitations));
+    } catch (e) {
+      emit(SpaceError(e.toString()));
+    }
+  }
+
+  FutureOr<void> _onChangeSpace(
+    ChangeSpace event,
+    Emitter<SpaceState> emit,
+  ) async {
+    emit(SpaceLoading());
+    try {
+      await _spaceRepository.changeSpace(event.spaceId);
+      final currentSpace = await _spaceRepository.getCurrentSpace();
+      emit(SpaceChanged(currentSpace));
     } catch (e) {
       emit(SpaceError(e.toString()));
     }

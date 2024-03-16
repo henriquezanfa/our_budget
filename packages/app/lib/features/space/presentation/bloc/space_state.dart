@@ -8,8 +8,9 @@ final class SpaceInitial extends SpaceState {}
 final class SpaceLoading extends SpaceState {}
 
 final class SpaceLoaded extends SpaceState {
-  SpaceLoaded(this.spaces);
+  SpaceLoaded(this.spaces, this.currentSpace);
   final List<SpaceModel> spaces;
+  final SpaceModel? currentSpace;
 }
 
 final class SpaceError extends SpaceState {
@@ -17,9 +18,14 @@ final class SpaceError extends SpaceState {
   final String message;
 }
 
-final class CurrentSpace extends SpaceState {
-  CurrentSpace(this.space);
-  final SpaceModel space;
+final class UserInvited extends SpaceState {}
+
+final class InvitationsLoaded extends SpaceState {
+  InvitationsLoaded(this.invitations);
+  final List<SpaceModel> invitations;
 }
 
-final class UserInvited extends SpaceState {}
+final class SpaceChanged extends SpaceState {
+  SpaceChanged(this.space);
+  final SpaceModel space;
+}

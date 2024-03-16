@@ -6,14 +6,13 @@ Future<void> initApp() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  if (kDebugMode) {
+  if (kDebugMode && !_isInitialized) {
     await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
     FirebaseFirestore.instance.useFirestoreEmulator('localhost', 8080);
   }
 
-  if (!_isInitialized) {
-    await registerDependencies();
-  }
+  await inject.reset();
+  await registerDependencies();
 
   _isInitialized = true;
 }

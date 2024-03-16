@@ -18,7 +18,7 @@ class BalanceRepository {
     final spaceId = _spaceRepository.currentSpaceId;
 
     return _dataSource.getBalance(
-      spaceId: spaceId,
+      spaceId: spaceId!,
       userId: userId,
       bankAccountsIds: bankAccountsIds,
     );

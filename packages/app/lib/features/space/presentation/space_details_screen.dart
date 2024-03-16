@@ -10,7 +10,7 @@ class SpaceDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SpaceBloc(inject())..add(GetCurrentSpace()),
+      create: (context) => SpaceBloc(inject())..add(GetSpaces()),
       child: const _View(),
     );
   }
@@ -28,19 +28,17 @@ class _View extends StatelessWidget {
       body: BlocConsumer<SpaceBloc, SpaceState>(
         listener: (context, state) {
           if (state is UserInvited) {
-            context.read<SpaceBloc>().add(GetCurrentSpace());
+            context.read<SpaceBloc>().add(GetSpaces());
           }
         },
-        buildWhen: (previous, current) =>
-            previous != current && current is CurrentSpace,
         builder: (context, state) {
-          if (state is! CurrentSpace) {
+          if (state is! SpaceLoaded) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           }
 
-          final space = state.space;
+          final space = state.currentSpace!;
 
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
