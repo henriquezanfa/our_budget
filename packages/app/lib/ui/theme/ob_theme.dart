@@ -46,13 +46,15 @@ final lightTheme = _theme.copyWith(
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       backgroundColor: OBColors.primary,
+      foregroundColor: Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(OBSizes.medium),
       ),
       padding: const EdgeInsets.all(OBSizes.medium),
-      textStyle: const TextStyle(
+      textStyle: _theme.textTheme.titleLarge!.copyWith(
         color: Colors.white,
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.bold,
+        fontSize: 18,
       ),
     ),
   ),

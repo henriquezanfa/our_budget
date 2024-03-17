@@ -11,8 +11,10 @@ import 'package:ob/features/credit_cards/domain/model/credit_card.dart';
 import 'package:ob/features/credit_cards/presentations/ui/pages/credit_card_details_page.dart';
 import 'package:ob/features/credit_cards/presentations/ui/pages/credit_cards_list_page.dart';
 import 'package:ob/features/features.dart';
+import 'package:ob/features/intro/intro_page.dart';
 import 'package:ob/features/login/presentation/login.dart';
 import 'package:ob/features/manage/presentation/ui/manage_page.dart';
+import 'package:ob/features/onboarding/presentation/onboarding_page.dart';
 import 'package:ob/features/profile/presentation/ui/profile_page.dart';
 import 'package:ob/features/registration/registration.dart';
 import 'package:ob/features/space/presentation/space_details_screen.dart';
@@ -64,6 +66,18 @@ class CustomRouter {
             const AddTransactionPage(),
           ),
         ),
+        GoRoute(
+          path: OBRoutes.onboarding,
+          pageBuilder: (context, state) => _fadeTransitionBuilder(
+            const OnboardingPage(),
+          ),
+        ),
+        GoRoute(
+          path: OBRoutes.intro,
+          pageBuilder: (context, state) => _fadeTransitionBuilder(
+            const IntroPage(),
+          ),
+        ),
         StatefulShellRoute.indexedStack(
           pageBuilder: (context, state, navigationShell) =>
               _fadeTransitionBuilder(
@@ -84,7 +98,7 @@ class CustomRouter {
                     final user = FirebaseAuth.instance.currentUser;
                     // FirebaseAuth.instance.signOut();
                     if (user == null) {
-                      return OBRoutes.login;
+                      return OBRoutes.intro;
                     }
 
                     return null;

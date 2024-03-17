@@ -14,4 +14,6 @@ class OBRoutes {
   static const String addTransaction = '/add_transaction';
   static const String categories = '/categories';
   static const String spaceDetails = '/space_details';
+  static const String onboarding = '/onboarding';
+  static const String intro = '/intro';
 }
