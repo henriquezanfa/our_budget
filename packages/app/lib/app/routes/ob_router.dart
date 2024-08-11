@@ -14,6 +14,8 @@ import 'package:ob/features/features.dart';
 import 'package:ob/features/intro/intro_page.dart';
 import 'package:ob/features/login/presentation/login.dart';
 import 'package:ob/features/manage/presentation/ui/manage_page.dart';
+import 'package:ob/features/onboarding/presentation/create_bank_accounts_page.dart';
+import 'package:ob/features/onboarding/presentation/create_space_page.dart';
 import 'package:ob/features/onboarding/presentation/onboarding_page.dart';
 import 'package:ob/features/profile/presentation/ui/profile_page.dart';
 import 'package:ob/features/registration/registration.dart';
@@ -71,6 +73,20 @@ class CustomRouter {
           pageBuilder: (context, state) => _fadeTransitionBuilder(
             const OnboardingPage(),
           ),
+          routes: [
+            GoRoute(
+              path: OBRoutes.createSpace,
+              pageBuilder: (context, state) => _fadeTransitionBuilder(
+                const CreateSpacePage(),
+              ),
+            ),
+            GoRoute(
+              path: OBRoutes.createBankAccounts,
+              pageBuilder: (context, state) => _fadeTransitionBuilder(
+                const CreateBankAccountsPage(),
+              ),
+            ),
+          ],
         ),
         GoRoute(
           path: OBRoutes.intro,

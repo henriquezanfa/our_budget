@@ -16,4 +16,6 @@ class OBRoutes {
   static const String spaceDetails = '/space_details';
   static const String onboarding = '/onboarding';
   static const String intro = '/intro';
+  static const String createSpace = 'create-space';
+  static const String createBankAccounts = 'create-bank-accounts';
 }

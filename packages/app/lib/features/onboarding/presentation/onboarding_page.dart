@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:ob/app/routes/ob_routes.dart';
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({super.key});
@@ -24,6 +26,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
   }
 
   void _nextPage() {
+    if (_currentPage == 2) {
+      context.push('${OBRoutes.onboarding}/${OBRoutes.createSpace}');
+      return;
+    }
+
     _pageController.nextPage(
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
@@ -36,9 +43,16 @@ class _OnboardingPageState extends State<OnboardingPage> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).pop();
+            if (_currentPage == 0) {
+              context.go(OBRoutes.intro);
+            } else {
+              _pageController.previousPage(
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
+              );
+            }
           },
-          icon: const Icon(Icons.close),
+          icon: const Icon(Icons.chevron_left, size: 30),
         ),
       ),
       body: PageView(
