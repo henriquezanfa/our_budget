@@ -112,7 +112,6 @@ class CustomRouter {
                   path: OBRoutes.home,
                   redirect: (context, state) {
                     final user = FirebaseAuth.instance.currentUser;
-                    // FirebaseAuth.instance.signOut();
                     if (user == null) {
                       return OBRoutes.intro;
                     }

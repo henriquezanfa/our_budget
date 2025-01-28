@@ -33,6 +33,8 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
       emit(RegistrationSuccess());
     } on FirebaseAuthException catch (e) {
       emit(RegistrationFailure(e.message ?? ''));
+    } catch (e) {
+      emit(RegistrationFailure(e.toString()));
     }
   }
 }

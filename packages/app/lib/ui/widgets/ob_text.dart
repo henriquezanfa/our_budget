@@ -11,6 +11,7 @@ class OBTextField extends StatelessWidget {
     this.focusNode,
     this.onChanged,
     this.onTap,
+    this.autofocus = false,
   });
 
   final TextEditingController? controller;
@@ -21,11 +22,13 @@ class OBTextField extends StatelessWidget {
   final FocusNode? focusNode;
   final void Function(String)? onChanged;
   final VoidCallback? onTap;
+  final bool autofocus;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       readOnly: readOnly,
+      autofocus: autofocus,
       controller: controller,
       focusNode: focusNode,
       decoration: InputDecoration(
