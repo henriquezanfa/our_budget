@@ -37,32 +37,24 @@ class OnboardingRepository {
 
     await _spaceRepository.createSpace(userId, name: spaceName);
 
-    try {
-      await _bankAccountRepository.addBankAccount(
-        BankAccountCreationDto(
-          name: accountName,
-          currency: currency,
-          accountType: accountType,
-          accountHolderName: accountHolderName,
-        ),
-      );
-    } catch (e) {
-      print(e);
-    }
+    await _bankAccountRepository.addBankAccount(
+      BankAccountCreationDto(
+        name: accountName,
+        currency: currency,
+        accountType: accountType,
+        accountHolderName: accountHolderName,
+      ),
+    );
 
-    try {
-      await Future.wait(
-        categories.map((category) {
-          return _categoriesRepository.addCategory(
-            TransactionCategoryDto(
-              description: category,
-              icon: '',
-            ),
-          );
-        }),
-      );
-    } catch (e) {
-      print(e);
-    }
+    await Future.wait(
+      categories.map((category) {
+        return _categoriesRepository.addCategory(
+          TransactionCategoryDto(
+            description: category,
+            icon: '',
+          ),
+        );
+      }),
+    );
   }
 }
