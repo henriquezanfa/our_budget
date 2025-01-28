@@ -17,7 +17,7 @@ class InviteUser extends SpaceEvent {
 
 class GetInvitations extends SpaceEvent {
   GetInvitations(this.email);
-  final String email;
+  final String? email;
 }
 
 class ReplyToInvitation extends SpaceEvent {

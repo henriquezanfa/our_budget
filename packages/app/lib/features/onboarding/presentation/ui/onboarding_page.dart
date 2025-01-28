@@ -9,7 +9,6 @@ class OnboardingPage extends StatefulWidget {
   State<OnboardingPage> createState() => _OnboardingPageState();
 }
 
-/// one color per page with animation
 class _OnboardingPageState extends State<OnboardingPage> {
   final PageController _pageController = PageController();
 

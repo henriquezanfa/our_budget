@@ -18,4 +18,6 @@ class OBRoutes {
   static const String intro = '/intro';
   static const String createSpace = 'create-space';
   static const String createBankAccounts = 'create-bank-accounts';
+  static const String createCategories = 'create-categories';
+  static const String loading = 'loading'; 
 }

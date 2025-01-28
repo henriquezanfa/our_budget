@@ -15,9 +15,11 @@ import 'package:ob/features/home/view/home_view.dart';
 import 'package:ob/features/intro/intro_page.dart';
 import 'package:ob/features/login/presentation/login.dart';
 import 'package:ob/features/manage/presentation/ui/manage_page.dart';
-import 'package:ob/features/onboarding/presentation/create_bank_accounts_page.dart';
-import 'package:ob/features/onboarding/presentation/create_space_page.dart';
-import 'package:ob/features/onboarding/presentation/onboarding_page.dart';
+import 'package:ob/features/onboarding/presentation/ui/create_bank_accounts_page.dart';
+import 'package:ob/features/onboarding/presentation/ui/create_categories_page.dart';
+import 'package:ob/features/onboarding/presentation/ui/create_space_page.dart';
+import 'package:ob/features/onboarding/presentation/ui/loading_page.dart';
+import 'package:ob/features/onboarding/presentation/ui/onboarding_page.dart';
 import 'package:ob/features/profile/presentation/ui/profile_page.dart';
 import 'package:ob/features/registration/registration.dart';
 import 'package:ob/features/space/presentation/space_details_screen.dart';
@@ -85,6 +87,18 @@ class CustomRouter {
               path: OBRoutes.createBankAccounts,
               pageBuilder: (context, state) => _fadeTransitionBuilder(
                 const CreateBankAccountsPage(),
+              ),
+            ),
+            GoRoute(
+              path: OBRoutes.createCategories,
+              pageBuilder: (context, state) => _fadeTransitionBuilder(
+                const CreateCategoriesPage(),
+              ),
+            ),
+            GoRoute(
+              path: OBRoutes.loading,
+              pageBuilder: (context, state) => _fadeTransitionBuilder(
+                const LoadingPage(),
               ),
             ),
           ],

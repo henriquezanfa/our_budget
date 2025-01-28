@@ -52,7 +52,11 @@ class SpaceBloc extends Bloc<SpaceEvent, SpaceState> {
   ) async {
     emit(SpaceLoading());
     try {
-      final invitations = await _spaceRepository.getInvitedSpaces(event.email);
+      if (event.email == null) {
+        emit(InvitationsLoaded(const []));
+        return;
+      }
+      final invitations = await _spaceRepository.getInvitedSpaces(event.email!);
       emit(InvitationsLoaded(invitations));
     } catch (e) {
       emit(SpaceError(e.toString()));

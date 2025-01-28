@@ -19,4 +19,9 @@ class AuthRepository {
 
     return credentials.user!.uid;
   }
+
+  Future<UserId> signInAnonymously() async {
+    final credentials = await _auth.signInAnonymously();
+    return credentials.user!.uid;
+  }
 }

@@ -6,6 +6,7 @@ import 'package:ob/features/balance/inject.dart';
 import 'package:ob/features/bank_accounts/inject.dart';
 import 'package:ob/features/categories/inject.dart';
 import 'package:ob/features/credit_cards/inject.dart';
+import 'package:ob/features/onboarding/data/repository/onboarding_repository.dart';
 import 'package:ob/features/space/inject.dart';
 import 'package:ob/features/transactions/inject.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -31,6 +32,15 @@ Future<void> registerDependencies() async {
   registerCreditCardDependencies();
   injectTransactions();
   injectCategories();
+
+  inject.registerLazySingleton<OnboardingRepository>(
+    () => OnboardingRepository(
+      spaceRepository: inject.get(),
+      bankAccountRepository: inject.get(),
+      categoriesRepository: inject.get(),
+      authRepository: inject.get(),
+    ),
+  );
 }
 
 void resetDependencies() {

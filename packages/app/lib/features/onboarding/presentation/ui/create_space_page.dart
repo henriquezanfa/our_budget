@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ob/app/routes/ob_routes.dart';
+import 'package:ob/features/onboarding/presentation/cubit/onboarding_cubit.dart';
 
 class CreateSpacePage extends StatefulWidget {
   const CreateSpacePage({super.key});
@@ -37,25 +39,23 @@ class _CreateSpacePageState extends State<CreateSpacePage> {
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Align(
               alignment: Alignment.centerLeft,
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(1000),
-                  child: Text(
-                    'Step 1 - Create a space',
-                    style: theme.textTheme.headlineLarge!.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+                child: Text(
+                  'Step 1 - Create a space',
+                  style: theme.textTheme.headlineLarge!.copyWith(
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
             ),
             const SizedBox(height: 20),
             Text(
-              'The space is where you and your partner will manage your budget together.\nGive it a name and you\'re ready to go!',
+              "The space is where you and your partner will manage your budget together.\nGive it a name and you're ready to go!",
               style: theme.textTheme.bodyLarge,
             ),
             const SizedBox(height: 20),
@@ -67,18 +67,16 @@ class _CreateSpacePageState extends State<CreateSpacePage> {
               ),
             ),
             const SizedBox(height: 20),
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: ElevatedButton(
-                onPressed: _isFormValid
-                    ? () {
-                        context.push(
-                          '${OBRoutes.onboarding}/${OBRoutes.createBankAccounts}',
-                        );
-                      }
-                    : null,
-                child: const Text('Create space'),
-              ),
+            ElevatedButton(
+              onPressed: _isFormValid
+                  ? () {
+                      context.read<OnboardingCubit>().setSpaceName(_spaceNameController.text);
+                      context.push(
+                        '${OBRoutes.onboarding}/${OBRoutes.createBankAccounts}',
+                      );
+                    }
+                  : null,
+              child: const Text('Create space'),
             ),
           ],
         ),

@@ -15,7 +15,7 @@ class InvitationsList extends StatelessWidget {
       create: (context) => SpaceBloc(inject())
         ..add(
           GetInvitations(
-            FirebaseAuth.instance.currentUser!.email!,
+            FirebaseAuth.instance.currentUser!.email,
           ),
         ),
       child: const _InvitationsList(),
