@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ob/app/routes/ob_routes.dart';
 import 'package:ob/app/view/show_toast.dart';
 import 'package:ob/features/login/bloc/login_bloc.dart';
 import 'package:ob/ui/theme/ob_sizes.dart';
@@ -87,15 +88,15 @@ class _LoginViewState extends State<LoginView> {
               ),
               // Removing the registration button because the idea is that
               // users will use the onboarding flow to create an account
-              // const SizedBox(height: 16),
-              // Center(
-              //   child: TextButton(
-              //     onPressed: () {
-              //       context.push(OBRoutes.registration);
-              //     },
-              //     child: const Text('Create an account'),
-              //   ),
-              // ),
+              const SizedBox(height: 16),
+              Center(
+                child: TextButton(
+                  onPressed: () {
+                    context.push(OBRoutes.registration);
+                  },
+                  child: const Text('Create an account'),
+                ),
+              ),
             ],
           ),
         );

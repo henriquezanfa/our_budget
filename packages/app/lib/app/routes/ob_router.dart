@@ -11,6 +11,7 @@ import 'package:ob/features/credit_cards/domain/model/credit_card.dart';
 import 'package:ob/features/credit_cards/presentations/ui/pages/credit_card_details_page.dart';
 import 'package:ob/features/credit_cards/presentations/ui/pages/credit_cards_list_page.dart';
 import 'package:ob/features/features.dart';
+import 'package:ob/features/home/view/home_view.dart';
 import 'package:ob/features/intro/intro_page.dart';
 import 'package:ob/features/login/presentation/login.dart';
 import 'package:ob/features/manage/presentation/ui/manage_page.dart';
@@ -118,7 +119,7 @@ class CustomRouter {
 
                     return null;
                   },
-                  builder: (context, state) => const HomePage(),
+                  builder: (context, state) => const HomeView(),
                 ),
               ],
             ),

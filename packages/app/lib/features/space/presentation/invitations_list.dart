@@ -34,7 +34,7 @@ class _InvitationsList extends StatelessWidget {
           return const Center(
             child: Offstage(),
           );
-        } else if (state is InvitationsLoaded) {
+        } else if (state is InvitationsLoaded && state.invitations.isNotEmpty) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -84,8 +84,8 @@ class _InvitationsList extends StatelessWidget {
 
 class AcceptOrDeclineInvitationModal extends StatelessWidget {
   const AcceptOrDeclineInvitationModal({
-    super.key,
     required this.space,
+    super.key,
   });
 
   final SpaceModel space;

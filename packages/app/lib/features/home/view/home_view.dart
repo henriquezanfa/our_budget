@@ -8,8 +8,8 @@ import 'package:ob/features/space/presentation/select_space_modal.dart';
 import 'package:ob/ui/extensions/list_extensions.dart';
 import 'package:ob/ui/widgets/widgets.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class HomeView extends StatelessWidget {
+  const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
