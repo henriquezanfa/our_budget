@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ob/features/bank_accounts/domain/enum/account_type_enum.dart';
 import 'package:ob/features/bank_accounts/domain/model/bank_account.dart';
+import 'package:ob/features/currencies_selection/domain/currency.dart';
+import 'package:ob/features/currencies_selection/presentation/currency_selector_view.dart';
 
 class BankAccountInformationWidget extends StatefulWidget {
   const BankAccountInformationWidget({
@@ -17,8 +19,8 @@ class BankAccountInformationWidget extends StatefulWidget {
 class _BankAccountInformationWidgetState
     extends State<BankAccountInformationWidget> {
   final _nameController = TextEditingController();
-  final _currencyController = TextEditingController();
   final _accountHolderNameController = TextEditingController();
+  late Currency _currency;
 
   AccountTypeEnum? _accountType;
 
@@ -27,9 +29,9 @@ class _BankAccountInformationWidgetState
     super.initState();
 
     _nameController.text = widget.bankAccount.name;
-    _currencyController.text = widget.bankAccount.currency;
     _accountHolderNameController.text = widget.bankAccount.accountHolderName;
     _accountType = widget.bankAccount.accountType;
+    _currency = getCurrencyFromText(widget.bankAccount.currency);
   }
 
   @override
@@ -51,12 +53,7 @@ class _BankAccountInformationWidgetState
             ),
           ),
           const SizedBox(height: 8),
-          TextFormField(
-            controller: _currencyController,
-            decoration: const InputDecoration(
-              hintText: 'Currency',
-            ),
-          ),
+          CurrencySelectorView(initial: _currency),
           const SizedBox(height: 8),
           DropdownButtonFormField<AccountTypeEnum>(
             value: _accountType,

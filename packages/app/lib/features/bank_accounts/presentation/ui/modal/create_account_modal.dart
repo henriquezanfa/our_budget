@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ob/features/bank_accounts/data/dto/bank_account_creation_dto.dart';
 import 'package:ob/features/bank_accounts/domain/enum/account_type_enum.dart';
 import 'package:ob/features/bank_accounts/presentation/bloc/bank_account_bloc.dart';
+import 'package:ob/features/currencies_selection/domain/currency.dart';
+import 'package:ob/features/currencies_selection/presentation/currency_selector_view.dart';
 import 'package:ob/ui/widgets/widgets.dart';
 
 // ignore: comment_references
@@ -29,15 +31,15 @@ class _CreateBankAccountModal extends StatefulWidget {
 
 class _CreateBankAccountModalState extends State<_CreateBankAccountModal> {
   final _nameController = TextEditingController();
-  final _currencyController = TextEditingController();
   final _accountHolderNameController = TextEditingController();
+  Currency? _selectedCurrency;
 
   AccountTypeEnum? _accountType;
 
   bool get _isFormValid =>
       _nameController.text.isNotEmpty &&
-      _currencyController.text.isNotEmpty &&
       _accountHolderNameController.text.isNotEmpty &&
+      _selectedCurrency != null &&
       _accountType != null;
 
   @override
@@ -67,11 +69,13 @@ class _CreateBankAccountModalState extends State<_CreateBankAccountModal> {
                   ),
                 ),
                 const SizedBox(height: 8),
-                TextFormField(
-                  controller: _currencyController,
-                  decoration: const InputDecoration(
-                    hintText: 'Currency',
-                  ),
+                CurrencySelectorView(
+                  initial: _selectedCurrency,
+                  onChanged: (currency) {
+                    setState(() {
+                      _selectedCurrency = currency;
+                    });
+                  },
                 ),
                 const SizedBox(height: 8),
                 DropdownButtonFormField<AccountTypeEnum>(
@@ -114,7 +118,7 @@ class _CreateBankAccountModalState extends State<_CreateBankAccountModal> {
                         Navigator.of(context).pop(
                           BankAccountCreationDto(
                             name: _nameController.text,
-                            currency: _currencyController.text,
+                            currency: _selectedCurrency!.code.toLowerCase(),
                             accountType: _accountType!,
                             accountHolderName:
                                 _accountHolderNameController.text,
