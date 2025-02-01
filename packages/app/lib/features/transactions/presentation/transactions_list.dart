@@ -38,14 +38,18 @@ class _TransactionsListView extends StatelessWidget {
 
         final groupedByMonth = groupBy(transactions, (p0) => p0.date.yMMM);
 
+        if (groupedByMonth.isEmpty) {
+          return const Text(
+            'Your history is empty. Start adding you transactions and they will be shwon here 😊',
+          );
+        }
+
         return ListView.separated(
           padding: EdgeInsets.zero,
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemCount: groupedByMonth.length,
-          separatorBuilder: (context, index) {
-            return const SizedBox(height: 16);
-          },
+          separatorBuilder: (context, index) => const SizedBox(height: 16),
           itemBuilder: (context, index) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
