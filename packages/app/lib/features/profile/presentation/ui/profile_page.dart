@@ -23,7 +23,7 @@ class ProfilePage extends StatelessWidget {
           ),
         ),
         SliverToBoxAdapter(
-          child: OBElevatedButton(
+          child: OBTextButton(
             text: 'Logout',
             onPressed: () {
               FirebaseAuth.instance.signOut().then((_) {
