@@ -42,7 +42,7 @@ class SelectSpaceButton extends StatelessWidget {
       icon: const Icon(Icons.settings_outlined),
       onPressed: () => showChangeSpaceModal(context)
         ..then((restart) {
-          if (restart == true) {
+          if (restart ?? false) {
             RestartWidget.restartApp(context);
           }
         }),
