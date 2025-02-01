@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ob/app/view/restart_app.dart';
@@ -14,15 +15,17 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SpaceHandler(
-      child: OBScreen.primary(
-        title: 'Hello, there 👋',
-        actions: const [SelectSpaceButton()],
-        children: [
-          const SliverToBoxAdapter(child: BalanceWidget()),
-          const SliverToBoxAdapter(child: ConvertToPermanentWidget()),
-          const SliverToBoxAdapter(child: InvitationsList()),
-        ].withSpaceBetween(height: 16, isSliver: true),
+    return AuthStreamWidget(
+      child: SpaceHandler(
+        child: OBScreen.primary(
+          title: 'Hello, there 👋',
+          actions: const [SelectSpaceButton()],
+          children: [
+            const SliverToBoxAdapter(child: BalanceWidget()),
+            const SliverToBoxAdapter(child: ConvertToPermanentWidget()),
+            const SliverToBoxAdapter(child: InvitationsList()),
+          ].withSpaceBetween(height: 16, isSliver: true),
+        ),
       ),
     );
   }
@@ -88,6 +91,39 @@ class _SpaceHandlerState extends State<SpaceHandler> {
           return widget.child;
         }
         return const Center(child: CircularProgressIndicator());
+      },
+    );
+  }
+}
+
+class AuthStreamWidget extends StatelessWidget {
+  const AuthStreamWidget({
+    required this.child,
+    super.key,
+  });
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        if (snapshot.hasError) {
+          return const Center(child: Text('An error occurred'));
+        }
+
+        if (snapshot.data == null) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            Navigator.of(context).pushReplacementNamed('/');
+          });
+        }
+
+        return child;
       },
     );
   }
