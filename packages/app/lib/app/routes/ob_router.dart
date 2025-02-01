@@ -49,14 +49,6 @@ class CustomRouter {
     return GoRouter(
       initialLocation: OBRoutes.root,
       navigatorKey: rootNavigatorKey,
-      redirect: (context, state) {
-        final user = FirebaseAuth.instance.currentUser;
-        if (user == null) {
-          return OBRoutes.intro;
-        }
-
-        return null;
-      },
       observers: [NavigatorObserver()],
       routes: [
         GoRoute(
@@ -133,6 +125,14 @@ class CustomRouter {
               routes: [
                 GoRoute(
                   path: OBRoutes.home,
+                  redirect: (context, state) {
+                    final user = FirebaseAuth.instance.currentUser;
+                    if (user == null) {
+                      return OBRoutes.intro;
+                    }
+
+                    return null;
+                  },
                   builder: (context, state) => const HomeView(),
                 ),
               ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ob/app/routes/ob_routes.dart';
 import 'package:ob/core/di/di.dart';
 import 'package:ob/features/auth/data/auth_repository.dart';
 import 'package:ob/features/registration/bloc/registration_bloc.dart';
@@ -44,7 +45,8 @@ class _FormsState extends State<Forms> {
   String? _email;
   String? _password;
 
-  bool get _isFormValid => _email != null && _password != null;
+  bool get _isFormValid =>
+      _email != null && _password != null && _password!.length >= 6;
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +60,7 @@ class _FormsState extends State<Forms> {
           );
         }
         if (state is RegistrationSuccess) {
-          context.go('/home');
+          context.go(OBRoutes.root);
         }
       },
       builder: (context, state) {
@@ -87,9 +89,18 @@ class _FormsState extends State<Forms> {
               LoginButton(
                 onPressed: _isFormValid
                     ? () {
-                        context.read<RegistrationBloc>().add(
-                              RegistrationSubmitted(_email!, _password!),
-                            );
+                        final auth = inject.get<AuthRepository>();
+                        final isAnonymous = auth.isAnonymous;
+
+                        if (isAnonymous) {
+                          context.read<RegistrationBloc>().add(
+                                ConvertToPermanentAccount(_email!, _password!),
+                              );
+                        } else {
+                          context.read<RegistrationBloc>().add(
+                                RegistrationSubmitted(_email!, _password!),
+                              );
+                        }
                       }
                     : null,
               ),

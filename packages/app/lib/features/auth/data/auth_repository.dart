@@ -7,6 +7,8 @@ class AuthRepository {
   final FirebaseAuth _auth;
 
   User? get user => _auth.currentUser;
+  bool get isAuthenticated => user != null;
+  bool get isAnonymous => user?.isAnonymous ?? false;
 
   Future<UserId> createUserWithEmailAndPassword({
     required String email,
@@ -23,5 +25,17 @@ class AuthRepository {
   Future<UserId> signInAnonymously() async {
     final credentials = await _auth.signInAnonymously();
     return credentials.user!.uid;
+  }
+
+  Future<void> convertToPermanentAccount({
+    required String email,
+    required String password,
+  }) async {
+    final user = _auth.currentUser;
+    final credentials = EmailAuthProvider.credential(
+      email: email,
+      password: password,
+    );
+    await user!.linkWithCredential(credentials);
   }
 }

@@ -15,6 +15,7 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
     this._spaceRepository,
   ) : super(RegistrationInitial()) {
     on<RegistrationSubmitted>(_onRegistrationSubmitted);
+    on<ConvertToPermanentAccount>(_onConvertToPermanentAccount);
   }
   final AuthRepository _authRepository;
   final SpaceRepository _spaceRepository;
@@ -30,6 +31,24 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
         password: event.password,
       );
       await _spaceRepository.createSpace(userId, name: 'My Space');
+      emit(RegistrationSuccess());
+    } on FirebaseAuthException catch (e) {
+      emit(RegistrationFailure(e.message ?? ''));
+    } catch (e) {
+      emit(RegistrationFailure(e.toString()));
+    }
+  }
+
+  FutureOr<void> _onConvertToPermanentAccount(
+    ConvertToPermanentAccount event,
+    Emitter<RegistrationState> emit,
+  ) async {
+    emit(RegistrationLoading());
+    try {
+      await _authRepository.convertToPermanentAccount(
+        email: event.email,
+        password: event.password,
+      );
       emit(RegistrationSuccess());
     } on FirebaseAuthException catch (e) {
       emit(RegistrationFailure(e.message ?? ''));

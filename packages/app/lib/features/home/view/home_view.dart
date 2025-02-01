@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ob/app/view/restart_app.dart';
 import 'package:ob/features/balance/presentation/balance_widget.dart';
+import 'package:ob/features/registration/convert_to_permanent_widget.dart';
 import 'package:ob/features/space/data/space_repository.dart';
 import 'package:ob/features/space/presentation/invitations_list.dart';
 import 'package:ob/features/space/presentation/select_space_modal.dart';
@@ -19,6 +20,7 @@ class HomeView extends StatelessWidget {
         actions: const [SelectSpaceButton()],
         children: [
           const SliverToBoxAdapter(child: BalanceWidget()),
+          const SliverToBoxAdapter(child: ConvertToPermanentWidget()),
           const SliverToBoxAdapter(child: InvitationsList()),
         ].withSpaceBetween(height: 16, isSliver: true),
       ),

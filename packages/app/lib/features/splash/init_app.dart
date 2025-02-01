@@ -4,7 +4,6 @@ bool _isInitialized = false;
 
 Future<void> initApp() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
 
   if (kDebugMode && !_isInitialized) {
     await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
