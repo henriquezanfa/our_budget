@@ -99,7 +99,7 @@ class _TransactionViewState extends State<_TransactionView> {
         }
       },
       child: OBScreen.secondary(
-        title: 'New Transaction',
+        title: _isEditing ? 'Edit transaction' : 'Add transaction',
         bottomWidget: Padding(
           padding: EdgeInsets.only(
             bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -221,7 +221,7 @@ class _CategorySelectorWidget extends StatelessWidget {
               alignment: WrapAlignment.center,
               children: categories.map(
                 (e) {
-                  final isSelected = e.name == selectedCategory?.name;
+                  final isSelected = e.id == selectedCategory?.id;
                   return GestureDetector(
                     behavior: HitTestBehavior.opaque,
                     onTap: () => onChanged(isSelected ? null : e),

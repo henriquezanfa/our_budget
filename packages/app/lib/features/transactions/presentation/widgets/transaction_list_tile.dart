@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:ob/app/routes/ob_routes.dart';
 import 'package:ob/domain/models/money_transaction/money_transaction.dart';
 import 'package:ob/features/transactions/presentation/bloc/transactions_bloc.dart';
-import 'package:ob/features/transactions/presentation/widgets/upsert_transaction_widget.dart';
 import 'package:ob/ui/extensions/date_extensions.dart';
 import 'package:ob/ui/extensions/list_extensions.dart';
 import 'package:ob/ui/extensions/number_extensions.dart';
-import 'package:ob/ui/widgets/widgets.dart';
 
 class TransactionListTile extends StatelessWidget {
   const TransactionListTile({
@@ -46,31 +46,12 @@ class TransactionListTile extends StatelessWidget {
       },
       child: ListTile(
         onTap: () {
-          showOBModalBottomSheet<void>(
-            context: context,
-            child: EditTransactionModal(transaction: transaction),
-          );
+          context.push(OBRoutes.addTransaction, extra: transaction);
         },
         title: Text(transaction.description ?? ''),
         trailing: TransactionValueWidget(transaction: transaction),
         subtitle: Text(transaction.date.ymdhms),
       ),
-    );
-  }
-}
-
-class EditTransactionModal extends StatelessWidget {
-  const EditTransactionModal({
-    required this.transaction,
-    super.key,
-  });
-  final MoneyTransaction transaction;
-
-  @override
-  Widget build(BuildContext context) {
-    return OBModal(
-      title: 'Edit transaction',
-      child: UpsertTransactionWidget(transaction: transaction),
     );
   }
 }

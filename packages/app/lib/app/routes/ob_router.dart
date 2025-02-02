@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ob/app/routes/ob_routes.dart';
 import 'package:ob/app/view/app_with_navbar.dart';
+import 'package:ob/domain/models/money_transaction/money_transaction.dart';
 import 'package:ob/features/bank_accounts/domain/model/bank_account.dart';
 import 'package:ob/features/bank_accounts/presentation/ui/pages/bank_account_details_page.dart';
 import 'package:ob/features/bank_accounts/presentation/ui/pages/bank_accounts_list_page.dart';
@@ -24,7 +25,7 @@ import 'package:ob/features/profile/presentation/ui/profile_page.dart';
 import 'package:ob/features/registration/registration.dart';
 import 'package:ob/features/space/presentation/space_details_screen.dart';
 import 'package:ob/features/splash/splash.dart';
-import 'package:ob/features/transactions/presentation/add_transaction_page.dart';
+import 'package:ob/features/transactions/presentation/upsert_transaction_view.dart';
 
 class CustomRouter {
   CustomRouter() {
@@ -67,8 +68,10 @@ class CustomRouter {
         GoRoute(
           path: OBRoutes.addTransaction,
           parentNavigatorKey: rootNavigatorKey,
-          pageBuilder: (_, __) => _modalTransitionBuilder(
-            const AddTransactionPage(),
+          pageBuilder: (_, state) => _modalTransitionBuilder(
+            UpsertTransactionView(
+              transaction: state.extra as MoneyTransaction?,
+            ),
           ),
         ),
         GoRoute(
