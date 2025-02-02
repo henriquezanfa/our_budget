@@ -27,9 +27,7 @@ class _OBDatePickerState extends State<OBDatePicker> {
       onTap: () async {
         final date = await showAdaptiveDatePicker(
           context: context,
-          initialDate: widget.selectedDate ?? DateTime.now(),
-          firstDate: DateTime(2000),
-          lastDate: DateTime(2100),
+          initialDate: widget.selectedDate,
         );
         if (date != null) {
           widget.onDateSelected(date);
@@ -44,16 +42,16 @@ class _OBDatePickerState extends State<OBDatePicker> {
 
 Future<DateTime?> showAdaptiveDatePicker({
   required BuildContext context,
-  required DateTime initialDate,
-  required DateTime firstDate,
-  required DateTime lastDate,
+  DateTime? initialDate,
+  DateTime? firstDate,
+  DateTime? lastDate,
 }) {
   if (Platform.isAndroid) {
     return showDatePicker(
       context: context,
       initialDate: initialDate,
-      firstDate: firstDate,
-      lastDate: lastDate,
+      firstDate: firstDate ?? DateTime(2000),
+      lastDate: lastDate ?? DateTime(2100),
     );
   }
 

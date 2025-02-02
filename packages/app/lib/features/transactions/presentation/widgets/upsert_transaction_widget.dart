@@ -1,12 +1,14 @@
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ob/core/di/di.dart';
+import 'package:intl/intl.dart';
 import 'package:ob/domain/models/money_transaction/money_transaction.dart';
 import 'package:ob/domain/models/transaction_category/transaction_category.dart';
-import 'package:ob/features/bank_accounts/domain/model/bank_account.dart';
 import 'package:ob/features/transactions/presentation/bloc/transactions_bloc.dart';
+import 'package:ob/l10n/l10n.dart';
 import 'package:ob/ui/extensions/list_extensions.dart';
+import 'package:ob/ui/theme/ob_sizes.dart';
+import 'package:ob/ui/ui.dart';
 import 'package:ob/ui/widgets/widgets.dart';
 
 class UpsertTransactionWidget extends StatelessWidget {
@@ -16,15 +18,31 @@ class UpsertTransactionWidget extends StatelessWidget {
   });
 
   final MoneyTransaction? transaction;
+
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => TransactionsBloc(
-        inject.get(),
-        inject.get(),
-        inject.get(),
-      )..add(GetAccountsAndCategoriesEvent()),
-      child: _TransactionView(transaction: transaction),
+    return BlocListener<TransactionsBloc, TransactionsState>(
+      listener: (context, state) {
+        if (state is TransactionsError) {
+          final theme = Theme.of(context);
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: theme.colorScheme.error,
+              behavior: SnackBarBehavior.floating,
+              content: Text(state.error),
+            ),
+          );
+        }
+        if (state is TransactionCreated) {
+          Navigator.of(context).pop();
+        }
+      },
+      child: OBScreen.secondary(
+        title: 'New Transaction',
+        children: [
+          SliverToBoxAdapter(child: _TransactionView(transaction: transaction)),
+        ],
+      ),
     );
   }
 }
@@ -46,7 +64,6 @@ class _TransactionViewState extends State<_TransactionView> {
   late final TextEditingController _descriptionController;
 
   String? _selectedAccountId;
-  String? _selectedAccountName;
   TransactionCategory? _category;
   MoneyTransactionType? _type;
   DateTime? _selectedDate;
@@ -73,96 +90,110 @@ class _TransactionViewState extends State<_TransactionView> {
 
   @override
   Widget build(BuildContext context) {
-    var categories = <TransactionCategory>[];
-    var accounts = <BankAccount>[];
-
-    return BlocListener<TransactionsBloc, TransactionsState>(
-      listener: (context, state) {
-        if (state is TransactionsError) {
-          final theme = Theme.of(context);
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              backgroundColor: theme.colorScheme.error,
-              behavior: SnackBarBehavior.floating,
-              content: Text(state.error),
-            ),
-          );
-        }
-        if (state is TransactionCreated) {
-          Navigator.of(context).pop();
-        }
-      },
+    return Form(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           OBTextField(
             controller: _amountController,
+            autofocus: true,
             labelText: 'Amount',
-            keyboardType: TextInputType.number,
+            keyboardType: const TextInputType.numberWithOptions(
+              decimal: true,
+            ),
+            inputTextFormatters: [
+              FilteringTextInputFormatter.allow(RegExp('[0-9.]')),
+              TextInputFormatter.withFunction((oldValue, newValue) {
+                final text = newValue.text;
+                return text.isEmpty
+                    ? newValue
+                    : double.tryParse(text) == null
+                        ? oldValue
+                        : newValue;
+              }),
+            ],
           ),
           OBTextField(
             controller: _descriptionController,
             labelText: 'Description',
           ),
-          OBDatePicker(
-            selectedDate: _selectedDate,
-            onDateSelected: (date) => setState(() => _selectedDate = date),
-          ),
-          OBFieldSelection(
-            labelText: 'Type',
-            items: MoneyTransactionType.values.map((e) => e.name).toList(),
-            initialSelectedItem: _type?.value,
-            onSelectionChanged: (selection) => setState(() {
-              _type = MoneyTransactionType.values.firstWhereOrNull(
-                (element) => element.name == selection,
-              );
-            }),
-          ),
-          BlocBuilder<TransactionsBloc, TransactionsState>(
-            buildWhen: (_, current) => current is AccountsAndCategoriesState,
-            builder: (context, state) {
-              if (state is AccountsAndCategoriesState) {
-                categories = state.categories;
-              }
+          // TODO: achar um jeito melhor de lidar com conta porque quando só
+          //  tem uma, o widget adiciona a padding mesmo com Offstage
+          // BlocBuilder<TransactionsBloc, TransactionsState>(
+          //   buildWhen: (_, current) => current is AccountsAndCategoriesState,
+          //   builder: (context, state) {
+          //     if (state is AccountsAndCategoriesState) {
+          //       accounts = state.accounts;
+          //       if (accounts.isNotEmpty && _selectedAccountName == null) {
+          //         _selectedAccountName = accounts.first.name;
+          //         _selectedAccountId = accounts.first.id;
+          //       }
+          //     }
 
-              return OBFieldSelection(
-                labelText: 'Category',
-                items: categories.map((e) => e.name).toList(),
-                initialSelectedItem: _category?.name,
-                onSelectionChanged: (selection) => setState(() {
-                  _category = categories.firstWhereOrNull(
-                    (element) => element.name == selection,
-                  );
-                }),
-              );
-            },
-          ),
-          BlocBuilder<TransactionsBloc, TransactionsState>(
-            buildWhen: (_, current) => current is AccountsAndCategoriesState,
-            builder: (context, state) {
-              if (state is AccountsAndCategoriesState) {
-                accounts = state.accounts;
-              }
+          //     if (accounts.length == 1) {
+          //       return const Offstage();
+          //     }
 
-              return OBFieldSelection(
-                labelText: 'Account',
-                items: accounts.map((e) => e.name).toList(),
-                initialSelectedItem: _selectedAccountName,
-                onSelectionChanged: (selection) => setState(() {
-                  _selectedAccountId = accounts
-                      .firstWhereOrNull(
-                        (element) => element.name == selection,
-                      )
-                      ?.id;
-                  _selectedAccountName = selection;
-                }),
-              );
+          //     return OBFieldSelection(
+          //       labelText: 'Account',
+          //       items: accounts.map((e) => e.name).toList(),
+          //       initialSelectedItem: _selectedAccountName,
+          //       onSelectionChanged: (selection) => setState(() {
+          //         _selectedAccountId = accounts
+          //             .firstWhereOrNull(
+          //               (element) => element.name == selection,
+          //             )
+          //             ?.id;
+          //         _selectedAccountName = selection;
+          //       }),
+          //     );
+          //   },
+          // ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _IncomeExpenseWidget(
+                onChanged: (type) => setState(() => _type = type),
+                type: _type,
+              ),
+              GestureDetector(
+                onTap: () {
+                  final date = _selectedDate ?? DateTime.now();
+                  showAdaptiveDatePicker(
+                    context: context,
+                    firstDate: date,
+                  ).then((value) {
+                    if (value == null) return;
+                    setState(() {
+                      _selectedDate = value;
+                    });
+                  });
+                },
+                child: Row(
+                  children: [
+                    Text(_selectedDate?.yMd(context) ?? ''),
+                    const SizedBox(width: OBSizes.small),
+                    const Icon(Icons.calendar_month),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          _CategorySelectorWidget(
+            selectedCategory: _category,
+            onChanged: (category) {
+              setState(() {
+                _category = category;
+              });
             },
           ),
           OBElevatedButton(
             text: _isEditing ? 'Update' : 'Create',
-            onPressed: () => _onTap(context),
+            onPressed: () {
+              _onTap(context);
+            },
           ),
-        ].withSpaceBetween(height: 16),
+        ].withSpaceBetween(height: OBSizes.medium),
       ),
     );
   }
@@ -193,5 +224,126 @@ class _TransactionViewState extends State<_TransactionView> {
             ),
           );
     }
+  }
+}
+
+class _CategorySelectorWidget extends StatelessWidget {
+  const _CategorySelectorWidget({
+    required this.selectedCategory,
+    required this.onChanged,
+  });
+
+  final TransactionCategory? selectedCategory;
+  final void Function(TransactionCategory?) onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    var categories = <TransactionCategory>[];
+
+    return BlocBuilder<TransactionsBloc, TransactionsState>(
+      buildWhen: (_, current) => current is AccountsAndCategoriesState,
+      builder: (context, state) {
+        if (state is AccountsAndCategoriesState) {
+          categories = state.categories;
+        }
+
+        return Wrap(
+          spacing: OBSizes.xsmall,
+          runSpacing: OBSizes.xsmall,
+          children: categories.map(
+            (e) {
+              final isSelected = e.name == selectedCategory?.name;
+              return GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () => onChanged(isSelected ? null : e),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(OBSizes.large),
+                    color: isSelected
+                        ? OBColors.tertiary
+                        : OBColors.tertiary.withOpacity(0.1),
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: OBSizes.small,
+                    vertical: OBSizes.xsmall,
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        e.name,
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                      if (isSelected) ...[
+                        const SizedBox(width: OBSizes.xxxSmall),
+                        const Icon(
+                          Icons.check,
+                          size: OBSizes.medium,
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
+              );
+            },
+          ).toList(),
+        );
+      },
+    );
+  }
+}
+
+class _IncomeExpenseWidget extends StatelessWidget {
+  const _IncomeExpenseWidget({
+    required this.type,
+    required this.onChanged,
+  });
+
+  final MoneyTransactionType? type;
+  final void Function(MoneyTransactionType) onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        onChanged(
+          type == MoneyTransactionType.income
+              ? MoneyTransactionType.outcome
+              : MoneyTransactionType.income,
+        );
+      },
+      child: Row(
+        children: [
+          AnimatedSwitcher(
+            duration: const Duration(milliseconds: 200),
+            child: type == MoneyTransactionType.income
+                ? const Icon(
+                    Icons.arrow_upward,
+                    key: ValueKey('income_icon'),
+                    color: Colors.green,
+                  )
+                : const Icon(
+                    Icons.arrow_downward,
+                    key: ValueKey('expense_icon'),
+                    color: Colors.red,
+                  ),
+          ),
+          const SizedBox(width: OBSizes.xsmall),
+          AnimatedSwitcher(
+            duration: const Duration(milliseconds: 200),
+            child: type == MoneyTransactionType.income
+                ? const Text('Income')
+                : const Text('Expense'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+extension XDateTime on DateTime {
+  String yMd(BuildContext context) {
+    final f = DateFormat.yMd(context.l10n.localeName);
+    return f.format(this);
   }
 }

@@ -20,7 +20,6 @@ final lightTheme = _theme.copyWith(
   appBarTheme: const AppBarTheme(
     backgroundColor: OBColors.background,
     foregroundColor: OBColors.primary,
- 
     iconTheme: IconThemeData(
       color: OBColors.primary,
     ),
@@ -61,6 +60,24 @@ final lightTheme = _theme.copyWith(
   ),
   iconTheme: const IconThemeData(color: OBColors.primary),
   listTileTheme: const ListTileThemeData(iconColor: OBColors.primary),
+  chipTheme: ChipThemeData(
+    backgroundColor: OBColors.tertiary.withOpacity(0.12),
+    disabledColor: OBColors.primary.withOpacity(0.5),
+    selectedColor: OBColors.primary,
+    secondarySelectedColor: OBColors.primary,
+    labelPadding: EdgeInsets.zero,
+    padding: const EdgeInsets.symmetric(horizontal: OBSizes.small),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(OBSizes.large),
+      side: const BorderSide(color: OBColors.primary),
+    ),
+    labelStyle: _theme.textTheme.bodyLarge!.copyWith(
+      color: OBColors.primary,
+    ),
+    secondaryLabelStyle: _theme.textTheme.bodyLarge!.copyWith(
+      color: Colors.white,
+    ),
+  ),
 );
 
 final darkTheme = ThemeData(

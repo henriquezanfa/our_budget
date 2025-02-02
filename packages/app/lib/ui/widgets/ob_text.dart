@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class OBTextField extends StatelessWidget {
   const OBTextField({
@@ -12,6 +13,8 @@ class OBTextField extends StatelessWidget {
     this.onChanged,
     this.onTap,
     this.autofocus = false,
+    this.inputTextFormatters,
+    this.textInputAction = TextInputAction.next,
   });
 
   final TextEditingController? controller;
@@ -23,6 +26,8 @@ class OBTextField extends StatelessWidget {
   final void Function(String)? onChanged;
   final VoidCallback? onTap;
   final bool autofocus;
+  final TextInputAction? textInputAction;
+  final List<TextInputFormatter>? inputTextFormatters;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +36,8 @@ class OBTextField extends StatelessWidget {
       autofocus: autofocus,
       controller: controller,
       focusNode: focusNode,
+      inputFormatters: inputTextFormatters,
+      textInputAction: textInputAction,
       decoration: InputDecoration(
         labelText: labelText,
       ),

@@ -15,7 +15,7 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AuthStreamWidget(
+    return _AuthStreamWidget(
       child: SpaceHandler(
         child: OBScreen.primary(
           title: 'Hello, there 👋',
@@ -96,10 +96,9 @@ class _SpaceHandlerState extends State<SpaceHandler> {
   }
 }
 
-class AuthStreamWidget extends StatelessWidget {
-  const AuthStreamWidget({
+class _AuthStreamWidget extends StatelessWidget {
+  const _AuthStreamWidget({
     required this.child,
-    super.key,
   });
 
   final Widget child;
