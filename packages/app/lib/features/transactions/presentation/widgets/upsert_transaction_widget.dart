@@ -1,11 +1,12 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
+import 'package:ob/core/extensions/x_date_time.dart';
 import 'package:ob/domain/models/money_transaction/money_transaction.dart';
 import 'package:ob/domain/models/transaction_category/transaction_category.dart';
 import 'package:ob/features/transactions/presentation/bloc/transactions_bloc.dart';
-import 'package:ob/l10n/l10n.dart';
 import 'package:ob/ui/extensions/list_extensions.dart';
 import 'package:ob/ui/theme/ob_sizes.dart';
 import 'package:ob/ui/ui.dart';
@@ -92,31 +93,32 @@ class _TransactionViewState extends State<_TransactionView> {
   Widget build(BuildContext context) {
     return Form(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          OBTextField(
-            controller: _amountController,
-            autofocus: true,
-            labelText: 'Amount',
-            keyboardType: const TextInputType.numberWithOptions(
-              decimal: true,
-            ),
-            inputTextFormatters: [
-              FilteringTextInputFormatter.allow(RegExp('[0-9.]')),
-              TextInputFormatter.withFunction((oldValue, newValue) {
-                final text = newValue.text;
-                return text.isEmpty
-                    ? newValue
-                    : double.tryParse(text) == null
-                        ? oldValue
-                        : newValue;
-              }),
-            ],
-          ),
-          OBTextField(
-            controller: _descriptionController,
-            labelText: 'Description',
-          ),
+          const AmountInputText(),
+          // OBTextField(
+          //   controller: _amountController,
+          //   autofocus: true,
+          //   labelText: 'Amount',
+          //   keyboardType: const TextInputType.numberWithOptions(
+          //     decimal: true,
+          //   ),
+          //   inputTextFormatters: [
+          //     FilteringTextInputFormatter.allow(RegExp('[0-9.]')),
+          //     TextInputFormatter.withFunction((oldValue, newValue) {
+          //       final text = newValue.text;
+          //       return text.isEmpty
+          //           ? newValue
+          //           : double.tryParse(text) == null
+          //               ? oldValue
+          //               : newValue;
+          //     }),
+          //   ],
+          // ),
+          DescriptionInputText(controller: _descriptionController),
+          // OBTextField(
+          //   controller: _descriptionController,
+          //   labelText: 'Description',
+          // ),
           // TODO: achar um jeito melhor de lidar com conta porque quando só
           //  tem uma, o widget adiciona a padding mesmo com Offstage
           // BlocBuilder<TransactionsBloc, TransactionsState>(
@@ -341,9 +343,119 @@ class _IncomeExpenseWidget extends StatelessWidget {
   }
 }
 
-extension XDateTime on DateTime {
-  String yMd(BuildContext context) {
-    final f = DateFormat.yMd(context.l10n.localeName);
-    return f.format(this);
+class AmountInputText extends StatefulWidget {
+  const AmountInputText({super.key, this.controller});
+
+  final TextEditingController? controller;
+
+  @override
+  State<AmountInputText> createState() => AmountInputTextState();
+}
+
+class AmountInputTextState extends State<AmountInputText> {
+  late final TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = widget.controller ?? TextEditingController();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final textStyle = Theme.of(context).textTheme.titleLarge?.copyWith(
+      fontSize: 40,
+      fontFeatures: [const FontFeature.tabularFigures()],
+    );
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Padding(
+          // hack to center the icon vertically
+          padding: const EdgeInsets.only(bottom: 3),
+          child: Text(r'$', style: textStyle),
+        ),
+        Flexible(
+          child: IntrinsicWidth(
+            child: TextFormField(
+              controller: _controller,
+              showCursor: false,
+              style: textStyle,
+              autofocus: true,
+              textAlign: TextAlign.center,
+              textAlignVertical: TextAlignVertical.center,
+              keyboardType: const TextInputType.numberWithOptions(
+                decimal: true,
+              ),
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(borderSide: BorderSide.none),
+                hintText: '0',
+                hintStyle: textStyle,
+                contentPadding: const EdgeInsets.only(top: 10),
+                isDense: true,
+                constraints: const BoxConstraints(
+                  minWidth: 28,
+                ),
+                prefixIconConstraints: const BoxConstraints(),
+              ),
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(RegExp('[0-9.]')),
+                TextInputFormatter.withFunction((oldValue, newValue) {
+                  final text = newValue.text;
+                  return text.isEmpty
+                      ? newValue
+                      : double.tryParse(text) == null
+                          ? oldValue
+                          : newValue;
+                }),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class DescriptionInputText extends StatefulWidget {
+  const DescriptionInputText({required this.controller, super.key});
+
+  final TextEditingController controller;
+
+  @override
+  State<DescriptionInputText> createState() => _DescriptionInputTextState();
+}
+
+class _DescriptionInputTextState extends State<DescriptionInputText> {
+  @override
+  Widget build(BuildContext context) {
+    final border = OutlineInputBorder(
+      borderRadius: BorderRadius.circular(OBSizes.small),
+      borderSide: const BorderSide(
+        color: Colors.transparent,
+      ),
+    );
+
+    const hintColor = Color.fromARGB(255, 193, 192, 192);
+
+    return IntrinsicWidth(
+      child: TextFormField(
+        controller: widget.controller,
+        textInputAction: TextInputAction.done,
+        textAlign: TextAlign.center,
+        decoration: InputDecoration(
+          enabledBorder: border,
+          constraints: const BoxConstraints(minWidth: 200),
+          hintStyle: const TextStyle(color: hintColor),
+          hintText: 'Description',
+          floatingLabelAlignment: FloatingLabelAlignment.center,
+          focusedBorder: border.copyWith(
+            borderSide: const BorderSide(
+              color: hintColor,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
