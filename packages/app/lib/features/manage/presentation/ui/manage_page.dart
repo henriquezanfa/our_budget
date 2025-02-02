@@ -26,6 +26,8 @@ class ManagePageView extends StatelessWidget {
             title: 'Bank Accounts',
             leading: const Icon(Icons.account_balance),
             onTap: () => context.push(OBRoutes.bankAccounts),
+            trailing: const Icon(Icons.keyboard_arrow_right),
+            showBorder: true,
           ),
         ),
         SliverToBoxAdapter(
@@ -33,6 +35,8 @@ class ManagePageView extends StatelessWidget {
             title: 'Categories',
             leading: const Icon(Icons.category),
             onTap: () => context.push(OBRoutes.categories),
+            trailing: const Icon(Icons.keyboard_arrow_right),
+            showBorder: true,
           ),
         ),
         // SliverToBoxAdapter(

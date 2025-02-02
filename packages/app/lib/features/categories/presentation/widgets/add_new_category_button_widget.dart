@@ -19,6 +19,7 @@ class AddNewCategoryButtonWidget extends StatelessWidget {
         showOBModalBottomSheet<TransactionCategoryDto>(
           context: context,
           child: const UpsertCategoryModal(),
+          showDragHandle: false,
         ).then((value) {
           if (value != null) {
             context.read<CategoriesBloc>().add(
@@ -26,6 +27,7 @@ class AddNewCategoryButtonWidget extends StatelessWidget {
                     category: value.description,
                     monthlyTarget: value.monthlyTarget,
                     isSaving: value.isSaving,
+                    color: value.color,
                   ),
                 );
           }

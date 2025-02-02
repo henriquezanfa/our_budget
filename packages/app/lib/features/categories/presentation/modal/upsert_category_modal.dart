@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:ob/app/view/show_toast.dart';
 import 'package:ob/domain/models/transaction_category/transaction_category.dart';
 import 'package:ob/features/categories/data/dto/transaction_category_dto.dart';
+import 'package:ob/features/categories/presentation/widgets/category_item_widget.dart';
+import 'package:ob/features/currencies_selection/presentation/currency_selector_view.dart';
 import 'package:ob/ui/widgets/widgets.dart';
 
 class UpsertCategoryModal extends StatefulWidget {
@@ -21,6 +23,7 @@ class UpsertCategoryModal extends StatefulWidget {
 class _UpsertCategoryModalState extends State<UpsertCategoryModal> {
   final _categoryNameController = TextEditingController();
   final _monthlyTargetController = TextEditingController();
+  late String _color = categoriesColors.keys.first;
   bool _isSaving = false;
 
   bool get _isEditing => widget.category != null;
@@ -36,13 +39,14 @@ class _UpsertCategoryModalState extends State<UpsertCategoryModal> {
           ? category.monthlyTarget.toString()
           : '';
       _isSaving = category.isSaving;
+      _color = category.color;
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return OBModal(
-      title: 'Edit category',
+      title: _isEditing ? 'Edit category' : 'Create category',
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -71,6 +75,57 @@ class _UpsertCategoryModalState extends State<UpsertCategoryModal> {
                 const Text('Monthly target'),
                 Flexible(
                   child: AmountInputText(controller: _monthlyTargetController),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 32),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('Category color'),
+                DropdownButtonHideUnderline(
+                  child: DropdownButton<String>(
+                    alignment: Alignment.centerRight,
+                    value: _color,
+                    onChanged: (value) {
+                      if (value != null) {
+                        setState(() => _color = value);
+                      }
+                    },
+                    icon: const Visibility(
+                      visible: false,
+                      child: Icon(Icons.arrow_downward),
+                    ),
+                    // Map<String, Color> categoriesColors = {
+                    items: categoriesColors.entries
+                        .map(
+                          (e) => DropdownMenuItem(
+                            value: e.key,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Text(
+                                  e.key.capitalize(),
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                ),
+                                const SizedBox(width: 8),
+                                Container(
+                                  height: 12,
+                                  width: 12,
+                                  decoration: BoxDecoration(
+                                    color: e.value,
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                        .toList(),
+                  ),
                 ),
               ],
             ),
@@ -121,6 +176,7 @@ class _UpsertCategoryModalState extends State<UpsertCategoryModal> {
                     icon: '',
                     monthlyTarget: value,
                     isSaving: _isSaving,
+                    color: _color,
                   ),
                 );
               }
@@ -153,6 +209,7 @@ class _DescriptionInputTextState extends State<DescriptionInputText> {
         Flexible(
           child: IntrinsicWidth(
             child: Container(
+              constraints: const BoxConstraints(minWidth: 100),
               padding: const EdgeInsets.symmetric(horizontal: 8),
               decoration: BoxDecoration(
                 color: const Color.fromARGB(255, 223, 223, 223),

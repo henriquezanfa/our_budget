@@ -43,6 +43,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
       icon: '',
       monthlyTarget: event.monthlyTarget,
       isSaving: event.isSaving,
+      color: event.color,
     );
     await _categoriesRepository.addCategory(dto).then((value) {
       value.fold(

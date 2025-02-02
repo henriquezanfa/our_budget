@@ -6,12 +6,14 @@ class TransactionCategoryDto {
     required this.icon,
     required this.monthlyTarget,
     required this.isSaving,
+    required this.color,
   });
 
   final String description;
   final String icon;
   final double monthlyTarget;
   final bool isSaving;
+  final String color;
 
   TransactionCategory toTransactionCategory(String userId, String id) {
     return TransactionCategory(
@@ -21,6 +23,7 @@ class TransactionCategoryDto {
       icon: icon,
       monthlyTarget: monthlyTarget,
       isSaving: isSaving,
+      color: color,
     );
   }
 }

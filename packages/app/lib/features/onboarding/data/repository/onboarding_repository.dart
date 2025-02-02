@@ -54,6 +54,7 @@ class OnboardingRepository {
             icon: '',
             monthlyTarget: 0,
             isSaving: false,
+            color: '',
           ),
         );
       }),

@@ -10,10 +10,12 @@ final class AddCategory extends CategoriesEvent {
     required this.category,
     required this.monthlyTarget,
     required this.isSaving,
+    required this.color,
   });
   final String category;
   final double monthlyTarget;
   final bool isSaving;
+  final String color;
 }
 
 final class UpdateCategory extends CategoriesEvent {

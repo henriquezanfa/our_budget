@@ -10,6 +10,7 @@ class TransactionCategory with _$TransactionCategory {
     required String name,
     required String icon,
     required String userId,
+    required String color,
     double? monthlyTarget,
 
     /// Defines if the target is for saving or spending

@@ -24,6 +24,7 @@ mixin _$TransactionCategory {
   String get name => throw _privateConstructorUsedError;
   String get icon => throw _privateConstructorUsedError;
   String get userId => throw _privateConstructorUsedError;
+  String get color => throw _privateConstructorUsedError;
   double? get monthlyTarget => throw _privateConstructorUsedError;
 
   /// Defines if the target is for saving or spending
@@ -46,6 +47,7 @@ abstract class $TransactionCategoryCopyWith<$Res> {
       String name,
       String icon,
       String userId,
+      String color,
       double? monthlyTarget,
       bool isSaving});
 }
@@ -67,6 +69,7 @@ class _$TransactionCategoryCopyWithImpl<$Res, $Val extends TransactionCategory>
     Object? name = null,
     Object? icon = null,
     Object? userId = null,
+    Object? color = null,
     Object? monthlyTarget = freezed,
     Object? isSaving = null,
   }) {
@@ -86,6 +89,10 @@ class _$TransactionCategoryCopyWithImpl<$Res, $Val extends TransactionCategory>
       userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
+              as String,
+      color: null == color
+          ? _value.color
+          : color // ignore: cast_nullable_to_non_nullable
               as String,
       monthlyTarget: freezed == monthlyTarget
           ? _value.monthlyTarget
@@ -112,6 +119,7 @@ abstract class _$$TransactionCategoryImplCopyWith<$Res>
       String name,
       String icon,
       String userId,
+      String color,
       double? monthlyTarget,
       bool isSaving});
 }
@@ -131,6 +139,7 @@ class __$$TransactionCategoryImplCopyWithImpl<$Res>
     Object? name = null,
     Object? icon = null,
     Object? userId = null,
+    Object? color = null,
     Object? monthlyTarget = freezed,
     Object? isSaving = null,
   }) {
@@ -150,6 +159,10 @@ class __$$TransactionCategoryImplCopyWithImpl<$Res>
       userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
+              as String,
+      color: null == color
+          ? _value.color
+          : color // ignore: cast_nullable_to_non_nullable
               as String,
       monthlyTarget: freezed == monthlyTarget
           ? _value.monthlyTarget
@@ -171,6 +184,7 @@ class _$TransactionCategoryImpl extends _TransactionCategory {
       required this.name,
       required this.icon,
       required this.userId,
+      required this.color,
       this.monthlyTarget,
       this.isSaving = false})
       : super._();
@@ -187,6 +201,8 @@ class _$TransactionCategoryImpl extends _TransactionCategory {
   @override
   final String userId;
   @override
+  final String color;
+  @override
   final double? monthlyTarget;
 
   /// Defines if the target is for saving or spending
@@ -196,7 +212,7 @@ class _$TransactionCategoryImpl extends _TransactionCategory {
 
   @override
   String toString() {
-    return 'TransactionCategory(id: $id, name: $name, icon: $icon, userId: $userId, monthlyTarget: $monthlyTarget, isSaving: $isSaving)';
+    return 'TransactionCategory(id: $id, name: $name, icon: $icon, userId: $userId, color: $color, monthlyTarget: $monthlyTarget, isSaving: $isSaving)';
   }
 
   @override
@@ -208,6 +224,7 @@ class _$TransactionCategoryImpl extends _TransactionCategory {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.icon, icon) || other.icon == icon) &&
             (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.color, color) || other.color == color) &&
             (identical(other.monthlyTarget, monthlyTarget) ||
                 other.monthlyTarget == monthlyTarget) &&
             (identical(other.isSaving, isSaving) ||
@@ -216,8 +233,8 @@ class _$TransactionCategoryImpl extends _TransactionCategory {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, name, icon, userId, monthlyTarget, isSaving);
+  int get hashCode => Object.hash(
+      runtimeType, id, name, icon, userId, color, monthlyTarget, isSaving);
 
   @JsonKey(ignore: true)
   @override
@@ -240,6 +257,7 @@ abstract class _TransactionCategory extends TransactionCategory {
       required final String name,
       required final String icon,
       required final String userId,
+      required final String color,
       final double? monthlyTarget,
       final bool isSaving}) = _$TransactionCategoryImpl;
   _TransactionCategory._() : super._();
@@ -255,6 +273,8 @@ abstract class _TransactionCategory extends TransactionCategory {
   String get icon;
   @override
   String get userId;
+  @override
+  String get color;
   @override
   double? get monthlyTarget;
   @override
