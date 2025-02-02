@@ -19,6 +19,7 @@ class CategoryItemWidget extends StatelessWidget {
       onTap: () {
         showOBModalBottomSheet<TransactionCategory>(
           context: context,
+          showDragHandle: false,
           child: EditCategoryModal(category: category),
         ).then((value) {
           if (value != null) {

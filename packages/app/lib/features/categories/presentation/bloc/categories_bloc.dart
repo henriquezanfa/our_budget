@@ -38,7 +38,12 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
     Emitter<CategoriesState> emit,
   ) async {
     emit(CategoriesLoading());
-    final dto = TransactionCategoryDto(description: event.category, icon: '');
+    final dto = TransactionCategoryDto(
+      description: event.category,
+      icon: '',
+      monthlyTarget: event.monthlyTarget,
+      isSaving: event.isSaving,
+    );
     await _categoriesRepository.addCategory(dto).then((value) {
       value.fold(
         (l) => emit(CategoriesError(l)),

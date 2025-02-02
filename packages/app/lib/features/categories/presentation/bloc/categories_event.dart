@@ -6,8 +6,14 @@ sealed class CategoriesEvent {}
 final class GetCategories extends CategoriesEvent {}
 
 final class AddCategory extends CategoriesEvent {
-  AddCategory(this.category);
+  AddCategory({
+    required this.category,
+    required this.monthlyTarget,
+    required this.isSaving,
+  });
   final String category;
+  final double monthlyTarget;
+  final bool isSaving;
 }
 
 final class UpdateCategory extends CategoriesEvent {

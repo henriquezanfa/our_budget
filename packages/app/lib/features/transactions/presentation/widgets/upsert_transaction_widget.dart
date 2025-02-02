@@ -358,6 +358,7 @@ class AmountInputTextState extends State<AmountInputText> {
                 border: const OutlineInputBorder(borderSide: BorderSide.none),
                 hintText: '0',
                 hintStyle: textStyle,
+                fillColor: Colors.transparent,
                 contentPadding: const EdgeInsets.only(top: 10),
                 isDense: true,
                 constraints: const BoxConstraints(

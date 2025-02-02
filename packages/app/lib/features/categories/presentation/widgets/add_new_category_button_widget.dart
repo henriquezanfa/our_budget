@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ob/features/categories/data/dto/transaction_category_dto.dart';
 import 'package:ob/features/categories/presentation/bloc/categories_bloc.dart';
+import 'package:ob/features/categories/presentation/modal/edit_category_modal.dart';
 import 'package:ob/ui/widgets/widgets.dart';
 
 class AddNewCategoryButtonWidget extends StatelessWidget {
@@ -17,7 +19,11 @@ class AddNewCategoryButtonWidget extends StatelessWidget {
         _showDialog(context).then((value) {
           if (value != null) {
             context.read<CategoriesBloc>().add(
-                  AddCategory(value),
+                  AddCategory(
+                    category: value.description,
+                    monthlyTarget: value.monthlyTarget,
+                    isSaving: value.isSaving,
+                  ),
                 );
           }
         });
@@ -26,10 +32,10 @@ class AddNewCategoryButtonWidget extends StatelessWidget {
   }
 }
 
-Future<String?> _showDialog(BuildContext context) async {
-  return showOBModalBottomSheet<String>(
+Future<TransactionCategoryDto?> _showDialog(BuildContext context) async {
+  return showOBModalBottomSheet<TransactionCategoryDto>(
     context: context,
-    child: const CreateCategoryModal(),
+    child: const EditCategoryModal(),
   );
 }
 

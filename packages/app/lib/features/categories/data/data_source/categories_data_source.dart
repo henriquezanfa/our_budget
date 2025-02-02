@@ -35,7 +35,7 @@ class CategoriesDataSource {
         .collection(OBCollections.space)
         .doc(spaceId)
         .collection('categories')
-        .doc();
+        .doc(category.id);
 
     await doc.set(category.toJson());
   }

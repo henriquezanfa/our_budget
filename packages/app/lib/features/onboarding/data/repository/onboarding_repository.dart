@@ -52,6 +52,8 @@ class OnboardingRepository {
           TransactionCategoryDto(
             description: category,
             icon: '',
+            monthlyTarget: 0,
+            isSaving: false,
           ),
         );
       }),
