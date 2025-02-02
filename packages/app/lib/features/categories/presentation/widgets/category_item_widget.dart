@@ -15,7 +15,7 @@ class CategoryItemWidget extends StatelessWidget {
   });
   final TransactionCategory category;
 
-  /// When true, [onTap] is null
+  /// When true, onTap is null
   final bool dense;
 
   @override

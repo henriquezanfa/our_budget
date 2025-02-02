@@ -70,7 +70,9 @@ class _CreateSpacePageState extends State<CreateSpacePage> {
             ElevatedButton(
               onPressed: _isFormValid
                   ? () {
-                      context.read<OnboardingCubit>().setSpaceName(_spaceNameController.text);
+                      context
+                          .read<OnboardingCubit>()
+                          .setSpaceName(_spaceNameController.text);
                       context.push(
                         '${OBRoutes.onboarding}/${OBRoutes.createCategories}',
                       );

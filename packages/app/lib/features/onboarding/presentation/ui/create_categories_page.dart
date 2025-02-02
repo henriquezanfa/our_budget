@@ -16,10 +16,6 @@ class CreateCategoriesPage extends StatefulWidget {
 }
 
 class _CreateCategoriesPageState extends State<CreateCategoriesPage> {
-  late final TextEditingController _categoryNameController;
-  late final FocusNode _categoryNameFocusNode;
-  final List<TransactionCategoryDto> _categories = [];
-
   final _defaultCategories = [
     TransactionCategoryDto(
       description: 'Supermarket',

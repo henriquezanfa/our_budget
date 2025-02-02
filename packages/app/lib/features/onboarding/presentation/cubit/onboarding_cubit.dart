@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/foundation.dart';
 import 'package:ob/features/bank_accounts/domain/enum/account_type_enum.dart';
 import 'package:ob/features/categories/data/dto/transaction_category_dto.dart';
 import 'package:ob/features/onboarding/data/repository/onboarding_repository.dart';
@@ -37,7 +37,7 @@ class OnboardingCubit extends Cubit<OnboardingState> {
         categories: state.categories,
       );
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
   }
 }
