@@ -13,8 +13,8 @@ _$CreditCardImpl _$$CreditCardImplFromJson(Map<String, dynamic> json) =>
       description: json['description'] as String,
       currency: json['currency'] as String,
       limit: (json['limit'] as num).toDouble(),
-      dueDate: json['dueDate'] as int,
-      closingDate: json['closingDate'] as int,
+      dueDate: (json['dueDate'] as num).toInt(),
+      closingDate: (json['closingDate'] as num).toInt(),
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
     );

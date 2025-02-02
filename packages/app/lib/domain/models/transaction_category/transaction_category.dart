@@ -10,8 +10,18 @@ class TransactionCategory with _$TransactionCategory {
     required String name,
     required String icon,
     required String userId,
+    double? monthlyTarget,
+
+    /// Defines if the target is for saving or spending
+    @Default(false) bool isSaving,
   }) = _TransactionCategory;
+  
+  const TransactionCategory._();
 
   factory TransactionCategory.fromJson(Map<String, dynamic> json) =>
       _$TransactionCategoryFromJson(json);
+
+  bool get isTargetForSpending => !isSaving;
+
+  bool get isTargetForSaving => isSaving;
 }

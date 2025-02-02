@@ -13,6 +13,8 @@ _$TransactionCategoryImpl _$$TransactionCategoryImplFromJson(
       name: json['name'] as String,
       icon: json['icon'] as String,
       userId: json['userId'] as String,
+      monthlyTarget: (json['monthlyTarget'] as num?)?.toDouble(),
+      isSaving: json['isSaving'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$TransactionCategoryImplToJson(
@@ -22,4 +24,6 @@ Map<String, dynamic> _$$TransactionCategoryImplToJson(
       'name': instance.name,
       'icon': instance.icon,
       'userId': instance.userId,
+      'monthlyTarget': instance.monthlyTarget,
+      'isSaving': instance.isSaving,
     };

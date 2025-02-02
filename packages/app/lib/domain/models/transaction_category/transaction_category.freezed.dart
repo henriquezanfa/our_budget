@@ -12,7 +12,7 @@ part of 'transaction_category.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 TransactionCategory _$TransactionCategoryFromJson(Map<String, dynamic> json) {
   return _TransactionCategory.fromJson(json);
@@ -24,6 +24,10 @@ mixin _$TransactionCategory {
   String get name => throw _privateConstructorUsedError;
   String get icon => throw _privateConstructorUsedError;
   String get userId => throw _privateConstructorUsedError;
+  double? get monthlyTarget => throw _privateConstructorUsedError;
+
+  /// Defines if the target is for saving or spending
+  bool get isSaving => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,7 +41,13 @@ abstract class $TransactionCategoryCopyWith<$Res> {
           TransactionCategory value, $Res Function(TransactionCategory) then) =
       _$TransactionCategoryCopyWithImpl<$Res, TransactionCategory>;
   @useResult
-  $Res call({String id, String name, String icon, String userId});
+  $Res call(
+      {String id,
+      String name,
+      String icon,
+      String userId,
+      double? monthlyTarget,
+      bool isSaving});
 }
 
 /// @nodoc
@@ -57,6 +67,8 @@ class _$TransactionCategoryCopyWithImpl<$Res, $Val extends TransactionCategory>
     Object? name = null,
     Object? icon = null,
     Object? userId = null,
+    Object? monthlyTarget = freezed,
+    Object? isSaving = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -75,6 +87,14 @@ class _$TransactionCategoryCopyWithImpl<$Res, $Val extends TransactionCategory>
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String,
+      monthlyTarget: freezed == monthlyTarget
+          ? _value.monthlyTarget
+          : monthlyTarget // ignore: cast_nullable_to_non_nullable
+              as double?,
+      isSaving: null == isSaving
+          ? _value.isSaving
+          : isSaving // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -87,7 +107,13 @@ abstract class _$$TransactionCategoryImplCopyWith<$Res>
       __$$TransactionCategoryImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String name, String icon, String userId});
+  $Res call(
+      {String id,
+      String name,
+      String icon,
+      String userId,
+      double? monthlyTarget,
+      bool isSaving});
 }
 
 /// @nodoc
@@ -105,6 +131,8 @@ class __$$TransactionCategoryImplCopyWithImpl<$Res>
     Object? name = null,
     Object? icon = null,
     Object? userId = null,
+    Object? monthlyTarget = freezed,
+    Object? isSaving = null,
   }) {
     return _then(_$TransactionCategoryImpl(
       id: null == id
@@ -123,18 +151,29 @@ class __$$TransactionCategoryImplCopyWithImpl<$Res>
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String,
+      monthlyTarget: freezed == monthlyTarget
+          ? _value.monthlyTarget
+          : monthlyTarget // ignore: cast_nullable_to_non_nullable
+              as double?,
+      isSaving: null == isSaving
+          ? _value.isSaving
+          : isSaving // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$TransactionCategoryImpl implements _TransactionCategory {
+class _$TransactionCategoryImpl extends _TransactionCategory {
   _$TransactionCategoryImpl(
       {required this.id,
       required this.name,
       required this.icon,
-      required this.userId});
+      required this.userId,
+      this.monthlyTarget,
+      this.isSaving = false})
+      : super._();
 
   factory _$TransactionCategoryImpl.fromJson(Map<String, dynamic> json) =>
       _$$TransactionCategoryImplFromJson(json);
@@ -147,26 +186,38 @@ class _$TransactionCategoryImpl implements _TransactionCategory {
   final String icon;
   @override
   final String userId;
+  @override
+  final double? monthlyTarget;
+
+  /// Defines if the target is for saving or spending
+  @override
+  @JsonKey()
+  final bool isSaving;
 
   @override
   String toString() {
-    return 'TransactionCategory(id: $id, name: $name, icon: $icon, userId: $userId)';
+    return 'TransactionCategory(id: $id, name: $name, icon: $icon, userId: $userId, monthlyTarget: $monthlyTarget, isSaving: $isSaving)';
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TransactionCategoryImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.icon, icon) || other.icon == icon) &&
-            (identical(other.userId, userId) || other.userId == userId));
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.monthlyTarget, monthlyTarget) ||
+                other.monthlyTarget == monthlyTarget) &&
+            (identical(other.isSaving, isSaving) ||
+                other.isSaving == isSaving));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, icon, userId);
+  int get hashCode =>
+      Object.hash(runtimeType, id, name, icon, userId, monthlyTarget, isSaving);
 
   @JsonKey(ignore: true)
   @override
@@ -183,12 +234,15 @@ class _$TransactionCategoryImpl implements _TransactionCategory {
   }
 }
 
-abstract class _TransactionCategory implements TransactionCategory {
+abstract class _TransactionCategory extends TransactionCategory {
   factory _TransactionCategory(
       {required final String id,
       required final String name,
       required final String icon,
-      required final String userId}) = _$TransactionCategoryImpl;
+      required final String userId,
+      final double? monthlyTarget,
+      final bool isSaving}) = _$TransactionCategoryImpl;
+  _TransactionCategory._() : super._();
 
   factory _TransactionCategory.fromJson(Map<String, dynamic> json) =
       _$TransactionCategoryImpl.fromJson;
@@ -201,6 +255,12 @@ abstract class _TransactionCategory implements TransactionCategory {
   String get icon;
   @override
   String get userId;
+  @override
+  double? get monthlyTarget;
+  @override
+
+  /// Defines if the target is for saving or spending
+  bool get isSaving;
   @override
   @JsonKey(ignore: true)
   _$$TransactionCategoryImplCopyWith<_$TransactionCategoryImpl> get copyWith =>
