@@ -72,7 +72,7 @@ class _CreateSpacePageState extends State<CreateSpacePage> {
                   ? () {
                       context.read<OnboardingCubit>().setSpaceName(_spaceNameController.text);
                       context.push(
-                        '${OBRoutes.onboarding}/${OBRoutes.createBankAccounts}',
+                        '${OBRoutes.onboarding}/${OBRoutes.createCategories}',
                       );
                     }
                   : null,

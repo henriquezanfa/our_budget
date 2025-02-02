@@ -13,7 +13,26 @@ class _OnboardingPageState extends State<OnboardingPage> {
   final PageController _pageController = PageController();
 
   int _currentPage = 0;
-
+  final steps = [
+    const StepContent(
+      currentStep: 1,
+      title: 'Create a space and invite your partner',
+      description:
+          'Within a space, you can create and manage bank accounts, credit cards, transactions, and more.',
+    ),
+    // StepContent(
+    //   currentStep: _currentPage + 1,
+    //   title: 'Set up your accounts',
+    //   description:
+    //       'Add your bank accounts and credit cards to keep track of your finances.',
+    // ),
+    const StepContent(
+      currentStep: 2,
+      title: 'Start budgeting',
+      description:
+          'Create a budget and track your expenses to reach your financial goals.',
+    ),
+  ];
   @override
   void initState() {
     super.initState();
@@ -25,7 +44,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
   }
 
   void _nextPage() {
-    if (_currentPage == 2) {
+    if (_currentPage == steps.length - 1) {
       context.push('${OBRoutes.onboarding}/${OBRoutes.createSpace}');
       return;
     }
@@ -56,30 +75,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
       ),
       body: PageView(
         controller: _pageController,
-        children: [
-          StepContent(
-            currentStep: _currentPage + 1,
-            title: 'Create a space and invite your partner',
-            description:
-                'Within a space, you can create and manage bank accounts, credit cards, transactions, and more.',
-          ),
-          StepContent(
-            currentStep: _currentPage + 1,
-            title: 'Set up your accounts',
-            description:
-                'Add your bank accounts and credit cards to keep track of your finances.',
-          ),
-          StepContent(
-            currentStep: _currentPage + 1,
-            title: 'Start budgeting',
-            description:
-                'Create a budget and track your expenses to reach your financial goals.',
-          ),
-        ],
+        children: steps,
       ),
       bottomNavigationBar: _BottomWidget(
         currentPage: _currentPage,
-        totalPages: 3,
+        totalPages: steps.length,
         nextPage: _nextPage,
       ),
     );
@@ -196,13 +196,7 @@ class _BottomWidget extends StatelessWidget {
                         shape: const CircleBorder(),
                         padding: const EdgeInsets.all(20),
                       ),
-                      onPressed: () {
-                        if (currentPage == 3) {
-                          Navigator.of(context).pop();
-                        } else {
-                          nextPage();
-                        }
-                      },
+                      onPressed: nextPage,
                       child: const Icon(Icons.arrow_forward),
                     ),
                   ),

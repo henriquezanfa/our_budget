@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:ob/app/view/show_toast.dart';
 import 'package:ob/domain/models/transaction_category/transaction_category.dart';
 import 'package:ob/features/categories/data/dto/transaction_category_dto.dart';
-import 'package:ob/features/categories/presentation/widgets/category_item_widget.dart';
+import 'package:ob/features/categories/presentation/categories_colors.dart';
 import 'package:ob/features/currencies_selection/presentation/currency_selector_view.dart';
 import 'package:ob/ui/widgets/widgets.dart';
 

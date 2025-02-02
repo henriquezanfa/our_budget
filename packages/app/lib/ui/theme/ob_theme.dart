@@ -20,6 +20,7 @@ final lightTheme = _theme.copyWith(
   appBarTheme: const AppBarTheme(
     backgroundColor: OBColors.background,
     foregroundColor: OBColors.primary,
+    surfaceTintColor: OBColors.background,
     iconTheme: IconThemeData(
       color: OBColors.primary,
     ),
@@ -90,6 +91,7 @@ final darkTheme = ThemeData(
   ),
   appBarTheme: const AppBarTheme(
     backgroundColor: OBDarkColors.background,
+    surfaceTintColor: OBColors.background,
     elevation: 0,
   ),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(

@@ -8,12 +8,12 @@ class OnboardingState {
     this.bankAccounts,
   });
   final String spaceName;
-  final List<String> categories;
+  final List<TransactionCategoryDto> categories;
   final BankAccount? bankAccounts;
 
   OnboardingState copyWith({
     String? spaceName,
-    List<String>? categories,
+    List<TransactionCategoryDto>? categories,
     BankAccount? bankAccounts,
   }) {
     return OnboardingState(

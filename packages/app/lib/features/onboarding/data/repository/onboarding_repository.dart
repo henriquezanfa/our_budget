@@ -31,7 +31,7 @@ class OnboardingRepository {
     required AccountTypeEnum accountType,
     required String accountHolderName,
     // category data
-    required List<String> categories,
+    required List<TransactionCategoryDto> categories,
   }) async {
     final userId = await _authRepository.signInAnonymously();
 
@@ -47,17 +47,7 @@ class OnboardingRepository {
     );
 
     await Future.wait(
-      categories.map((category) {
-        return _categoriesRepository.addCategory(
-          TransactionCategoryDto(
-            description: category,
-            icon: '',
-            monthlyTarget: 0,
-            isSaving: false,
-            color: '',
-          ),
-        );
-      }),
+      categories.map(_categoriesRepository.addCategory),
     );
   }
 }
