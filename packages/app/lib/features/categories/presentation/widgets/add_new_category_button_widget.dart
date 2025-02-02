@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ob/features/categories/data/dto/transaction_category_dto.dart';
 import 'package:ob/features/categories/presentation/bloc/categories_bloc.dart';
-import 'package:ob/features/categories/presentation/modal/edit_category_modal.dart';
+import 'package:ob/features/categories/presentation/modal/upsert_category_modal.dart';
 import 'package:ob/ui/widgets/widgets.dart';
 
 class AddNewCategoryButtonWidget extends StatelessWidget {
@@ -35,7 +35,7 @@ class AddNewCategoryButtonWidget extends StatelessWidget {
 Future<TransactionCategoryDto?> _showDialog(BuildContext context) async {
   return showOBModalBottomSheet<TransactionCategoryDto>(
     context: context,
-    child: const EditCategoryModal(),
+    child: const UpsertCategoryModal(),
   );
 }
 

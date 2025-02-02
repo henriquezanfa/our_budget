@@ -7,18 +7,18 @@ import 'package:ob/domain/models/transaction_category/transaction_category.dart'
 import 'package:ob/features/categories/data/dto/transaction_category_dto.dart';
 import 'package:ob/ui/widgets/widgets.dart';
 
-class EditCategoryModal extends StatefulWidget {
-  const EditCategoryModal({
+class UpsertCategoryModal extends StatefulWidget {
+  const UpsertCategoryModal({
     this.category,
     super.key,
   });
   final TransactionCategory? category;
 
   @override
-  State<EditCategoryModal> createState() => _EditCategoryModalState();
+  State<UpsertCategoryModal> createState() => _UpsertCategoryModalState();
 }
 
-class _EditCategoryModalState extends State<EditCategoryModal> {
+class _UpsertCategoryModalState extends State<UpsertCategoryModal> {
   final _categoryNameController = TextEditingController();
   final _monthlyTargetController = TextEditingController();
   bool _isSaving = false;
