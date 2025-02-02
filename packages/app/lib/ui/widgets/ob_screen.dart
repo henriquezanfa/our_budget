@@ -29,6 +29,7 @@ class OBScreen extends StatelessWidget {
     SliverAppBar? appBar,
     VoidCallback? onRefresh,
     Widget? bottomWidget,
+    bool? resizeToAvoidBottomInset,
   }) {
     return OBScreen._(
       title: title,
@@ -37,6 +38,7 @@ class OBScreen extends StatelessWidget {
       onRefresh: onRefresh,
       type: OBScreenType.secondary,
       bottomWidget: bottomWidget,
+      resizeToAvoidBottomInset: resizeToAvoidBottomInset,
       children: children,
     );
   }
@@ -49,6 +51,7 @@ class OBScreen extends StatelessWidget {
     this.onRefresh,
     this.bottomWidget,
     this.type = OBScreenType.primary,
+    this.resizeToAvoidBottomInset,
   }) : assert(title != null || appBar != null, 'title or appBar must be set');
   final String? title;
   final List<Widget>? actions;
@@ -57,6 +60,7 @@ class OBScreen extends StatelessWidget {
   final VoidCallback? onRefresh;
   final OBScreenType type;
   final Widget? bottomWidget;
+  final bool? resizeToAvoidBottomInset;
 
   Widget _buildChild() {
     return CustomScrollView(
@@ -117,6 +121,7 @@ class OBScreen extends StatelessWidget {
       const appBarHeight = 30.0;
       const edgeOffset = kToolbarHeight + appBarHeight;
       return Scaffold(
+        resizeToAvoidBottomInset: resizeToAvoidBottomInset,
         body: RefreshIndicator.adaptive(
           edgeOffset: edgeOffset,
           onRefresh: () async {
@@ -134,6 +139,7 @@ class OBScreen extends StatelessWidget {
 
     return Scaffold(
       body: SafeArea(child: child),
+      resizeToAvoidBottomInset: resizeToAvoidBottomInset,
       bottomNavigationBar: bottomWidget,
     );
   }
